@@ -1,4 +1,4 @@
-# AssureVoice AI · Frontend
+ # AssureVoice AI · Frontend
 
 Next.js UI for the AssureVoice AI sandbox: an AI contact centre for insurance renewals, premium reminders and policy service. All data is synthetic.
 The API, RBAC, masking, audit log and voice agent live in the separate **bpo-backend** repo.
@@ -40,6 +40,7 @@ Password for every persona = `SEED_PASSWORD` in bpo-backend `.env`. The sign-in 
 
 ## Walkthrough order (grows each phase)
 1. **Phase 1:** sign in as each persona; each sees its own menu and landing page. Open a URL outside the role (e.g. `/audit` as Meera) to see "No access". Sign out from the header menu.
+2. **Phase 2:** sign in as **Divya Krishnan** → Agent Console → pick the top policy → **Start renewal call** and allow the microphone. You play the customer: confirm your name, give the policy number and date of birth shown in the customer card, then ask for the payment link (or a callback tomorrow at 6 pm, or say you want to speak to a person). Watch the AI actions timeline, try **Take over call**, then **End call** to see the summary and QA score. Use headphones so the bot doesn't hear itself.
 
 ## Project docs
 `AGENTS.md` (agent rules) · `docs/PRD.md` · `docs/DESIGN_SYSTEM.md` · `docs/ARCHITECTURE.md` · `docs/UX_FLOWS.md` · `docs/SECURITY.md` · `docs/CODE_STYLE.md` · `docs/TESTING.md` · designs in `design/stitch/`.

@@ -106,6 +106,115 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/voice/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Renewal Queue
+         * @description Policies due for renewal soonest, for the console's call list.
+         */
+        get: operations["renewal_queue_api_v1_voice_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/voice/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Session */
+        post: operations["create_session_api_v1_voice_sessions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/voice/sessions/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Session */
+        get: operations["get_session_api_v1_voice_sessions__call_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/voice/sessions/{call_id}/offer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Offer
+         * @description WebRTC signalling (Pipecat SmallWebRTC): SDP offer in, answer out; starts the bot on first offer.
+         */
+        post: operations["offer_api_v1_voice_sessions__call_id__offer_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Ice Candidates */
+        patch: operations["ice_candidates_api_v1_voice_sessions__call_id__offer_patch"];
+        trace?: never;
+    };
+    "/api/v1/voice/sessions/{call_id}/takeover": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Takeover */
+        post: operations["takeover_api_v1_voice_sessions__call_id__takeover_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/voice/sessions/{call_id}/end": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** End Session */
+        post: operations["end_session_api_v1_voice_sessions__call_id__end_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -127,6 +236,21 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * CallMode
+         * @enum {string}
+         */
+        CallMode: "inbound" | "renewal";
+        /**
+         * CallOutcome
+         * @enum {string}
+         */
+        CallOutcome: "payment_link_sent" | "callback_scheduled" | "escalated" | "renewed" | "not_interested" | "info_provided" | "no_answer";
+        /**
+         * CallStatus
+         * @enum {string}
+         */
+        CallStatus: "in_progress" | "completed" | "escalated" | "failed";
         /** CustomerDetail */
         CustomerDetail: {
             /** Id */
@@ -150,6 +274,28 @@ export interface components {
             masked: boolean;
             /** Policies */
             policies: components["schemas"]["PolicyOut"][];
+        };
+        /** CustomerOut */
+        CustomerOut: {
+            /** Id */
+            id: number;
+            /** Customer Code */
+            customer_code: string;
+            /** Full Name */
+            full_name: string;
+            /** Phone */
+            phone: string;
+            /** Email */
+            email: string;
+            /** Dob */
+            dob: string | null;
+            /** City */
+            city: string;
+            /** State */
+            state: string;
+            preferred_language: components["schemas"]["Language"];
+            /** Masked */
+            masked: boolean;
         };
         /** CustomerPage */
         CustomerPage: {
@@ -188,10 +334,32 @@ export interface components {
             /** Next Renewal */
             next_renewal: string | null;
         };
+        /** EndIn */
+        EndIn: {
+            outcome?: components["schemas"]["CallOutcome"] | null;
+            /** Note */
+            note?: string | null;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** IceCandidateIn */
+        IceCandidateIn: {
+            /** Candidate */
+            candidate: string;
+            /** Sdp Mid */
+            sdp_mid: string;
+            /** Sdp Mline Index */
+            sdp_mline_index: number;
+        };
+        /** IcePatchIn */
+        IcePatchIn: {
+            /** Pc Id */
+            pc_id: string;
+            /** Candidates */
+            candidates: components["schemas"]["IceCandidateIn"][];
         };
         /**
          * Language
@@ -240,6 +408,19 @@ export interface components {
             screen: components["schemas"]["Screen"];
             level: components["schemas"]["Level"];
         };
+        /** OfferIn */
+        OfferIn: {
+            /** Sdp */
+            sdp: string;
+            /** Type */
+            type: string;
+            /** Pc Id */
+            pc_id?: string | null;
+            /** Restart Pc */
+            restart_pc?: boolean | null;
+            /** Request Data */
+            request_data?: unknown | null;
+        };
         /** PolicyOut */
         PolicyOut: {
             /** Id */
@@ -277,6 +458,49 @@ export interface components {
          * @enum {string}
          */
         Product: "motor" | "health" | "term_life";
+        /** QAOut */
+        QAOut: {
+            /** Ai Disclosure */
+            ai_disclosure: boolean;
+            /** Identity Verified */
+            identity_verified: boolean;
+            /** Correct Figures */
+            correct_figures: boolean;
+            /** No Mis Selling */
+            no_mis_selling: boolean;
+            /** Polite Close */
+            polite_close: boolean;
+            /** Score */
+            score: number;
+            /** Source */
+            source: string;
+        };
+        /** QueueItem */
+        QueueItem: {
+            /** Policy Id */
+            policy_id: number;
+            /** Policy No */
+            policy_no: string;
+            product: components["schemas"]["Product"];
+            /** Plan Name */
+            plan_name: string;
+            /** Premium Inr */
+            premium_inr: number;
+            /**
+             * Renewal Date
+             * Format: date
+             */
+            renewal_date: string;
+            /** Customer Id */
+            customer_id: number;
+            /** Customer Name */
+            customer_name: string;
+            /** City */
+            city: string;
+            preferred_language: components["schemas"]["Language"];
+            /** Last Called At */
+            last_called_at: string | null;
+        };
         /**
          * Role
          * @enum {string}
@@ -294,6 +518,75 @@ export interface components {
          * @enum {string}
          */
         Screen: "dashboard" | "agent_console" | "escalations" | "live_monitor" | "calls" | "customers" | "campaigns" | "followups" | "bot_studio" | "approvals" | "qa" | "audit" | "users" | "integrations";
+        /**
+         * Sentiment
+         * @enum {string}
+         */
+        Sentiment: "positive" | "neutral" | "negative";
+        /** SessionIn */
+        SessionIn: {
+            mode: components["schemas"]["CallMode"];
+            /** Policy Id */
+            policy_id?: number | null;
+        };
+        /** SessionOut */
+        SessionOut: {
+            /** Call Id */
+            call_id: number;
+            /** Call Ref */
+            call_ref: string;
+            mode: components["schemas"]["CallMode"];
+            status: components["schemas"]["CallStatus"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Ended At */
+            ended_at: string | null;
+            /** Duration Sec */
+            duration_sec: number;
+            /** Verified */
+            verified: boolean;
+            /** Live */
+            live: boolean;
+            /** Taken Over */
+            taken_over: boolean;
+            /** Analysis Pending */
+            analysis_pending: boolean;
+            outcome: components["schemas"]["CallOutcome"] | null;
+            sentiment: components["schemas"]["Sentiment"] | null;
+            /** Summary */
+            summary: string | null;
+            /** Next Action */
+            next_action: string | null;
+            customer: components["schemas"]["CustomerOut"] | null;
+            policy: components["schemas"]["PolicyOut"] | null;
+            /** Turns */
+            turns: components["schemas"]["TurnOut"][];
+            qa: components["schemas"]["QAOut"] | null;
+        };
+        /**
+         * Speaker
+         * @enum {string}
+         */
+        Speaker: "bot" | "customer" | "agent" | "tool";
+        /** TurnOut */
+        TurnOut: {
+            /** Seq */
+            seq: number;
+            speaker: components["schemas"]["Speaker"];
+            /** Text */
+            text: string;
+            /** Offset Ms */
+            offset_ms: number;
+            /** Tool Name */
+            tool_name: string | null;
+            /** Tool Payload */
+            tool_payload: {
+                [key: string]: unknown;
+            } | null;
+        };
         /** UserOut */
         UserOut: {
             /** Id */
@@ -480,6 +773,230 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["MatrixOut"];
+                };
+            };
+        };
+    };
+    renewal_queue_api_v1_voice_queue_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QueueItem"][];
+                };
+            };
+        };
+    };
+    create_session_api_v1_voice_sessions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SessionIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_session_api_v1_voice_sessions__call_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    offer_api_v1_voice_sessions__call_id__offer_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OfferIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ice_candidates_api_v1_voice_sessions__call_id__offer_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IcePatchIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    takeover_api_v1_voice_sessions__call_id__takeover_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    end_session_api_v1_voice_sessions__call_id__end_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EndIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

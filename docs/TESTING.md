@@ -5,14 +5,15 @@
 2. Anonymous access to a protected route redirects to `/login`.
 3. A route outside the role's menu shows "No access".
 4. Sign out returns to `/login` and the session is gone.
-(Later phases add the renewal call, approvals, and export flows.)
+5. (Opt-in, live Gemini) As Divya, a renewal call ends with a payment link and a scored summary; an escalation is taken over and wrapped up (`e2e/voice-call.spec.ts`, Chromium plays generated customer audio as a fake microphone).
+(Later phases add approvals and export flows.)
 
 ## Tools
 - E2E: Playwright (`e2e/`), runs against the real backend (`make dev` in `bpo-backend`) and `npm run dev`.
 - Static: ESLint, `tsc --noEmit`, `next build`.
 
 ## Commands
-`npm run lint` · `npm run typecheck` · `npm run build` · `npm run e2e` (needs both apps running and `E2E_PASSWORD` = backend `SEED_PASSWORD`).
+`npm run lint` · `npm run typecheck` · `npm run build` · `npm run e2e` (needs both apps running and `E2E_PASSWORD` = backend `SEED_PASSWORD`). Live voice tests also need `E2E_VOICE_DIR` (audio from bpo-backend `python -m scripts.make_test_audio`); without it they are skipped.
 
 ## Definition of Done
 - [ ] lint, typecheck, build pass · [ ] e2e pass · [ ] screens checked against `screen.png` · [ ] no console errors
