@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-tint":"#315cab","on-secondary":"#ffffff","error-container":"#ffdad6","surface-container-highest":"#d3e4fe","surface-container-low":"#eff4ff","outline-variant":"#c3c6d3","surface-container-high":"#dce9ff","on-tertiary-fixed-variant":"#2f4673","on-tertiary":"#ffffff","on-secondary-container":"#007070","on-error-container":"#93000a","background":"#f8f9ff","surface-dim":"#cbdbf5","secondary-fixed":"#7df5f4","on-primary":"#ffffff","on-background":"#0b1c30","inverse-surface":"#213145","on-primary-container":"#aac3ff","error":"#ba1a1a","primary-container":"#1f4e9c","inverse-primary":"#aec6ff","on-surface":"#0b1c30","on-tertiary-fixed":"#001a42","secondary-fixed-dim":"#5ed9d7","inverse-on-surface":"#eaf1ff","surface":"#f8f9ff","secondary":"#006a69","surface-container":"#e5eeff","secondary-container":"#7df5f4","surface-container-lowest":"#ffffff","on-surface-variant":"#434751","on-secondary-fixed":"#002020","tertiary-fixed-dim":"#afc6fc","primary":"#00377d","tertiary-fixed":"#d8e2ff","tertiary":"#203965","outline":"#737782","surface-bright":"#f8f9ff","on-secondary-fixed-variant":"#00504f","on-error":"#ffffff","surface-variant":"#d3e4fe","on-primary-fixed":"#001a43","on-tertiary-container":"#acc3f8","on-primary-fixed-variant":"#0e4491","tertiary-container":"#39507e","primary-fixed-dim":"#aec6ff","primary-fixed":"#d8e2ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-sm":"0.5rem","gutter-desktop":"1.5rem","space-md":"0.75rem","space-xl":"1.5rem","gutter":"1rem","margin":"1rem","space-lg":"1rem","space-xs":"0.25rem","margin-desktop":"1.5rem"},fontFamily:{"headline-lg":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"display":["Inter"],"data-mono":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"label-xs":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"body-md":["Inter"]},fontSize:{"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"600"}],"display":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"data-mono":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"18px","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-xs":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><div class="fixed top-0 left-0 w-full z-50 bg-amber-50 border-b border-amber-200"><div class="h-7 px-gutter flex items-center justify-center gap-space-sm text-amber-900 font-label-xs text-label-xs"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span><span>Sandbox environment · synthetic data (IRDAI Regulatory Sandbox ID: SBX-INS-2026-092)</span></div></div><header class="fixed top-7 left-0 right-0 h-16 z-40 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full h-16 px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md w-60 shrink-0"><img alt="AssureVoice AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VqeGAbyzgC9FqoDPKKKBxLc--3JUak9C295JvUztgAEELbY0cQWvpxyZb3GdyuPKpVM6ZOVa-xC71rxe_L25eNj1OkqiFTkmVp4vm0wFrUl84PTNOsJaEavNVP10zNo1TIG1NMsxeFGe0AY8V8-Kp5mIoKQlPAIXMXEqsfqWYb7JGbOBskAkhEeqc__KX1-lPV-pyUjSC0fLRpJtU41OmKvkERVLvs2oB7BYdRxf0djA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none">AssureVoice</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Enterprise AI Ops</span></div></div><div class="flex-1 max-w-xl"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-lg">search</span><input class="w-full h-9 pl-9 pr-14 bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" placeholder="Search policy no. (e.g. MOT-2026...), mobile, claimant name or agent..." type="text"/><kbd class="absolute right-2.5 px-1.5 py-0.5 rounded bg-surface-container-highest font-data-mono text-label-xs text-on-surface-variant border border-outline-variant/40">⌘K</kbd></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden xl:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span>Telephony SIP: Active (99.98%)</span></div><div class="hidden lg:flex items-center px-2.5 py-1 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs"><span>IN-South (Chennai / Mumbai DC)</span></div><button class="relative p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error text-on-error font-label-xs text-label-xs flex items-center justify-center leading-none scale-75">3</span></button><button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-xl">help</span></button><div class="flex items-center gap-space-sm pl-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbc-ufIJAP3wG8tmfvzEE0_3WWqVUcWiU-N4Uo3KhO90cSXk9j6nJvCumTtkW29mETYEm4p2lKyubkL3Z_iig4aM8ZliNjq1jTqCSFQVTpa7T27O7O1-YIEVHD4TpHSn5VhoBk616_TSRsYlsdO0Ewd1SdSPsNiFnUVLBedLhvlnIplspLf6FGv1YaBQKLoHXRAkm-qDHPrQc6sSQhOVEgTXrtkTRp__JIy5sL2r9j"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Arunachalam S</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-tight">Operations Lead · Contact Centre</span></div><span class="material-symbols-outlined text-on-surface-variant text-base">expand_more</span></div></div></div></header><aside class="fixed left-0 top-[5.75rem] bottom-0 w-60 z-30 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col justify-between"><div class="flex flex-col p-space-md"><div class="px-space-sm pb-space-sm"><span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Operational Console</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md rounded-lg"><a class="flex items-center px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="live-operations" href="#">Live Operations</a><a class="flex items-center px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="call-inspector-qa" href="#">Call Inspector &amp; QA</a><a class="flex items-center px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="outbound-campaigns" href="#">Outbound Campaigns</a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="escalations-handoff" href="#"><span>Escalations &amp; Handoff</span><span class="px-1.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-xs text-label-xs">5 urgent</span></a><a class="flex items-center px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="voice-agent-studio" href="#">Voice Agent Studio</a><a class="flex items-center px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="analytics-compliance" href="#">Analytics &amp; Compliance</a></nav></div><div class="p-space-md flex flex-col gap-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1"><div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs"><span>Dialler Engine Status</span><span class="w-2 h-2 rounded-full bg-secondary"></span></div><div class="flex items-center justify-between text-on-surface font-data-mono text-data-mono"><span class="text-outline">Channels</span><span class="font-label-sm text-label-sm text-primary">184 / 250</span></div><div class="flex items-center justify-between text-on-surface font-data-mono text-data-mono"><span class="text-outline">SIP Latency</span><span class="text-secondary font-label-sm text-label-sm">142ms</span></div></div><div class="flex flex-col gap-0.5"><a class="flex items-center px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="compliance-audit-log" href="#">Compliance Audit Log</a><a class="flex items-center px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="system-settings" href="#">Settings</a></div></div></aside><div class="pl-60"><main class="relative pt-16 w-full px-gutter-desktop min-h-screen bg-background"><div class="flex flex-col w-full">
+<!-- Sub-header Breadcrumb Bar -->
+<div class="flex items-center justify-between pb-space-sm pt-space-xs text-on-surface-variant font-label-xs text-label-xs">
+<div class="flex items-center gap-space-xs">
+<span class="text-outline">Operational Console</span>
+<span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+<span class="text-outline">Voice Agent Studio</span>
+<span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+<span class="text-primary font-label-md text-label-md">Bot Configuration &amp; Acoustic Engine</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-data-mono text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+        Runtime: Mumbai DC Node #04 (SIP-Inbound-PRI)
+      </span>
+<span class="text-outline font-data-mono">Sync State: Pinned SHA-7f89d02</span>
+</div>
+</div>
+<!-- Studio Header Section -->
+<section class="mt-space-sm mb-space-lg rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Voice Agent Studio &amp; Acoustic Engine</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-data-mono text-label-xs">
+          Draft v3.4.2 · Deployed 28 Oct 18:30 IST
+        </span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">
+          IRDAI Sandbox Certified
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Configure vernacular prompts, speech latency budgets, dynamic guardrails, and real-time acoustic synthesis parameters for insurance policy lifecycle agents.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container-high font-label-md text-label-md transition-all shadow-sm" id="toggle-sandbox-audio">
+<span class="material-symbols-outlined text-base text-secondary">tune</span>
+<span>Interactive Sandbox</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-secondary-container/30 text-on-secondary-container hover:bg-secondary-container/50 font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-base">difference</span>
+<span>Compare Staging Diff</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-lg py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md shadow-sm transition-all">
+<span class="material-symbols-outlined text-base">cloud_upload</span>
+<span>Deploy to Live SIP Trunks</span>
+</button>
+</div>
+</section>
+<!-- Agent Fleet Selector Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+<!-- VoiceBot-Vani -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between gap-space-sm group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary font-headline-sm text-headline-sm">
+            V
+          </div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">VoiceBot-Vani</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Motor Renewal &amp; Endorsements</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">Active</span>
+</div>
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Hinglish / Hindi</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Gujarati</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs pt-space-xs">
+<span>ElevenLabs Polyglot</span>
+<span class="font-data-mono text-data-mono text-on-surface">362ms · 97.8%</span>
+</div>
+</div>
+<!-- VoiceBot-Rhea (SELECTED) -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-md flex flex-col justify-between gap-space-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/40 text-on-secondary-container flex items-center justify-center font-headline-sm text-headline-sm">
+            R
+          </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary">VoiceBot-Rhea</span>
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+</div>
+<div class="font-label-xs text-label-xs text-secondary font-label-md">Health Claims &amp; Hospital TPA</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">Active · Focused</span>
+</div>
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-xs text-label-xs">Tamil (தமிழ்)</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-xs text-label-xs">Telugu</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Malayalam</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Kannada</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs pt-space-xs">
+<span class="text-secondary font-label-sm">Sarvam Bulbul South</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">385ms · 96.5%</span>
+</div>
+</div>
+<!-- VoiceBot-Kabir -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between gap-space-sm group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary font-headline-sm text-headline-sm">
+            K
+          </div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">VoiceBot-Kabir</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Life &amp; Savings ECS Recovery</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">Active</span>
+</div>
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Hindi</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Marathi</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs pt-space-xs">
+<span>Deepgram + OpenAI TTS</span>
+<span class="font-data-mono text-data-mono text-on-surface">395ms · 98.2%</span>
+</div>
+</div>
+<!-- VoiceBot-Arjun -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between gap-space-sm group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-outline font-headline-sm text-headline-sm">
+            A
+          </div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">VoiceBot-Arjun</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Commercial Fleet Logistics</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs">Staging Sandbox</span>
+</div>
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">English (Indian)</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs">Punjabi</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs pt-space-xs">
+<span>Whisper-v3 Turbo</span>
+<span class="font-data-mono text-data-mono text-outline">Evaluating</span>
+</div>
+</div>
+</section>
+<!-- Focused Agent Live Telemetry Ribbon -->
+<section class="rounded-xl bg-surface-container-low p-space-md shadow-sm mb-space-lg flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-lg">graphic_eq</span>
+<span class="font-headline-sm text-headline-sm">VoiceBot-Rhea Status:</span>
+<span class="text-secondary font-label-md text-label-md">Ready for SIP Inbound / Outbound Escalations</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xl flex-wrap">
+<div class="flex flex-col">
+<span class="text-outline font-label-xs text-label-xs uppercase">Telephony Uptime</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">99.42% (30-day SLA)</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline font-label-xs text-label-xs uppercase">P95 Turn Latency</span>
+<span class="font-data-mono text-data-mono text-secondary font-bold">385 ms (Target &lt;450ms)</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline font-label-xs text-label-xs uppercase">IRDAI QA Pass Rate</span>
+<span class="font-data-mono text-data-mono text-on-surface font-bold">96.5% Compliant</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline font-label-xs text-label-xs uppercase">Simulated &amp; Production Calls</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">42,500 Completed</span>
+</div>
+</div>
+</section>
+<!-- Main 3-Column Studio Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- LEFT PANEL: Acoustic & Speech Stack Engine (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Latency Budget Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">timer</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Glass-to-Glass Latency Budget</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-data-mono text-label-xs">
+            400 ms Total
+          </span>
+</div>
+<!-- Latency Bar Multi-Segment Breakdown -->
+<div class="flex flex-col gap-1.5">
+<div class="w-full h-3 rounded-full bg-surface-container flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 28.75%" title="STT: 115ms"></div>
+<div class="h-full bg-secondary" style="width: 32.5%" title="LLM TTFT: 130ms"></div>
+<div class="h-full bg-tertiary-container" style="width: 30%" title="TTS TTFB: 120ms"></div>
+<div class="h-full bg-outline" style="width: 8.75%" title="SIP Network Buffer: 35ms"></div>
+</div>
+<div class="grid grid-cols-4 gap-1 text-center font-label-xs text-label-xs pt-1">
+<div class="flex flex-col">
+<span class="text-primary font-data-mono font-bold">115ms</span>
+<span class="text-outline">STT Conformer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-secondary font-data-mono font-bold">130ms</span>
+<span class="text-outline">Groq LPU LLM</span>
+</div>
+<div class="flex flex-col">
+<span class="text-tertiary-container font-data-mono font-bold">120ms</span>
+<span class="text-outline">TTS Sarvam</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline font-data-mono font-bold">35ms</span>
+<span class="text-outline">SIP Buffer</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Speech-to-Text (STT) Settings Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">mic</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Acoustic STT Pipeline</h2>
+</div>
+<span class="font-label-xs text-label-xs text-secondary font-bold">Streaming WS</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div>
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider block mb-1">STT Provider &amp; Model</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none">
+<option selected="">Deepgram Conformer-2 India (Low Latency Spec)</option>
+<option>Sarvam AI Saaras STT (South Dialects)</option>
+<option>Whisper-v3 Large Hosted (Mumbai On-Prem GPU)</option>
+</select>
+</div>
+<div class="flex items-center justify-between py-1">
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">Vernacular Code-Switching</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Auto-detect Tamil / English (Tanglish)</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-secondary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</label>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-xs text-label-xs text-outline uppercase">Silence / Endpointing Threshold</span>
+<span class="font-data-mono text-label-xs text-primary font-bold">400 ms</span>
+</div>
+<input class="w-full accent-primary h-1.5 bg-surface-container rounded-lg cursor-pointer" max="800" min="200" step="50" type="range" value="400"/>
+<div class="flex justify-between font-label-xs text-label-xs text-outline pt-1">
+<span>Aggressive (200ms)</span>
+<span>Patient (800ms)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- LLM Orchestration Engine Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">neurology</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">LLM Inference Node</h2>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-data-mono">Groq LPU DC</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div>
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider block mb-1">Base Model Runtime</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none">
+<option selected="">Llama 3.3 70B Versatile (Groq Mumbai LPUs)</option>
+<option>Claude 3.5 Sonnet (Direct AWS Mumbai)</option>
+<option>Qwen 2.5 72B Instruct (India Insurance Fine-tuned)</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider block mb-1">Temperature</label>
+<input class="w-full h-9 px-space-sm bg-surface-container-low rounded-lg text-data-mono font-data-mono text-on-surface focus:outline-none" max="1.0" min="0.0" step="0.05" type="number" value="0.25"/>
+</div>
+<div>
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider block mb-1">Max Turn Tokens</label>
+<input class="w-full h-9 px-space-sm bg-surface-container-low rounded-lg text-data-mono font-data-mono text-on-surface focus:outline-none" max="300" min="40" type="number" value="120"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-xs text-label-xs text-outline uppercase">Streaming Chunk Buffer</span>
+<span class="font-data-mono text-label-xs text-secondary font-bold">4 Tokens (Low TTFB)</span>
+</div>
+<input class="w-full accent-secondary h-1.5 bg-surface-container rounded-lg cursor-pointer" max="16" min="1" step="1" type="range" value="4"/>
+</div>
+</div>
+</div>
+<!-- TTS Voice & Empathy Modulation Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">record_voice_over</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">TTS &amp; Empathy Synthesizer</h2>
+</div>
+<span class="font-label-xs text-label-xs text-secondary">Bulbul-v2 Tamil</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div>
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider block mb-1">Acoustic Model &amp; Voice Persona</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none">
+<option selected="">Sarvam Bulbul South (Tamil Female - Empathetic TPA)</option>
+<option>ElevenLabs Multilingual v2 (Aditi Tamil Voice)</option>
+<option>Azure Neural Indian Regional (Valluvar / Priya)</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-xs text-label-xs text-outline uppercase block mb-1">Pitch Offset</span>
+<div class="h-9 px-space-sm bg-surface-container-low rounded-lg flex items-center justify-between font-data-mono text-data-mono text-on-surface">
+<span>+2.0%</span>
+<span class="material-symbols-outlined text-xs text-outline">tune</span>
+</div>
+</div>
+<div>
+<span class="font-label-xs text-label-xs text-outline uppercase block mb-1">Speaking Rate</span>
+<div class="h-9 px-space-sm bg-surface-container-low rounded-lg flex items-center justify-between font-data-mono text-data-mono text-on-surface">
+<span>1.02x</span>
+<span class="material-symbols-outlined text-xs text-outline">speed</span>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-xs text-label-xs text-outline uppercase">Empathetic Softening Index</span>
+<span class="font-data-mono text-label-xs text-primary font-bold">85% (High Care Mode)</span>
+</div>
+<input class="w-full accent-primary h-1.5 bg-surface-container rounded-lg cursor-pointer" max="100" min="0" type="range" value="85"/>
+<span class="font-label-xs text-label-xs text-on-surface-variant block mt-1">
+              Modulates pitch contour dynamically upon claimant distress detection.
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- MIDDLE PANEL: System Prompt, IRDAI Guardrails & Tools (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-lg">edit_note</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">System Prompt &amp; Persona Definition</h2>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-2 py-1 rounded bg-surface-container-low text-primary text-label-xs font-label-md hover:bg-surface-container-high transition-colors">
+              Revert to v3.4.1
+            </button>
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary text-label-xs font-label-md hover:bg-primary transition-colors">
+              Save Draft
+            </button>
+</div>
+</div>
+<!-- Mandatory Immutable Compliance Disclosure Block -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-on-surface font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-sm text-secondary">lock</span>
+<span class="uppercase tracking-wider font-bold">Mandatory IRDAI Master Circular 2024 Disclosure (Immutable Block)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">Locked Policy</span>
+</div>
+<p class="font-data-mono text-label-xs text-on-surface-variant leading-relaxed bg-surface-container-lowest p-space-sm rounded">
+            "This call is recorded for quality, fraud prevention, and regulatory compliance under IRDAI Master Circular 2024. All health insurance policyholders retain a 15-day free look period from receipt of physical/electronic policy document. Pre-authorization is subject to final hospital TPA adjudication."
+          </p>
+</div>
+<!-- Editable Persona & Context Textarea -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Role &amp; Vernacular Reasoning Script</label>
+<span class="font-label-xs text-label-xs text-outline font-data-mono">2,140 / 4,000 Tokens</span>
+</div>
+<div class="rounded-lg bg-surface-container-low p-space-sm font-data-mono text-body-sm text-on-surface leading-relaxed h-72 overflow-y-auto">
+<span class="text-primary font-bold"># PERSONA SPECIFICATION</span>
+You are Rhea, an empathetic, composed, and expert health insurance claims specialist representing CareOptima Health Insurance. Your primary role is assisting policyholders, claimants, and hospital desk administrators during cashless pre-authorization and emergency claim admissions.
+
+<span class="text-primary font-bold"># VERNACULAR &amp; CODE-SWITCHING RULES</span>
+1. Default to courteous Tamil (Tanglish format) when claimant greets or speaks in Tamil or Tamil mixed with English.
+2. Example opening: "வணக்கம் {{policy_holder_name}}. நான் CareOptima-விலிருந்து ரியா பேசுகிறேன். {{hospital_name}}-ல் உங்கள் cashless claim குறித்து என்ன உதவி வேண்டும்?"
+3. Maintain medical calmness. Never interrupt while the claimant expresses family emergency or hospital billing stress.
+
+<span class="text-primary font-bold"># ZERO-HALLUCINATION GUARDRAILS</span>
+- STRICT: Never promise 100% cashless settlement approval before Third Party Administrator (TPA) document verification.
+- Always clarify sub-limits: Mention room rent caps ({{room_rent_sublimit_cap}}) and ICU day charges before approving preliminary estimates.
+- If claimant mentions deposit demand greater than pre-auth limit, immediately trigger <span class="text-secondary font-bold">InitiateHospitalTPALink()</span> and reassure the claimant.
+          </div>
+</div>
+<!-- Dynamic Context Variable Chips -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Injected Dynamic Schema Variables</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-primary font-data-mono text-label-xs flex items-center gap-1">
+<span>{{policy_holder_name}}</span>
+<span class="text-outline text-xs">string</span>
+</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-primary font-data-mono text-label-xs flex items-center gap-1">
+<span>{{hospital_name}}</span>
+<span class="text-outline text-xs">string</span>
+</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-primary font-data-mono text-label-xs flex items-center gap-1">
+<span>{{pre_auth_limit}}</span>
+<span class="text-outline text-xs">currency INR</span>
+</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-primary font-data-mono text-label-xs flex items-center gap-1">
+<span>{{room_rent_sublimit_cap}}</span>
+<span class="text-outline text-xs">percent %</span>
+</span>
+</div>
+</div>
+<!-- Tool Calling & Enterprise API Integrations -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Active Telephony &amp; CRM Tools</span>
+<span class="font-label-xs text-label-xs text-secondary font-bold">4 Active Webhooks</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">CheckClaimStatus()</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<span class="font-data-mono text-label-xs text-outline">GET /v1/core-tpa/claims/:id</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">SendInstantWhatsApp()</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<span class="font-data-mono text-label-xs text-outline">POST /v1/notifications/wa</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">InitiateHospitalTPALink()</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<span class="font-data-mono text-label-xs text-outline">POST /v1/tpa-desk/connect</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-error font-bold">EscalateToSupervisor()</span>
+<span class="w-2 h-2 rounded-full bg-error"></span>
+</div>
+<span class="font-data-mono text-label-xs text-outline">SIP Transfer / Hunt Group</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: Interactive Voice Sandbox & Testing Simulator (3 Cols) -->
+<div class="lg:col-span-3 flex flex-col gap-space-lg">
+<!-- Call Simulator Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-lg">phone_in_talk</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Interactive Simulator</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs font-data-mono">WebRTC Active</span>
+</div>
+<!-- Simulated Call Button & Controls -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col items-center justify-center gap-space-sm text-center">
+<div class="w-14 h-14 rounded-full bg-secondary-container/40 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-2xl animate-pulse">settings_voice</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface">Simulated Inbound Call</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">Tamil Vernacular Health Claim (Apollo Chennai)</div>
+</div>
+<div class="flex items-center gap-space-sm w-full pt-space-xs">
+<button class="flex-1 py-2 px-space-sm rounded-lg bg-secondary text-on-secondary font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-base">mic</span>
+<span>Speak to Rhea</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" title="Virtual DTMF Pad">
+<span class="material-symbols-outlined text-base">dialpad</span>
+</button>
+</div>
+</div>
+<!-- Simulated Dialogue Transcript Stream -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Live Interaction Trace</span>
+<span class="font-label-xs text-label-xs text-secondary font-data-mono">Latency: 382ms</span>
+</div>
+<div class="flex flex-col gap-space-sm p-space-sm rounded-lg bg-surface-container-low max-h-80 overflow-y-auto">
+<!-- User Turn -->
+<div class="flex flex-col gap-1 items-end">
+<div class="flex items-center gap-1 font-label-xs text-label-xs text-outline">
+<span>Claimant (Divya N.)</span>
+<span>• 00:04</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg text-body-sm font-body-sm text-on-surface max-w-[90%] shadow-sm">
+                "Apollo hospital desk is asking for ₹45,000 cash deposit right now despite my ₹10 lakh health floater card!"
+              </div>
+<span class="font-label-xs text-label-xs text-error font-data-mono">Agitation: 88 (High Distress)</span>
+</div>
+<!-- Bot Rhea Turn -->
+<div class="flex flex-col gap-1 items-start">
+<div class="flex items-center gap-1 font-label-xs text-label-xs text-secondary font-bold">
+<span>Rhea (AI Agent)</span>
+<span>• 00:06</span>
+</div>
+<div class="bg-primary-container text-on-primary p-space-sm rounded-lg text-body-sm font-body-sm max-w-[92%] shadow-sm flex flex-col gap-1.5">
+<span>
+                  "வணக்கம் Divya. Apollo Specialty Greams Road-ல் room rent 2% clause உள்ளது. Don't worry, நான் உடனே TPA desk desk-க்கு cashless approval link அனுப்புகிறேன். WhatsApp breakdown வரவழைக்கவா?"
+                </span>
+<!-- Audio Waveform Visualization Bar -->
+<div class="flex items-center gap-1.5 pt-1 border-t border-primary/20">
+<span class="material-symbols-outlined text-sm">volume_up</span>
+<div class="flex-1 flex items-center gap-0.5 h-3">
+<span class="w-1 h-2 bg-on-primary rounded-full animate-pulse"></span>
+<span class="w-1 h-3 bg-on-primary rounded-full"></span>
+<span class="w-1 h-1 bg-on-primary rounded-full"></span>
+<span class="w-1 h-3.5 bg-on-primary rounded-full animate-pulse"></span>
+<span class="w-1 h-2 bg-on-primary rounded-full"></span>
+<span class="w-1 h-1.5 bg-on-primary rounded-full"></span>
+<span class="w-1 h-3 bg-on-primary rounded-full"></span>
+<span class="w-1 h-1 bg-on-primary rounded-full"></span>
+</div>
+<span class="font-data-mono text-label-xs text-on-primary">1.8s</span>
+</div>
+</div>
+<span class="font-label-xs text-label-xs text-secondary font-data-mono">Modulation: Empathy softened 85%</span>
+</div>
+</div>
+</div>
+<!-- Stress & Emotion Agitation Simulator Slider -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Acoustic Stress Testing Slider</span>
+<span class="font-data-mono text-label-xs text-error font-bold" id="stress-display">88 / 100</span>
+</div>
+<input class="w-full accent-error h-1.5 bg-surface-container rounded-lg cursor-pointer" id="stress-slider" max="100" min="10" type="range" value="88"/>
+<div class="flex items-center justify-between font-label-xs text-label-xs text-on-surface-variant">
+<span>Neutral (20)</span>
+<span class="text-error font-bold">&gt;85 Auto-Handoff Triggered</span>
+</div>
+</div>
+<!-- Compliance & Regulatory Health Checklist -->
+<div class="rounded-lg bg-surface-container-low p-space-sm flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface font-bold uppercase tracking-wider">Safety &amp; Compliance Audit</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">4/4 Validated</span>
+</div>
+<div class="flex flex-col gap-1 text-label-xs font-label-xs">
+<div class="flex items-center justify-between text-on-surface">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                IRDAI Consent Pinned in Audio
+              </span>
+<span class="font-data-mono text-outline">Verified</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                Co-Pay / Sub-Limit Explicit Mention
+              </span>
+<span class="font-data-mono text-outline">Verified</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                No Settlement Guarantees Made
+              </span>
+<span class="font-data-mono text-outline">Zero Hallucination</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                PII Redaction Engine (Aadhaar/PAN)
+              </span>
+<span class="font-data-mono text-outline">Active</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript Micro-Interactions -->
+<script>
+    (function initStudioCockpit() {
+      const stressSlider = document.getElementById('stress-slider');
+      const stressDisplay = document.getElementById('stress-display');
+      if (stressSlider && stressDisplay) {
+        stressSlider.addEventListener('input', (e) => {
+          const val = e.target.value;
+          stressDisplay.textContent = val + ' / 100';
+          if (val > 85) {
+            stressDisplay.className = 'font-data-mono text-label-xs text-error font-bold';
+          } else if (val > 50) {
+            stressDisplay.className = 'font-data-mono text-label-xs text-primary font-bold';
+          } else {
+            stressDisplay.className = 'font-data-mono text-label-xs text-secondary font-bold';
+          }
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

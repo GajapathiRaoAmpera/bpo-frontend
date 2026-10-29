@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-tint":"#315cab","on-secondary":"#ffffff","error-container":"#ffdad6","surface-container-highest":"#d3e4fe","surface-container-low":"#eff4ff","outline-variant":"#c3c6d3","surface-container-high":"#dce9ff","on-tertiary-fixed-variant":"#2f4673","on-tertiary":"#ffffff","on-secondary-container":"#007070","on-error-container":"#93000a","background":"#f8f9ff","surface-dim":"#cbdbf5","secondary-fixed":"#7df5f4","on-primary":"#ffffff","on-background":"#0b1c30","inverse-surface":"#213145","on-primary-container":"#aac3ff","error":"#ba1a1a","primary-container":"#1f4e9c","inverse-primary":"#aec6ff","on-surface":"#0b1c30","on-tertiary-fixed":"#001a42","secondary-fixed-dim":"#5ed9d7","inverse-on-surface":"#eaf1ff","surface":"#f8f9ff","secondary":"#006a69","surface-container":"#e5eeff","secondary-container":"#7df5f4","surface-container-lowest":"#ffffff","on-surface-variant":"#434751","on-secondary-fixed":"#002020","tertiary-fixed-dim":"#afc6fc","primary":"#00377d","tertiary-fixed":"#d8e2ff","tertiary":"#203965","outline":"#737782","surface-bright":"#f8f9ff","on-secondary-fixed-variant":"#00504f","on-error":"#ffffff","surface-variant":"#d3e4fe","on-primary-fixed":"#001a43","on-tertiary-container":"#acc3f8","on-primary-fixed-variant":"#0e4491","tertiary-container":"#39507e","primary-fixed-dim":"#aec6ff","primary-fixed":"#d8e2ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-sm":"0.5rem","gutter-desktop":"1.5rem","space-md":"0.75rem","space-xl":"1.5rem","gutter":"1rem","margin":"1rem","space-lg":"1rem","space-xs":"0.25rem","margin-desktop":"1.5rem"},fontFamily:{"headline-lg":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"display":["Inter"],"data-mono":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"label-xs":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"body-md":["Inter"]},fontSize:{"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"600"}],"display":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"data-mono":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"18px","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-xs":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><div class="fixed top-0 left-0 w-full z-50 bg-amber-50 border-b border-amber-200"><div class="h-7 px-gutter flex items-center justify-center gap-space-sm text-amber-900 font-label-xs text-label-xs"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span><span>Sandbox environment · synthetic data (IRDAI Regulatory Sandbox ID: SBX-INS-2026-092)</span></div></div><header class="fixed top-7 left-0 right-0 h-16 z-40 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full h-16 px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md w-60 shrink-0"><img alt="AssureVoice AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VqeGAbyzgC9FqoDPKKKBxLc--3JUak9C295JvUztgAEELbY0cQWvpxyZb3GdyuPKpVM6ZOVa-xC71rxe_L25eNj1OkqiFTkmVp4vm0wFrUl84PTNOsJaEavNVP10zNo1TIG1NMsxeFGe0AY8V8-Kp5mIoKQlPAIXMXEqsfqWYb7JGbOBskAkhEeqc__KX1-lPV-pyUjSC0fLRpJtU41OmKvkERVLvs2oB7BYdRxf0djA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none">AssureVoice</span><span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Enterprise AI Ops</span></div></div><div class="flex-1 max-w-xl"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-lg">search</span><input class="w-full h-9 pl-9 pr-14 bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" placeholder="Search policy no. (e.g. MOT-2026...), mobile, claimant name or agent..." type="text"/><kbd class="absolute right-2.5 px-1.5 py-0.5 rounded bg-surface-container-highest font-data-mono text-label-xs text-on-surface-variant border border-outline-variant/40">⌘K</kbd></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden xl:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span>Telephony SIP: Active (99.98%)</span></div><div class="hidden lg:flex items-center px-2.5 py-1 rounded-full bg-surface-container-high text-tertiary font-label-xs text-label-xs"><span>IN-South (Chennai / Mumbai DC)</span></div><button class="relative p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error text-on-error font-label-xs text-label-xs flex items-center justify-center leading-none scale-75">3</span></button><button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-xl">help</span></button><div class="flex items-center gap-space-sm pl-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbc-ufIJAP3wG8tmfvzEE0_3WWqVUcWiU-N4Uo3KhO90cSXk9j6nJvCumTtkW29mETYEm4p2lKyubkL3Z_iig4aM8ZliNjq1jTqCSFQVTpa7T27O7O1-YIEVHD4TpHSn5VhoBk616_TSRsYlsdO0Ewd1SdSPsNiFnUVLBedLhvlnIplspLf6FGv1YaBQKLoHXRAkm-qDHPrQc6sSQhOVEgTXrtkTRp__JIy5sL2r9j"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Arunachalam S</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-tight">Operations Lead · Contact Centre</span></div><span class="material-symbols-outlined text-on-surface-variant text-base">expand_more</span></div></div></div></header><aside class="fixed left-0 top-[5.75rem] bottom-0 w-60 z-30 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col justify-between"><div class="flex flex-col p-space-md"><div class="px-space-sm pb-space-sm"><span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Operational Console</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="live-operations" href="#"><span class="material-symbols-outlined text-lg">graphic_eq</span><span>Live Operations</span></a><a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="call-inspector-qa" href="#"><span class="material-symbols-outlined text-lg">headset_mic</span><span>Call Inspector &amp; QA</span></a><a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="outbound-campaigns" href="#"><span class="material-symbols-outlined text-lg">campaign</span><span>Outbound Campaigns</span></a><a class="flex items-center justify-between px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="escalations-handoff" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-lg">error</span><span>Escalations &amp; Handoff</span></div><span class="px-1.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-xs text-label-xs">5 urgent</span></a><a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="voice-agent-studio" href="#"><span class="material-symbols-outlined text-lg">smart_toy</span><span>Voice Agent Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="analytics-compliance" href="#"><span class="material-symbols-outlined text-lg">verified_user</span><span>Analytics &amp; Compliance</span></a></nav></div><div class="p-space-md flex flex-col gap-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1"><div class="flex items-center justify-between text-on-surface-variant font-label-xs text-label-xs"><span>Dialler Engine Status</span><span class="w-2 h-2 rounded-full bg-secondary"></span></div><div class="flex items-center justify-between text-on-surface font-data-mono text-data-mono"><span class="text-outline">Channels</span><span class="font-label-sm text-label-sm text-primary">184 / 250</span></div><div class="flex items-center justify-between text-on-surface font-data-mono text-data-mono"><span class="text-outline">SIP Latency</span><span class="text-secondary font-label-sm text-label-sm">142ms</span></div></div><div class="flex flex-col gap-0.5"><a class="flex items-center gap-space-sm px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="compliance-audit-log" href="#"><span class="material-symbols-outlined text-base">receipt_long</span><span>Compliance Audit Log</span></a><a class="flex items-center gap-space-sm px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="system-settings" href="#"><span class="material-symbols-outlined text-base">settings</span><span>Settings</span></a></div></div></aside><div class="pl-60"><main class="relative pt-[5.75rem] w-full px-gutter-desktop min-h-screen bg-background"><div class="flex flex-col w-full pb-16 space-y-6">
+<!-- Breadcrumb & Top Command Row -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Telephony Operations</span>
+<span class="text-outline text-xs">/</span>
+<span class="font-label-xs text-label-xs text-primary font-semibold">Autonomous Dialler Engine</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-xs text-label-xs flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+          TCCCPR SCRUB SYNCED (00:04m ago)
+        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Outbound Campaigns &amp; Dialler Engine</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+        Orchestrate vernacular voice AI diallers, TRAI DND registry scrubbing, renewal collections, and regulatory-safe conversion pacing.
+      </p>
+</div>
+<!-- Quick Action Toolbelt -->
+<div class="flex items-center gap-2 shrink-0 flex-wrap">
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-outline">file_download</span>
+        Export IRDAI Calling Log
+      </button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-secondary">verified</span>
+        TRAI DND Scrub Batch
+      </button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest text-error hover:bg-error-container/40 transition-colors font-label-sm text-label-sm shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">pause_circle</span>
+        Pause All Diallers
+      </button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors font-label-md text-label-md shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">add_call</span>
+        Launch New Voice Campaign
+      </button>
+</div>
+</div>
+<!-- Telemetry Strip: 5 Enterprise KPI Pods -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Total Targets</span>
+<span class="material-symbols-outlined text-base text-primary">groups</span>
+</div>
+<div class="mt-3">
+<div class="font-display text-display text-on-surface leading-tight">42,500</div>
+<div class="flex items-center gap-1.5 mt-1 font-label-xs text-label-xs text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-data-mono font-medium">4 active</span>
+<span>renewal campaigns</span>
+</div>
+</div>
+<div class="mt-3 w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">SIP Answer Rate</span>
+<span class="material-symbols-outlined text-base text-secondary">phone_in_talk</span>
+</div>
+<div class="mt-3">
+<div class="font-display text-display text-on-surface leading-tight">76.4%</div>
+<div class="flex items-center gap-1 mt-1 font-label-xs text-label-xs text-secondary font-medium">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>Tata + Jio SIP Trunks (142ms)</span>
+</div>
+</div>
+<div class="mt-3 w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 76.4%"></div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">PTP / Collections</span>
+<span class="material-symbols-outlined text-base text-primary-container">currency_rupee</span>
+</div>
+<div class="mt-3">
+<div class="font-display text-display text-on-surface leading-tight">₹6.84 Cr</div>
+<div class="flex items-center gap-1.5 mt-1 font-label-xs text-label-xs text-on-surface-variant">
+<span class="font-data-mono text-primary font-semibold">18,920</span>
+<span>Promises to Pay captured</span>
+</div>
+</div>
+<div class="mt-3 w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 68%"></div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">TRAI NDNC Scrub</span>
+<span class="material-symbols-outlined text-base text-secondary">security</span>
+</div>
+<div class="mt-3">
+<div class="font-display text-display text-on-surface leading-tight">3,410</div>
+<div class="flex items-center gap-1 mt-1 font-label-xs text-label-xs text-secondary font-medium">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>100% Zero-Breach Compliance</span>
+</div>
+</div>
+<div class="mt-3 w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Autonomous Channels</span>
+<span class="material-symbols-outlined text-base text-tertiary">hub</span>
+</div>
+<div class="mt-3">
+<div class="font-display text-display text-on-surface leading-tight font-data-mono">142 <span class="font-headline-sm text-headline-sm text-outline">/ 200</span></div>
+<div class="flex items-center gap-1 mt-1 font-label-xs text-label-xs text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>58 channels in reserve buffer</span>
+</div>
+</div>
+<div class="mt-3 w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 71%"></div>
+</div>
+</div>
+</div>
+<!-- Operational Filter Strip & Window Banner -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-surface-container-lowest p-3 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 flex-wrap">
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-lg text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-base text-outline">tune</span>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-outline">Filters:</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm py-1.5 pl-3 pr-8 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Status (3 Active, 1 Scheduled)</option>
+<option>Active Voice AI</option>
+<option>Scheduled</option>
+<option>Completed</option>
+<option>Paused</option>
+</select>
+<span class="material-symbols-outlined text-xs text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm py-1.5 pl-3 pr-8 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer">
+<option>Line of Business: All (Motor, Health, Life)</option>
+<option>Motor Comprehensive (Car &amp; 2W)</option>
+<option>Health Floater &amp; Senior Mediclaim</option>
+<option>Life / ULIP / Endowment</option>
+<option>Commercial Vehicle &amp; Fleet</option>
+</select>
+<span class="material-symbols-outlined text-xs text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm py-1.5 pl-3 pr-8 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer">
+<option>Dialect: All Indian Languages</option>
+<option>Hindi / Hinglish (Delhi/UP/MP)</option>
+<option>Tamil (Chennai / Coimbatore)</option>
+<option>Telugu (Hyderabad / Vijayawada)</option>
+<option>Marathi (Mumbai / Pune)</option>
+<option>Kannada (Bengaluru)</option>
+<option>Bengali (Kolkata)</option>
+</select>
+<span class="material-symbols-outlined text-xs text-outline absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+<button class="px-2.5 py-1.5 rounded-lg text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span>Reset</span>
+<span class="material-symbols-outlined text-xs">close</span>
+</button>
+</div>
+<!-- IRDAI Regulated Calling Window Banner -->
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg shrink-0">
+<span class="material-symbols-outlined text-base text-primary">schedule</span>
+<div class="flex items-center gap-2 font-label-xs text-label-xs">
+<span class="text-on-surface-variant font-medium">IRDAI Window (09:00 - 19:00 IST):</span>
+<span class="font-data-mono font-semibold text-primary">Calling Window Closes in 03h 28m</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</div>
+</div>
+<!-- Active Campaigns High-Density Table Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-5 py-4 flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Active Campaigns Telephony Grid</h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary font-label-xs text-label-xs font-semibold">4 Total Pipelines</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-xs text-label-xs text-outline">Realtime Telephony Sync</span>
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+</div>
+</div>
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/70 text-outline font-label-xs text-label-xs uppercase tracking-wider h-10">
+<th class="py-2 px-5">Campaign &amp; Cohort</th>
+<th class="py-2 px-4">Line of Business</th>
+<th class="py-2 px-4">Autonomous Voice AI</th>
+<th class="py-2 px-4">Pacing Engine</th>
+<th class="py-2 px-4">Dialled Progress</th>
+<th class="py-2 px-4">Collections / PTP</th>
+<th class="py-2 px-4 text-center">Status</th>
+<th class="py-2 px-5 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm text-body-sm">
+<!-- Campaign 1: Motor Blitz -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-5">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-primary font-semibold hover:underline cursor-pointer">
+                    Q3 Motor Insurance Renewal Blitz #2026-M04
+                  </span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[10px]">ID: CMP-M41</span>
+</div>
+<div class="font-label-xs text-label-xs text-outline mt-0.5 flex items-center gap-1.5">
+<span>Expiring in 7-15 days</span>
+<span>•</span>
+<span class="font-data-mono">14,500 Private Car &amp; 2W Owners</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-tertiary font-label-xs text-label-xs">
+                Motor Comprehensive
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary">smart_toy</span>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">VoiceBot-Vani</span>
+</div>
+<span class="font-label-xs text-label-xs text-outline">Hinglish / North-West Accents</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-semibold text-primary">45 calls/min</span>
+<span class="font-label-xs text-label-xs text-outline">Predictive Dialler (2.4x)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col w-36">
+<div class="flex justify-between font-label-xs text-label-xs mb-1">
+<span class="font-data-mono font-medium text-on-surface">11,240 / 14.5k</span>
+<span class="font-data-mono text-secondary font-semibold">77.5%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 77.5%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-bold text-on-surface">₹2.14 Crore</span>
+<span class="font-label-xs text-label-xs text-secondary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">check</span> WhatsApp UPI Links
+                </span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-3.5 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Adjust Pacing">
+<span class="material-symbols-outlined text-lg">speed</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Inspect Transcripts">
+<span class="material-symbols-outlined text-lg">record_voice_over</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View Funnel">
+<span class="material-symbols-outlined text-lg">filter_alt</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Campaign 2: CareOptima Health Senior Citizen -->
+<tr class="hover:bg-surface-container-low/40 transition-colors bg-surface-container-low/20">
+<td class="py-3.5 px-5">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-primary font-semibold hover:underline cursor-pointer">
+                    CareOptima Health Senior Citizen Grace Period Reminder
+                  </span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[10px]">ID: CMP-H19</span>
+</div>
+<div class="font-label-xs text-label-xs text-outline mt-0.5 flex items-center gap-1.5">
+<span class="text-error font-medium">Day 20-28 Grace (High Risk)</span>
+<span>•</span>
+<span class="font-data-mono">8,200 Policyholders</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-tertiary font-label-xs text-label-xs">
+                Senior Mediclaim
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary">smart_toy</span>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">VoiceBot-Rhea</span>
+</div>
+<span class="font-label-xs text-label-xs text-outline">Tamil, Telugu, Mal, Kan</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-semibold text-primary">25 calls/min</span>
+<span class="font-label-xs text-label-xs text-outline">Warm Empathetic (Max 3 retry)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col w-36">
+<div class="flex justify-between font-label-xs text-label-xs mb-1">
+<span class="font-data-mono font-medium text-on-surface">5,910 / 8.2k</span>
+<span class="font-data-mono text-secondary font-semibold">72.1%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 72.1%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-bold text-on-surface">₹1.82 Crore</span>
+<span class="font-label-xs text-label-xs text-primary-container flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">support_agent</span> 142 Desk Escalations
+                </span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-3.5 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Adjust Pacing">
+<span class="material-symbols-outlined text-lg">speed</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Inspect Transcripts">
+<span class="material-symbols-outlined text-lg">record_voice_over</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View Funnel">
+<span class="material-symbols-outlined text-lg">filter_alt</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Campaign 3: SureLife Premium Notice -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-5">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-primary font-semibold hover:underline cursor-pointer">
+                    SureLife Guaranteed Savings Premium Due Notice
+                  </span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[10px]">ID: CMP-L08</span>
+</div>
+<div class="font-label-xs text-label-xs text-outline mt-0.5 flex items-center gap-1.5">
+<span class="text-tertiary">NACH / ECS Bounce Recovery</span>
+<span>•</span>
+<span class="font-data-mono">6,800 Policyholders</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-tertiary font-label-xs text-label-xs">
+                Life &amp; Endowment
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-secondary">smart_toy</span>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">VoiceBot-Kabir</span>
+</div>
+<span class="font-label-xs text-label-xs text-outline">Hindi, Marathi, Gujarati</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-semibold text-primary">30 calls/min</span>
+<span class="font-label-xs text-label-xs text-outline">Progressive Conversational</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col w-36">
+<div class="flex justify-between font-label-xs text-label-xs mb-1">
+<span class="font-data-mono font-medium text-on-surface">4,760 / 6.8k</span>
+<span class="font-data-mono text-secondary font-semibold">70.0%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 70.0%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm font-bold text-on-surface">₹2.88 Crore</span>
+<span class="font-label-xs text-label-xs text-outline">₹1,200 late fee waiver applied</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-3.5 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Adjust Pacing">
+<span class="material-symbols-outlined text-lg">speed</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Inspect Transcripts">
+<span class="material-symbols-outlined text-lg">record_voice_over</span>
+</button>
+<button class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="View Funnel">
+<span class="material-symbols-outlined text-lg">filter_alt</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Campaign 4: Commercial Fleet Endorsement -->
+<tr class="hover:bg-surface-container-low/40 transition-colors bg-surface-container-low/10">
+<td class="py-3.5 px-5">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold hover:underline cursor-pointer">
+                    Commercial Fleet Heavy Vehicle Endorsement Drive
+                  </span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[10px]">ID: CMP-C03</span>
+</div>
+<div class="font-label-xs text-label-xs text-outline mt-0.5 flex items-center gap-1.5">
+<span>Logistics &amp; Transporter Cohort</span>
+<span>•</span>
+<span class="font-data-mono">3,000 Policies</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-tertiary font-label-xs text-label-xs">
+                Commercial Fleet
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-outline">smart_toy</span>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">VoiceBot-Arjun</span>
+</div>
+<span class="font-label-xs text-label-xs text-outline">EN / Hindi / Punjabi</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm text-outline">Standby (0/min)</span>
+<span class="font-label-xs text-label-xs text-outline">Autonomous Mode</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col w-36">
+<div class="flex justify-between font-label-xs text-label-xs mb-1">
+<span class="font-data-mono text-outline">0 / 3,000</span>
+<span class="font-data-mono text-outline">0.0%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-data-mono text-label-sm text-label-sm text-outline">₹0.00</span>
+<span class="font-label-xs text-label-xs text-outline">Queued</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-xs">schedule</span>
+                30 Oct, 10:00
+              </span>
+</td>
+<td class="py-3.5 px-5 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary hover:bg-primary-container transition-colors font-label-xs text-label-xs">
+                  Arm Dialler
+                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Bottom Insight Footer -->
+<div class="px-5 py-3 bg-surface-container-low/50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-4 text-label-xs font-label-xs">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+          Tata Telecommunications Primary SIP Trunk: OK (99.98% uptime)
+        </span>
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+          Jio Enterprise Secondary Trunk: OK (0ms jitter)
+        </span>
+</div>
+<div class="font-label-xs text-label-xs text-outline">
+        Auto-refreshes every 15s • Synthetic Sandbox Telephony
+      </div>
+</div>
+</div>
+<!-- Deep Telemetry & Pacing Simulation Console (2-Column Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+<!-- Left (7 Cols): Funnel Lifecycle & Drop-off Breakdown -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-5 shadow-sm flex flex-col space-y-5">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">End-to-End Voice AI Conversion Funnel</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Aggregated metrics across active renewal drives (Today: 21,910 outbound attempts)</p>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-xs text-label-xs font-medium">Real-time Telephony</span>
+</div>
+<!-- Funnel Horizontal Pipeline Stages -->
+<div class="space-y-3 pt-1">
+<!-- Stage 1 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              1. Outbound Calls Triggered (Post-TRAI Scrub)
+            </span>
+<span class="font-data-mono font-semibold text-on-surface">21,910 <span class="text-outline font-normal">(100%)</span></span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 100%"></div>
+</div>
+</div>
+<!-- Stage 2 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+              2. SIP Answered &amp; Voice Activity Detected (VAD)
+            </span>
+<span class="font-data-mono font-semibold text-on-surface">16,739 <span class="text-secondary font-normal">(76.4%)</span></span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-500" style="width: 76.4%"></div>
+</div>
+</div>
+<!-- Stage 3 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              3. Regulatory Audio Disclosure &amp; Vernacular Consent
+            </span>
+<span class="font-data-mono font-semibold text-on-surface">16,437 <span class="text-secondary font-normal">(98.2% of answered)</span></span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 75.0%"></div>
+</div>
+</div>
+<!-- Stage 4 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              4. Intent Captured: Renewal Confirmed / Promise to Pay
+            </span>
+<span class="font-data-mono font-semibold text-on-surface">12,680 <span class="text-primary font-normal">(77.1% of engaged)</span></span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full rounded-full transition-all duration-500" style="width: 57.8%"></div>
+</div>
+</div>
+<!-- Stage 5 -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              5. Instant WhatsApp UPI Link Dispatched &amp; BBPS Settled
+            </span>
+<span class="font-data-mono font-semibold text-on-surface">9,410 <span class="text-secondary font-normal">(₹6.84 Cr Paid)</span></span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 42.9%"></div>
+</div>
+</div>
+</div>
+<!-- Granular Disposition Micro-Cards -->
+<div class="grid grid-cols-3 gap-3 pt-2">
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Avg AI Bot Latency</span>
+<span class="font-data-mono text-headline-sm text-headline-sm font-bold text-primary mt-1">420 ms</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant mt-0.5">Whisper-Large + Sarvam TTS</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Escalation to Human</span>
+<span class="font-data-mono text-headline-sm text-headline-sm font-bold text-tertiary mt-1">3.4%</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant mt-0.5">Smooth warm transfers</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg flex flex-col">
+<span class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Language Switches</span>
+<span class="font-data-mono text-headline-sm text-headline-sm font-bold text-secondary mt-1">11.8%</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant mt-0.5">Mid-call auto-detection</span>
+</div>
+</div>
+</div>
+<!-- Right (5 Cols): Pacing Engine Simulator & Regulatory Guard -->
+<div class="lg:col-span-5 flex flex-col space-y-4">
+<!-- Pacing Controller Widget -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm flex flex-col space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Pacing Engine Simulator</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-data-mono text-label-xs text-label-xs">
+            SIP Trunk #TATA-01
+          </span>
+</div>
+<div class="space-y-4">
+<!-- Dialler Mode Selector -->
+<div class="space-y-1.5">
+<label class="font-label-xs text-label-xs text-outline uppercase tracking-wider">Algorithm Pacing Strategy</label>
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-low p-1 rounded-lg">
+<button class="py-1.5 text-center font-label-xs text-label-xs rounded-md bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all">
+                Predictive
+              </button>
+<button class="py-1.5 text-center font-label-xs text-label-xs rounded-md text-on-surface-variant hover:text-on-surface transition-all">
+                Progressive
+              </button>
+<button class="py-1.5 text-center font-label-xs text-label-xs rounded-md text-on-surface-variant hover:text-on-surface transition-all">
+                Autonomous
+              </button>
+</div>
+</div>
+<!-- Concurrency Slider Simulation -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Channel Concurrency Cap</span>
+<span class="font-data-mono text-label-md text-label-md font-bold text-primary">100 / 200 lines</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container-low rounded-lg cursor-pointer" max="200" min="10" type="range" value="100"/>
+<div class="flex justify-between text-[11px] font-label-xs text-outline">
+<span>10 (Low-Impact)</span>
+<span>100 (Nominal)</span>
+<span>200 (Max Capacity)</span>
+</div>
+</div>
+<!-- Calls Per Minute Multiplier -->
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Current Dialling Cadence</span>
+<span class="font-label-xs text-label-xs text-outline">Dynamically balanced with bot concurrency</span>
+</div>
+<div class="text-right">
+<span class="font-data-mono text-headline-sm text-headline-sm font-bold text-secondary">45</span>
+<span class="font-label-xs text-label-xs text-outline"> calls/min</span>
+</div>
+</div>
+<!-- Telephony Safety Notice -->
+<div class="flex items-start gap-2.5 p-3 rounded-lg bg-surface-container-high/60">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug">
+              Telephony pacing automatically decelerates if SIP drops exceed 2% or bot response time spikes beyond 600ms.
+            </p>
+</div>
+</div>
+</div>
+<!-- TRAI DND Compliance Safeguard Widget -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">format_image_left</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">TRAI TCCCPR 2018 Safeguard</h4>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-xs text-label-xs font-semibold">
+            Zero Penalties
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Telecom Commercial Communications Customer Preference Portal registry scrubbing is performed prior to injecting cohorts into SIP gateways.
+        </p>
+<div class="grid grid-cols-2 gap-2 pt-1 font-label-xs text-label-xs">
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col">
+<span class="text-outline uppercase tracking-wider">Filtered This Session</span>
+<span class="font-data-mono text-label-md text-label-md font-bold text-on-surface mt-1">3,410 Numbers</span>
+<span class="text-secondary mt-0.5">Excluded from dialler</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg flex flex-col">
+<span class="text-outline uppercase tracking-wider">Audit Log Compliance</span>
+<span class="font-data-mono text-label-md text-label-md font-bold text-secondary mt-1">100.0% Clean</span>
+<span class="text-outline mt-0.5">IRDAI Audit Ready</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
