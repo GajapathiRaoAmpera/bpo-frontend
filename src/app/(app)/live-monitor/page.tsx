@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { LiveMonitor } from "@/app/(app)/live-monitor/live-monitor";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Live Monitor" };
 
 export default function Page() {
-  return <ModulePending screen="live_monitor" />;
+  return (
+    <ScreenGuard screen="live_monitor">
+      <LiveMonitor />
+    </ScreenGuard>
+  );
 }

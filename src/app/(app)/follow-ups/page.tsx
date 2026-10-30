@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { Followups } from "@/app/(app)/follow-ups/followups";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Follow-ups" };
 
 export default function Page() {
-  return <ModulePending screen="followups" />;
+  return (
+    <ScreenGuard screen="followups">
+      <Followups />
+    </ScreenGuard>
+  );
 }

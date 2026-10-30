@@ -6,7 +6,8 @@
 3. A route outside the role's menu shows "No access".
 4. Sign out returns to `/login` and the session is gone.
 5. (Opt-in, live Gemini) As Divya, a renewal call ends with a payment link and a scored summary; an escalation is taken over and wrapped up (`e2e/voice-call.spec.ts`, Chromium plays generated customer audio as a fake microphone).
-(Later phases add approvals and export flows.)
+6. (Phase 4, manual) Script edit → test call → submit → approve switches the live version; campaign wizard → submit → approve → launch places 3 simulated calls; QA override → lock makes the evaluation read-only. Maker-checker rules are covered by backend `tests/test_phase4_*.py`.
+(Export flows: Phase 5.)
 
 ## Tools
 - E2E: Playwright (`e2e/`), runs against the real backend (`make dev` in `bpo-backend`) and `npm run dev`.

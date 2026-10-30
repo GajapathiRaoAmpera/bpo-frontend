@@ -9,7 +9,8 @@ const time = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digi
 export const formatINR = (amount: number) => inr.format(amount);
 
 /** "2026-10-29" or ISO datetime -> "29 Oct 2026" (IST) */
-export const formatDate = (value: string | Date) => day.format(new Date(value));
+// en-GB prints "Sept"; the house format is "Sep".
+export const formatDate = (value: string | Date) => day.format(new Date(value)).replace("Sept", "Sep");
 
 /** ISO datetime -> "14:38 IST" */
 export const formatTime = (value: string | Date) => `${time.format(new Date(value))} IST`;

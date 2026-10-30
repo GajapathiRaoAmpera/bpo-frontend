@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { Dashboard } from "@/app/(app)/dashboard/dashboard";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Executive Dashboard" };
 
 export default function Page() {
-  return <ModulePending screen="dashboard" />;
+  return (
+    <ScreenGuard screen="dashboard">
+      <Dashboard />
+    </ScreenGuard>
+  );
 }

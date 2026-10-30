@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { IntegrationsList } from "@/app/(app)/admin/integrations/integrations-list";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Integrations" };
 
 export default function Page() {
-  return <ModulePending screen="integrations" />;
+  return (
+    <ScreenGuard screen="integrations">
+      <IntegrationsList />
+    </ScreenGuard>
+  );
 }

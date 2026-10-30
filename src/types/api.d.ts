@@ -215,6 +215,577 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Audit */
+        get: operations["list_audit_api_v1_audit_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/audit/export.csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Audit */
+        get: operations["export_audit_api_v1_audit_export_csv_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/integrations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Integrations */
+        get: operations["list_integrations_api_v1_integrations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/live/calls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Live Calls
+         * @description Calls in progress right now (real agent-console sessions; the sandbox has no simulated live floor).
+         */
+        get: operations["live_calls_api_v1_live_calls_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Users */
+        get: operations["list_users_api_v1_users_get"];
+        put?: never;
+        /** Create User */
+        post: operations["create_user_api_v1_users_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Deactivate User
+         * @description Deactivates (never deletes) so audit references stay valid; the user's session stops working at once.
+         */
+        delete: operations["deactivate_user_api_v1_users__user_id__delete"];
+        options?: never;
+        head?: never;
+        /** Update User */
+        patch: operations["update_user_api_v1_users__user_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/calls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Calls */
+        get: operations["list_calls_api_v1_calls_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/calls/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Call */
+        get: operations["get_call_api_v1_calls__call_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/dashboard/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Summary */
+        get: operations["summary_api_v1_dashboard_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/dashboard/trends": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Trends */
+        get: operations["trends_api_v1_dashboard_trends_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/escalations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Escalations */
+        get: operations["list_escalations_api_v1_escalations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/escalations/{escalation_id}/claim": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Claim */
+        post: operations["claim_api_v1_escalations__escalation_id__claim_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/escalations/{escalation_id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resolve */
+        post: operations["resolve_api_v1_escalations__escalation_id__resolve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/followups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Followups */
+        get: operations["list_followups_api_v1_followups_get"];
+        put?: never;
+        /** Create Followup */
+        post: operations["create_followup_api_v1_followups_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/followups/{followup_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Followup */
+        patch: operations["update_followup_api_v1_followups__followup_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/policies/{policy_no}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Policy */
+        get: operations["get_policy_api_v1_policies__policy_no__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/approvals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Pending Approvals
+         * @description Everything awaiting a checker; scripts carry a line diff against the script the bot runs today.
+         */
+        get: operations["pending_approvals_api_v1_approvals_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Campaigns */
+        get: operations["list_campaigns_api_v1_campaigns_get"];
+        put?: never;
+        /** Create Campaign */
+        post: operations["create_campaign_api_v1_campaigns_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns/audience": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Preview Audience
+         * @description Wizard preview: how many policies the segment selects, and the script it will run.
+         */
+        get: operations["preview_audience_api_v1_campaigns_audience_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns/{campaign_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Campaign */
+        patch: operations["update_campaign_api_v1_campaigns__campaign_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/campaigns/{campaign_id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Submit Campaign */
+        post: operations["submit_campaign_api_v1_campaigns__campaign_id__submit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns/{campaign_id}/launch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Launch Campaign
+         * @description Sandbox launch: places the next 3 simulated calls. Running campaigns can dial the next batch.
+         */
+        post: operations["launch_campaign_api_v1_campaigns__campaign_id__launch_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns/{campaign_id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve Campaign */
+        post: operations["approve_campaign_api_v1_campaigns__campaign_id__approve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/campaigns/{campaign_id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject Campaign */
+        post: operations["reject_campaign_api_v1_campaigns__campaign_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/qa/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Qa Queue
+         * @description Open = not locked yet, lowest scores first so failures get reviewed before passes.
+         */
+        get: operations["qa_queue_api_v1_qa_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/qa/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Qa Detail */
+        get: operations["qa_detail_api_v1_qa__call_id__get"];
+        /** Review Call */
+        put: operations["review_call_api_v1_qa__call_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scripts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Scripts */
+        get: operations["list_scripts_api_v1_scripts_get"];
+        put?: never;
+        /**
+         * Create Script
+         * @description New version = new draft row; parent defaults to the script the bot runs for this mode.
+         */
+        post: operations["create_script_api_v1_scripts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scripts/{script_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Script */
+        patch: operations["update_script_api_v1_scripts__script_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/scripts/{script_id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Submit Script */
+        post: operations["submit_script_api_v1_scripts__script_id__submit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scripts/{script_id}/test-call": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Test Call */
+        post: operations["test_call_api_v1_scripts__script_id__test_call_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scripts/{script_id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve Script */
+        post: operations["approve_script_api_v1_scripts__script_id__approve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scripts/{script_id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reject Script */
+        post: operations["reject_script_api_v1_scripts__script_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -237,6 +808,163 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         /**
+         * ApprovalStatus
+         * @enum {string}
+         */
+        ApprovalStatus: "draft" | "pending" | "approved" | "rejected";
+        /** ApprovalsOut */
+        ApprovalsOut: {
+            /** Scripts */
+            scripts: components["schemas"]["ScriptApproval"][];
+            /** Campaigns */
+            campaigns: components["schemas"]["CampaignOut"][];
+            /** Script Checks */
+            script_checks: string[];
+            /** Campaign Checks */
+            campaign_checks: string[];
+        };
+        /** AudienceOut */
+        AudienceOut: {
+            /** Total Targets */
+            total_targets: number;
+            script: components["schemas"]["ScriptRef"] | null;
+        };
+        /**
+         * AuditAction
+         * @enum {string}
+         */
+        AuditAction: "login" | "login_failed" | "logout" | "view_customer" | "create" | "update" | "delete" | "submit" | "approve" | "reject" | "launch" | "export" | "takeover" | "call_start" | "call_end";
+        /** AuditPage */
+        AuditPage: {
+            /** Items */
+            items: components["schemas"]["AuditRow"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** AuditRow */
+        AuditRow: {
+            /** Id */
+            id: number;
+            /**
+             * Ts
+             * Format: date-time
+             */
+            ts: string;
+            /** Actor User Id */
+            actor_user_id: number | null;
+            /** Actor Name */
+            actor_name: string | null;
+            actor_role: components["schemas"]["Role"] | null;
+            action: components["schemas"]["AuditAction"];
+            /** Entity Type */
+            entity_type: string | null;
+            /** Entity Id */
+            entity_id: string | null;
+            /** Detail */
+            detail: {
+                [key: string]: unknown;
+            } | null;
+            /** Ip */
+            ip: string | null;
+        };
+        /** CallDetail */
+        CallDetail: {
+            /** Id */
+            id: number;
+            /** Call Ref */
+            call_ref: string;
+            direction: components["schemas"]["CallDirection"];
+            mode: components["schemas"]["CallMode"];
+            status: components["schemas"]["CallStatus"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Duration Sec */
+            duration_sec: number;
+            outcome: components["schemas"]["CallOutcome"] | null;
+            sentiment: components["schemas"]["Sentiment"] | null;
+            /** Customer Id */
+            customer_id: number | null;
+            /** Customer Name */
+            customer_name: string | null;
+            /** Policy No */
+            policy_no: string | null;
+            /** Agent Name */
+            agent_name: string | null;
+            /** Qa Score */
+            qa_score: number | null;
+            /** Is Simulated */
+            is_simulated: boolean;
+            /** Ended At */
+            ended_at: string | null;
+            /** Verified */
+            verified: boolean;
+            /** Taken Over At */
+            taken_over_at: string | null;
+            /** Summary */
+            summary: string | null;
+            /** Next Action */
+            next_action: string | null;
+            customer: components["schemas"]["CustomerOut"] | null;
+            policy: components["schemas"]["PolicyOut"] | null;
+            /** Turns */
+            turns: components["schemas"]["TurnOut"][];
+            qa: components["schemas"]["QAOut"] | null;
+            /** Escalations */
+            escalations: components["schemas"]["CallEscalation"][];
+            /** Followups */
+            followups: components["schemas"]["CallFollowup"][];
+        };
+        /**
+         * CallDirection
+         * @enum {string}
+         */
+        CallDirection: "inbound" | "outbound";
+        /** CallEscalation */
+        CallEscalation: {
+            /** Id */
+            id: number;
+            /** Reason */
+            reason: string;
+            priority: components["schemas"]["Priority"];
+            status: components["schemas"]["EscalationStatus"];
+            /** Assigned To Name */
+            assigned_to_name: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Resolved At */
+            resolved_at: string | null;
+            /** Resolution Note */
+            resolution_note: string | null;
+        };
+        /** CallFollowup */
+        CallFollowup: {
+            /** Id */
+            id: number;
+            kind: components["schemas"]["FollowupKind"];
+            status: components["schemas"]["FollowupStatus"];
+            /**
+             * Due At
+             * Format: date-time
+             */
+            due_at: string;
+            /** Reason */
+            reason: string;
+            /** Message Text */
+            message_text: string | null;
+            /** Sent At */
+            sent_at: string | null;
+        };
+        /**
          * CallMode
          * @enum {string}
          */
@@ -246,13 +974,130 @@ export interface components {
          * @enum {string}
          */
         CallOutcome: "payment_link_sent" | "callback_scheduled" | "escalated" | "renewed" | "not_interested" | "info_provided" | "no_answer";
+        /** CallPage */
+        CallPage: {
+            /** Items */
+            items: components["schemas"]["CallRow"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** CallRow */
+        CallRow: {
+            /** Id */
+            id: number;
+            /** Call Ref */
+            call_ref: string;
+            direction: components["schemas"]["CallDirection"];
+            mode: components["schemas"]["CallMode"];
+            status: components["schemas"]["CallStatus"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Duration Sec */
+            duration_sec: number;
+            outcome: components["schemas"]["CallOutcome"] | null;
+            sentiment: components["schemas"]["Sentiment"] | null;
+            /** Customer Id */
+            customer_id: number | null;
+            /** Customer Name */
+            customer_name: string | null;
+            /** Policy No */
+            policy_no: string | null;
+            /** Agent Name */
+            agent_name: string | null;
+            /** Qa Score */
+            qa_score: number | null;
+            /** Is Simulated */
+            is_simulated: boolean;
+        };
         /**
          * CallStatus
          * @enum {string}
          */
         CallStatus: "in_progress" | "completed" | "escalated" | "failed";
-        /** CustomerDetail */
-        CustomerDetail: {
+        /** CampaignIn */
+        CampaignIn: {
+            /** Name */
+            name: string;
+            product: components["schemas"]["Product"];
+            segment?: components["schemas"]["Segment"];
+            /** Scheduled At */
+            scheduled_at?: string | null;
+        };
+        /** CampaignOut */
+        CampaignOut: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            product: components["schemas"]["Product"];
+            /** Segment */
+            segment: {
+                [key: string]: unknown;
+            };
+            /** Script Id */
+            script_id: number;
+            script?: components["schemas"]["ScriptRef"] | null;
+            status: components["schemas"]["CampaignStatus"];
+            /** Created By */
+            created_by: number;
+            /**
+             * Created By Name
+             * @default
+             */
+            created_by_name: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Submitted At */
+            submitted_at: string | null;
+            /** Reviewed By */
+            reviewed_by: number | null;
+            /** Reviewed By Name */
+            reviewed_by_name?: string | null;
+            /** Reviewed At */
+            reviewed_at: string | null;
+            /** Review Note */
+            review_note: string | null;
+            /** Checklist */
+            checklist: {
+                [key: string]: boolean;
+            } | null;
+            /** Scheduled At */
+            scheduled_at: string | null;
+            /** Total Targets */
+            total_targets: number;
+            /** Dialled */
+            dialled: number;
+            /** Connected */
+            connected: number;
+            /** Converted */
+            converted: number;
+        };
+        /** CampaignPatch */
+        CampaignPatch: {
+            /** Name */
+            name?: string | null;
+            product?: components["schemas"]["Product"] | null;
+            segment?: components["schemas"]["Segment"] | null;
+            /** Scheduled At */
+            scheduled_at?: string | null;
+        };
+        /**
+         * CampaignStatus
+         * @enum {string}
+         */
+        CampaignStatus: "draft" | "pending" | "approved" | "rejected" | "running" | "completed";
+        /** Customer360 */
+        Customer360: {
             /** Id */
             id: number;
             /** Customer Code */
@@ -274,6 +1119,10 @@ export interface components {
             masked: boolean;
             /** Policies */
             policies: components["schemas"]["PolicyOut"][];
+            /** Calls */
+            calls: components["schemas"]["CallRow"][];
+            /** Followups */
+            followups: components["schemas"]["FollowupRow"][];
         };
         /** CustomerOut */
         CustomerOut: {
@@ -334,12 +1183,185 @@ export interface components {
             /** Next Renewal */
             next_renewal: string | null;
         };
+        /** DashboardSummary */
+        DashboardSummary: {
+            /** Days */
+            days: number;
+            /** Calls */
+            calls: number;
+            /** Calls Today */
+            calls_today: number;
+            /** Connected */
+            connected: number;
+            /** Renewals */
+            renewals: number;
+            /** Collections Inr */
+            collections_inr: number;
+            /** Ai Contained Pct */
+            ai_contained_pct: number;
+            /** Avg Qa Score */
+            avg_qa_score: number | null;
+            /** Open Escalations */
+            open_escalations: number;
+            /** Renewals Due 30D */
+            renewals_due_30d: number;
+            /** Outcomes */
+            outcomes: {
+                [key: string]: number;
+            };
+            /** Sentiment */
+            sentiment: {
+                [key: string]: number;
+            };
+        };
+        /** DiffRow */
+        DiffRow: {
+            /**
+             * Tag
+             * @enum {string}
+             */
+            tag: "equal" | "replace" | "delete" | "insert";
+            /** Left */
+            left: string | null;
+            /** Right */
+            right: string | null;
+        };
         /** EndIn */
         EndIn: {
             outcome?: components["schemas"]["CallOutcome"] | null;
             /** Note */
             note?: string | null;
         };
+        /** EscalationRow */
+        EscalationRow: {
+            /** Id */
+            id: number;
+            /** Call Id */
+            call_id: number | null;
+            /** Call Ref */
+            call_ref: string | null;
+            /** Customer Id */
+            customer_id: number;
+            /** Customer Name */
+            customer_name: string;
+            /** Phone */
+            phone: string;
+            /** City */
+            city: string;
+            preferred_language: components["schemas"]["Language"];
+            /** Policy No */
+            policy_no: string | null;
+            /** Plan Name */
+            plan_name: string | null;
+            /** Premium Inr */
+            premium_inr: number | null;
+            /** Reason */
+            reason: string;
+            priority: components["schemas"]["Priority"];
+            status: components["schemas"]["EscalationStatus"];
+            /** Assigned To */
+            assigned_to: number | null;
+            /** Assigned To Name */
+            assigned_to_name: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Resolved At */
+            resolved_at: string | null;
+            /** Resolution Note */
+            resolution_note: string | null;
+            /** Call Summary */
+            call_summary: string | null;
+        };
+        /**
+         * EscalationStatus
+         * @enum {string}
+         */
+        EscalationStatus: "open" | "assigned" | "resolved";
+        /** FollowupIn */
+        FollowupIn: {
+            /** Policy Id */
+            policy_id: number;
+            /** @default callback */
+            kind: components["schemas"]["FollowupKind"];
+            /**
+             * Due At
+             * Format: date-time
+             */
+            due_at: string;
+            /** Reason */
+            reason: string;
+        };
+        /**
+         * FollowupKind
+         * @enum {string}
+         */
+        FollowupKind: "payment_link" | "callback" | "reminder";
+        /** FollowupPage */
+        FollowupPage: {
+            /** Items */
+            items: components["schemas"]["FollowupRow"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** FollowupPatch */
+        FollowupPatch: {
+            status?: components["schemas"]["FollowupStatus"] | null;
+            /** Due At */
+            due_at?: string | null;
+            /** Reason */
+            reason?: string | null;
+        };
+        /** FollowupRow */
+        FollowupRow: {
+            /** Id */
+            id: number;
+            kind: components["schemas"]["FollowupKind"];
+            status: components["schemas"]["FollowupStatus"];
+            /**
+             * Due At
+             * Format: date-time
+             */
+            due_at: string;
+            /** Reason */
+            reason: string;
+            /** Message Text */
+            message_text: string | null;
+            /** Payment Link Url */
+            payment_link_url: string | null;
+            /** Sent At */
+            sent_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Customer Id */
+            customer_id: number;
+            /** Customer Name */
+            customer_name: string;
+            /** Policy Id */
+            policy_id: number;
+            /** Policy No */
+            policy_no: string;
+            /** Call Id */
+            call_id: number | null;
+            /** Created By Name */
+            created_by_name: string | null;
+            /** Assigned To Name */
+            assigned_to_name: string | null;
+        };
+        /**
+         * FollowupStatus
+         * @enum {string}
+         */
+        FollowupStatus: "scheduled" | "sent" | "done" | "cancelled";
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -361,16 +1383,77 @@ export interface components {
             /** Candidates */
             candidates: components["schemas"]["IceCandidateIn"][];
         };
+        /** IntegrationOut */
+        IntegrationOut: {
+            /** Id */
+            id: number;
+            /** Key */
+            key: string;
+            /** Name */
+            name: string;
+            /** Category */
+            category: string;
+            status: components["schemas"]["IntegrationStatus"];
+            /** Description */
+            description: string;
+            /** Last Sync At */
+            last_sync_at: string | null;
+        };
+        /**
+         * IntegrationStatus
+         * @enum {string}
+         */
+        IntegrationStatus: "connected" | "pilot";
         /**
          * Language
          * @enum {string}
          */
         Language: "english" | "tamil" | "hindi";
+        /** LaunchOut */
+        LaunchOut: {
+            campaign: components["schemas"]["CampaignOut"];
+            /** Call Ids */
+            call_ids: number[];
+        };
         /**
          * Level
          * @enum {string}
          */
         Level: "full" | "view" | "approve" | "masked" | "own";
+        /** LiveCallRow */
+        LiveCallRow: {
+            /** Call Id */
+            call_id: number;
+            /** Call Ref */
+            call_ref: string;
+            mode: components["schemas"]["CallMode"];
+            direction: components["schemas"]["CallDirection"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Duration Sec */
+            duration_sec: number;
+            /** Customer Name */
+            customer_name: string | null;
+            /** Customer Phone */
+            customer_phone: string | null;
+            /** Policy No */
+            policy_no: string | null;
+            /** Agent Name */
+            agent_name: string | null;
+            /** Verified */
+            verified: boolean;
+            /** Bot Connected */
+            bot_connected: boolean;
+            /** Taken Over */
+            taken_over: boolean;
+            sentiment: components["schemas"]["Sentiment"] | null;
+            last_speaker: components["schemas"]["Speaker"] | null;
+            /** Last Text */
+            last_text: string | null;
+        };
         /** LoginIn */
         LoginIn: {
             /**
@@ -421,6 +1504,34 @@ export interface components {
             /** Request Data */
             request_data?: unknown | null;
         };
+        /** PolicyDetail */
+        PolicyDetail: {
+            /** Id */
+            id: number;
+            /** Policy No */
+            policy_no: string;
+            product: components["schemas"]["Product"];
+            /** Plan Name */
+            plan_name: string;
+            /** Sum Insured Inr */
+            sum_insured_inr: number;
+            /** Premium Inr */
+            premium_inr: number;
+            status: components["schemas"]["PolicyStatus"];
+            /**
+             * Start Date
+             * Format: date
+             */
+            start_date: string;
+            /**
+             * Renewal Date
+             * Format: date
+             */
+            renewal_date: string;
+            /** Vehicle Reg */
+            vehicle_reg: string | null;
+            customer: components["schemas"]["CustomerOut"];
+        };
         /** PolicyOut */
         PolicyOut: {
             /** Id */
@@ -454,10 +1565,57 @@ export interface components {
          */
         PolicyStatus: "active" | "due" | "lapsed" | "renewed";
         /**
+         * Priority
+         * @enum {string}
+         */
+        Priority: "low" | "medium" | "high" | "urgent";
+        /**
          * Product
          * @enum {string}
          */
         Product: "motor" | "health" | "term_life";
+        /** QADetail */
+        QADetail: {
+            /** Call Id */
+            call_id: number;
+            /** Call Ref */
+            call_ref: string;
+            mode: components["schemas"]["CallMode"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Duration Sec */
+            duration_sec: number;
+            /** Customer Name */
+            customer_name: string | null;
+            outcome: components["schemas"]["CallOutcome"] | null;
+            /** Score */
+            score: number | null;
+            /** Source */
+            source: string | null;
+            /** Ai Disclosure */
+            ai_disclosure: boolean | null;
+            /** Identity Verified */
+            identity_verified: boolean | null;
+            /** Correct Figures */
+            correct_figures: boolean | null;
+            /** No Mis Selling */
+            no_mis_selling: boolean | null;
+            /** Polite Close */
+            polite_close: boolean | null;
+            /** Reviewer Name */
+            reviewer_name: string | null;
+            /** Reviewer Note */
+            reviewer_note: string | null;
+            /** Locked At */
+            locked_at: string | null;
+            /** Summary */
+            summary: string | null;
+            /** Turns */
+            turns: components["schemas"]["TurnOut"][];
+        };
         /** QAOut */
         QAOut: {
             /** Ai Disclosure */
@@ -474,6 +1632,75 @@ export interface components {
             score: number;
             /** Source */
             source: string;
+        };
+        /** QAPage */
+        QAPage: {
+            /** Items */
+            items: components["schemas"]["QARow"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** QAReviewIn */
+        QAReviewIn: {
+            /** Ai Disclosure */
+            ai_disclosure: boolean;
+            /** Identity Verified */
+            identity_verified: boolean;
+            /** Correct Figures */
+            correct_figures: boolean;
+            /** No Mis Selling */
+            no_mis_selling: boolean;
+            /** Polite Close */
+            polite_close: boolean;
+            /** Note */
+            note?: string | null;
+            /**
+             * Lock
+             * @default false
+             */
+            lock: boolean;
+        };
+        /** QARow */
+        QARow: {
+            /** Call Id */
+            call_id: number;
+            /** Call Ref */
+            call_ref: string;
+            mode: components["schemas"]["CallMode"];
+            /**
+             * Started At
+             * Format: date-time
+             */
+            started_at: string;
+            /** Duration Sec */
+            duration_sec: number;
+            /** Customer Name */
+            customer_name: string | null;
+            outcome: components["schemas"]["CallOutcome"] | null;
+            /** Score */
+            score: number | null;
+            /** Source */
+            source: string | null;
+            /** Ai Disclosure */
+            ai_disclosure: boolean | null;
+            /** Identity Verified */
+            identity_verified: boolean | null;
+            /** Correct Figures */
+            correct_figures: boolean | null;
+            /** No Mis Selling */
+            no_mis_selling: boolean | null;
+            /** Polite Close */
+            polite_close: boolean | null;
+            /** Reviewer Name */
+            reviewer_name: string | null;
+            /** Reviewer Note */
+            reviewer_note: string | null;
+            /** Locked At */
+            locked_at: string | null;
         };
         /** QueueItem */
         QueueItem: {
@@ -501,6 +1728,20 @@ export interface components {
             /** Last Called At */
             last_called_at: string | null;
         };
+        /** ResolveIn */
+        ResolveIn: {
+            /** Note */
+            note: string;
+        };
+        /** ReviewIn */
+        ReviewIn: {
+            /** Note */
+            note?: string | null;
+            /** Checklist */
+            checklist?: {
+                [key: string]: boolean;
+            };
+        };
         /**
          * Role
          * @enum {string}
@@ -518,6 +1759,95 @@ export interface components {
          * @enum {string}
          */
         Screen: "dashboard" | "agent_console" | "escalations" | "live_monitor" | "calls" | "customers" | "campaigns" | "followups" | "bot_studio" | "approvals" | "qa" | "audit" | "users" | "integrations";
+        /** ScriptApproval */
+        ScriptApproval: {
+            script: components["schemas"]["ScriptOut"];
+            base: components["schemas"]["ScriptOut"] | null;
+            /** Diff */
+            diff: components["schemas"]["DiffRow"][];
+        };
+        /** ScriptIn */
+        ScriptIn: {
+            /** Name */
+            name: string;
+            mode: components["schemas"]["CallMode"];
+            /** System Prompt */
+            system_prompt: string;
+            /** Parent Id */
+            parent_id?: number | null;
+        };
+        /** ScriptOut */
+        ScriptOut: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            mode: components["schemas"]["CallMode"];
+            /** Version */
+            version: number;
+            /** System Prompt */
+            system_prompt: string;
+            status: components["schemas"]["ApprovalStatus"];
+            /** Parent Id */
+            parent_id: number | null;
+            /** Created By */
+            created_by: number;
+            /**
+             * Created By Name
+             * @default
+             */
+            created_by_name: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Submitted At */
+            submitted_at: string | null;
+            /** Reviewed By */
+            reviewed_by: number | null;
+            /** Reviewed By Name */
+            reviewed_by_name?: string | null;
+            /** Reviewed At */
+            reviewed_at: string | null;
+            /** Review Note */
+            review_note: string | null;
+            /** Checklist */
+            checklist: {
+                [key: string]: boolean;
+            } | null;
+            /**
+             * Active
+             * @default false
+             */
+            active: boolean;
+        };
+        /** ScriptPatch */
+        ScriptPatch: {
+            /** Name */
+            name?: string | null;
+            /** System Prompt */
+            system_prompt?: string | null;
+        };
+        /** ScriptRef */
+        ScriptRef: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Version */
+            version: number;
+        };
+        /** Segment */
+        Segment: {
+            /**
+             * Renewal Within Days
+             * @default 30
+             */
+            renewal_within_days: number;
+            /** Languages */
+            languages?: components["schemas"]["Language"][];
+        };
         /**
          * Sentiment
          * @enum {string}
@@ -571,6 +1901,56 @@ export interface components {
          * @enum {string}
          */
         Speaker: "bot" | "customer" | "agent" | "tool";
+        /** TestCallIn */
+        TestCallIn: {
+            /**
+             * Customer Says
+             * @default I want to renew my policy.
+             */
+            customer_says: string;
+        };
+        /** TestCallOut */
+        TestCallOut: {
+            /** Checks */
+            checks: {
+                [key: string]: boolean;
+            };
+            /** Turns */
+            turns: components["schemas"]["TestTurn"][];
+            /**
+             * Simulated
+             * @default true
+             */
+            simulated: boolean;
+            /** Note */
+            note: string;
+        };
+        /** TestTurn */
+        TestTurn: {
+            speaker: components["schemas"]["Speaker"];
+            /** Text */
+            text: string;
+        };
+        /** TrendPoint */
+        TrendPoint: {
+            /**
+             * Day
+             * Format: date
+             */
+            day: string;
+            /** Calls */
+            calls: number;
+            /** Renewals */
+            renewals: number;
+            /** Collections Inr */
+            collections_inr: number;
+            /** Positive */
+            positive: number;
+            /** Neutral */
+            neutral: number;
+            /** Negative */
+            negative: number;
+        };
         /** TurnOut */
         TurnOut: {
             /** Seq */
@@ -587,6 +1967,42 @@ export interface components {
                 [key: string]: unknown;
             } | null;
         };
+        /** UserAdminRow */
+        UserAdminRow: {
+            /** Id */
+            id: number;
+            /** Email */
+            email: string;
+            /** Full Name */
+            full_name: string;
+            /** Job Title */
+            job_title: string;
+            role: components["schemas"]["Role"];
+            /** Is Active */
+            is_active: boolean;
+            /** Last Login At */
+            last_login_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** UserCreateIn */
+        UserCreateIn: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Full Name */
+            full_name: string;
+            /** Job Title */
+            job_title: string;
+            role: components["schemas"]["Role"];
+            /** Password */
+            password: string;
+        };
         /** UserOut */
         UserOut: {
             /** Id */
@@ -598,6 +2014,18 @@ export interface components {
             /** Job Title */
             job_title: string;
             role: components["schemas"]["Role"];
+        };
+        /** UserPatchIn */
+        UserPatchIn: {
+            /** Full Name */
+            full_name?: string | null;
+            /** Job Title */
+            job_title?: string | null;
+            role?: components["schemas"]["Role"] | null;
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Password */
+            password?: string | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -743,7 +2171,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CustomerDetail"];
+                    "application/json": components["schemas"]["Customer360"];
                 };
             };
             /** @description Validation Error */
@@ -988,6 +2416,1204 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_audit_api_v1_audit_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+                /** @description Actor name or email contains */
+                actor?: string | null;
+                action?: components["schemas"]["AuditAction"] | null;
+                entity_type?: string | null;
+                /** @description IST calendar day, inclusive */
+                date_from?: string | null;
+                /** @description IST calendar day, inclusive */
+                date_to?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_audit_api_v1_audit_export_csv_get: {
+        parameters: {
+            query?: {
+                /** @description Actor name or email contains */
+                actor?: string | null;
+                action?: components["schemas"]["AuditAction"] | null;
+                entity_type?: string | null;
+                /** @description IST calendar day, inclusive */
+                date_from?: string | null;
+                /** @description IST calendar day, inclusive */
+                date_to?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/csv": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_integrations_api_v1_integrations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IntegrationOut"][];
+                };
+            };
+        };
+    };
+    live_calls_api_v1_live_calls_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LiveCallRow"][];
+                };
+            };
+        };
+    };
+    list_users_api_v1_users_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAdminRow"][];
+                };
+            };
+        };
+    };
+    create_user_api_v1_users_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserCreateIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAdminRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    deactivate_user_api_v1_users__user_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAdminRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_user_api_v1_users__user_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserPatchIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAdminRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_calls_api_v1_calls_get: {
+        parameters: {
+            query?: {
+                /** @description Call ref, customer name or policy no. */
+                q?: string | null;
+                outcome?: components["schemas"]["CallOutcome"] | null;
+                sentiment?: components["schemas"]["Sentiment"] | null;
+                mode?: components["schemas"]["CallMode"] | null;
+                /** @description IST calendar day */
+                date_from?: string | null;
+                /** @description IST calendar day, inclusive */
+                date_to?: string | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_call_api_v1_calls__call_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    summary_api_v1_dashboard_summary_get: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DashboardSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    trends_api_v1_dashboard_trends_get: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrendPoint"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_escalations_api_v1_escalations_get: {
+        parameters: {
+            query?: {
+                /** @description Omit for the active queue (open + assigned) */
+                status?: components["schemas"]["EscalationStatus"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscalationRow"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    claim_api_v1_escalations__escalation_id__claim_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escalation_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscalationRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resolve_api_v1_escalations__escalation_id__resolve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                escalation_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResolveIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscalationRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_followups_api_v1_followups_get: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["FollowupStatus"] | null;
+                kind?: components["schemas"]["FollowupKind"] | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowupPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_followup_api_v1_followups_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FollowupIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowupRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_followup_api_v1_followups__followup_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                followup_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FollowupPatch"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowupRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_policy_api_v1_policies__policy_no__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                policy_no: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PolicyDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    pending_approvals_api_v1_approvals_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApprovalsOut"];
+                };
+            };
+        };
+    };
+    list_campaigns_api_v1_campaigns_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"][];
+                };
+            };
+        };
+    };
+    create_campaign_api_v1_campaigns_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    preview_audience_api_v1_campaigns_audience_get: {
+        parameters: {
+            query: {
+                product: components["schemas"]["Product"];
+                renewal_within_days?: number;
+                languages?: components["schemas"]["Language"][];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AudienceOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_campaign_api_v1_campaigns__campaign_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignPatch"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_campaign_api_v1_campaigns__campaign_id__submit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    launch_campaign_api_v1_campaigns__campaign_id__launch_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LaunchOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    approve_campaign_api_v1_campaigns__campaign_id__approve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reject_campaign_api_v1_campaigns__campaign_id__reject_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    qa_queue_api_v1_qa_queue_get: {
+        parameters: {
+            query?: {
+                state?: "open" | "locked" | "all";
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QAPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    qa_detail_api_v1_qa__call_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QADetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    review_call_api_v1_qa__call_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QAReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QADetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_scripts_api_v1_scripts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"][];
+                };
+            };
+        };
+    };
+    create_script_api_v1_scripts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScriptIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_script_api_v1_scripts__script_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                script_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScriptPatch"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    submit_script_api_v1_scripts__script_id__submit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                script_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    test_call_api_v1_scripts__script_id__test_call_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                script_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TestCallIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TestCallOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    approve_script_api_v1_scripts__script_id__approve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                script_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reject_script_api_v1_scripts__script_id__reject_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                script_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScriptOut"];
                 };
             };
             /** @description Validation Error */

@@ -30,7 +30,8 @@ const email = (name: string) => {
 };
 
 async function signIn(page: Page, name: string) {
-  await page.goto("/login");
+  // networkidle: filling before hydration loses the submit handler under parallel dev load.
+  await page.goto("/login", { waitUntil: "networkidle" });
   await page.getByLabel("Work email").fill(email(name));
   await page.getByLabel("Password", { exact: true }).fill(PASSWORD);
   await page.getByRole("button", { name: "Sign in" }).click();
@@ -54,6 +55,7 @@ for (const p of PERSONAS) {
 test("anonymous users are sent to sign-in and returned after", async ({ page }) => {
   await page.goto("/customers");
   await expect(page).toHaveURL(/\/login\?next=%2Fcustomers/);
+  await page.waitForLoadState("networkidle");
   await page.getByLabel("Work email").fill(email("Divya Krishnan"));
   await page.getByLabel("Password", { exact: true }).fill(PASSWORD);
   await page.getByRole("button", { name: "Sign in" }).click();

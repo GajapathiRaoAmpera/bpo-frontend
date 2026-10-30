@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { Campaigns } from "@/app/(app)/campaigns/campaigns";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Campaigns" };
 
 export default function Page() {
-  return <ModulePending screen="campaigns" />;
+  return (
+    <ScreenGuard screen="campaigns">
+      <Campaigns />
+    </ScreenGuard>
+  );
 }

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { BotStudio } from "@/app/(app)/bot-studio/bot-studio";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Bot Studio" };
 
 export default function Page() {
-  return <ModulePending screen="bot_studio" />;
+  return (
+    <ScreenGuard screen="bot_studio">
+      <BotStudio />
+    </ScreenGuard>
+  );
 }

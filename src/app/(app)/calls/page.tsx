@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { CallsTable } from "@/app/(app)/calls/calls-table";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Call History" };
 
 export default function Page() {
-  return <ModulePending screen="calls" />;
+  return (
+    <ScreenGuard screen="calls">
+      <CallsTable />
+    </ScreenGuard>
+  );
 }

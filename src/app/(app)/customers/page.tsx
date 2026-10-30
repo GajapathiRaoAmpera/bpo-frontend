@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 
-import { ModulePending } from "@/components/common/module-pending";
+import { CustomersTable } from "@/app/(app)/customers/customers-table";
+import { ScreenGuard } from "@/components/shell/screen-guard";
 
 export const metadata: Metadata = { title: "Customers & Policies" };
 
 export default function Page() {
-  return <ModulePending screen="customers" />;
+  return (
+    <ScreenGuard screen="customers">
+      <CustomersTable />
+    </ScreenGuard>
+  );
 }
