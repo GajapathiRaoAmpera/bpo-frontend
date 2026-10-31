@@ -9,26 +9,29 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { Schemas } from "@/lib/api";
 import { formatDate, formatINR } from "@/lib/format";
 import { formatDuration, LANGUAGE_LABEL, OUTCOME_LABEL, PRODUCT_LABEL, QA_LABEL, SENTIMENT_LABEL, TOOL_LABEL } from "@/lib/labels";
+import { cn } from "@/lib/utils";
+
+import styles from "./side-panels.module.scss";
 
 type Session = Schemas["SessionOut"];
 
 function Card({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="flex flex-col rounded-lg bg-surface-container-lowest shadow-card">
-      <div className="flex items-center justify-between gap-space-sm border-b border-divider px-space-md py-space-sm">
-        <h2 className="text-headline-sm text-on-surface">{title}</h2>
+    <section className={styles.card}>
+      <div className={styles.cardHead}>
+        <h2 className={styles.cardTitle}>{title}</h2>
         {action}
       </div>
-      <div className="p-space-md">{children}</div>
+      <div className={styles.cardBody}>{children}</div>
     </section>
   );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between gap-space-md py-1.5">
-      <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">{label}</dt>
-      <dd className="text-right text-data-mono text-on-surface">{children}</dd>
+    <div className={styles.field}>
+      <dt className={styles.eyebrow}>{label}</dt>
+      <dd className={styles.fieldValue}>{children}</dd>
     </div>
   );
 }
@@ -39,11 +42,11 @@ export function CustomerCard({ session, preview }: { session: Session | undefine
   if (!customer && !preview) {
     return (
       <Card title="Customer">
-        <div className="flex flex-col items-center gap-space-sm py-space-lg text-center">
-          <span className="flex size-10 items-center justify-center rounded-full bg-surface-container-low text-primary-container">
-            <UserRound aria-hidden className="size-5" />
+        <div className={styles.emptyCustomer}>
+          <span className={styles.emptyIcon}>
+            <UserRound aria-hidden className={styles.iconLg} />
           </span>
-          <p className="text-body-sm text-on-surface-variant">
+          <p className={styles.muted}>
             {session ? "Caller not identified yet. The AI verifies the policy number and date of birth first." : "Select a renewal or take an inbound call."}
           </p>
         </div>
@@ -56,21 +59,21 @@ export function CustomerCard({ session, preview }: { session: Session | undefine
     <Card
       title="Customer"
       action={session ? (verified
-        ? <Pill tone="success"><BadgeCheck aria-hidden className="size-3" />Verified</Pill>
-        : <Pill tone="warning"><ShieldAlert aria-hidden className="size-3" />Not yet verified</Pill>) : undefined}
+        ? <Pill tone="success"><BadgeCheck aria-hidden className={styles.pillIcon} />Verified</Pill>
+        : <Pill tone="warning"><ShieldAlert aria-hidden className={styles.pillIcon} />Not yet verified</Pill>) : undefined}
     >
-      <div className="flex items-center gap-space-md pb-space-sm">
-        <span aria-hidden className="flex size-11 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-headline-sm text-primary">
+      <div className={styles.identity}>
+        <span aria-hidden className={styles.avatar}>
           {name.split(" ").slice(0, 2).map((p) => p[0]).join("")}
         </span>
-        <div className="flex min-w-0 flex-col">
-          <span className="truncate text-headline-sm text-on-surface">{name}</span>
-          <span className="truncate text-label-sm text-on-surface-variant">
+        <div className={styles.identityText}>
+          <span className={styles.name}>{name}</span>
+          <span className={styles.location}>
             {customer ? `${customer.city}, ${customer.state}` : preview!.city}
           </span>
         </div>
       </div>
-      <dl className="divide-y divide-divider border-t border-divider">
+      <dl className={styles.fields}>
         {customer && <Field label="Customer ID">{customer.customer_code}</Field>}
         {customer && <Field label="Mobile">{customer.phone}</Field>}
         <Field label="Language"><Pill tone="lang">{LANGUAGE_LABEL[customer?.preferred_language ?? preview!.preferred_language]}</Pill></Field>
@@ -80,7 +83,7 @@ export function CustomerCard({ session, preview }: { session: Session | undefine
         {(policy || preview) && <Field label="Renewal due">{formatDate(policy?.renewal_date ?? preview!.renewal_date)}</Field>}
       </dl>
       {session && !verified && (
-        <p className="mt-space-sm text-label-sm text-on-surface-variant">The AI shares nothing about this policy until identity is verified.</p>
+        <p className={styles.verifyNote}>The AI shares nothing about this policy until identity is verified.</p>
       )}
     </Card>
   );
@@ -96,25 +99,25 @@ export function ActionsTimeline({ session }: { session: Session | undefined }) {
   return (
     <Card title="AI actions" action={actions.length ? <Pill tone="info">{actions.length}</Pill> : undefined}>
       {actions.length === 0 ? (
-        <p className="py-space-sm text-body-sm text-on-surface-variant">
+        <p className={styles.noActions}>
           {session ? "Tool calls the AI makes (identity check, policy lookup, payment link, callback, escalation) appear here." : "No call in progress."}
         </p>
       ) : (
-        <ol className="relative flex flex-col gap-space-md before:absolute before:top-2 before:bottom-2 before:left-3.25 before:w-px before:bg-divider">
+        <ol className={styles.timeline}>
           {actions.map((t) => {
             const ok = Boolean((t.tool_payload?.result as { ok?: boolean } | undefined)?.ok);
             const Icon = TOOL_ICON[t.tool_name ?? ""] ?? Search;
             return (
-              <li key={t.seq} className="relative flex gap-space-sm">
-                <span className={`z-10 flex size-7 shrink-0 items-center justify-center rounded-full ${ok ? "bg-lang-bg text-secondary" : "bg-danger-bg text-danger-text"}`}>
-                  <Icon aria-hidden className="size-3.5" />
+              <li key={t.seq} className={styles.action}>
+                <span className={cn(styles.actionIcon, ok ? styles.actionOk : styles.actionFailed)}>
+                  <Icon aria-hidden />
                 </span>
-                <div className="flex min-w-0 flex-col">
-                  <div className="flex items-center gap-space-sm">
-                    <span className="text-label-md text-on-surface">{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}</span>
-                    <span className="text-data-mono text-label-xs text-outline">{formatDuration(t.offset_ms / 1000)}</span>
+                <div className={styles.actionBody}>
+                  <div className={styles.actionHead}>
+                    <span className={styles.label}>{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}</span>
+                    <span className={styles.time}>{formatDuration(t.offset_ms / 1000)}</span>
                   </div>
-                  <span className={`text-body-sm ${ok ? "text-on-surface-variant" : "text-danger-text"}`}>{t.text}</span>
+                  <span className={cn(styles.actionText, !ok && styles.actionTextFailed)}>{t.text}</span>
                 </div>
               </li>
             );
@@ -135,11 +138,11 @@ export function CallSummary({ session }: { session: Session }) {
   if (session.analysis_pending) {
     return (
       <Card title="Call summary" action={<Pill tone="live" pulse>Analysing</Pill>}>
-        <div aria-busy="true" className="flex flex-col gap-space-sm">
-          <p className="text-body-sm text-on-surface-variant">Writing the summary and QA score with Gemini…</p>
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-5/6" />
-          <Skeleton className="h-4 w-2/3" />
+        <div aria-busy="true" className={styles.pending}>
+          <p className={styles.muted}>Writing the summary and QA score with Gemini…</p>
+          <Skeleton className={cn(styles.line, styles.lineFull)} />
+          <Skeleton className={cn(styles.line, styles.lineLong)} />
+          <Skeleton className={cn(styles.line, styles.lineShort)} />
         </div>
       </Card>
     );
@@ -147,41 +150,41 @@ export function CallSummary({ session }: { session: Session }) {
   const qa = session.qa;
   return (
     <Card title="Call summary" action={session.outcome && <Pill tone={OUTCOME_TONE[session.outcome]}>{OUTCOME_LABEL[session.outcome]}</Pill>}>
-      <div className="flex flex-col gap-space-md">
-        <div className="flex flex-wrap items-center gap-space-sm text-label-xs font-medium text-on-surface-variant">
-          <span className="text-data-mono">{session.call_ref}</span>
+      <div className={styles.stack}>
+        <div className={styles.summaryMeta}>
+          <span className={styles.mono}>{session.call_ref}</span>
           <span>·</span>
           <span>{formatDuration(session.duration_sec)}</span>
           {session.sentiment && <Pill tone={SENTIMENT_TONE[session.sentiment]}>{SENTIMENT_LABEL[session.sentiment]} sentiment</Pill>}
         </div>
-        {session.summary && <p className="text-body-md text-on-surface">{session.summary}</p>}
+        {session.summary && <p className={styles.summary}>{session.summary}</p>}
         {session.next_action && (
-          <div className="rounded-lg bg-surface-container-low p-space-sm">
-            <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">Next action</span>
-            <p className="text-body-sm text-on-surface">{session.next_action}</p>
+          <div className={styles.nextAction}>
+            <span className={styles.eyebrow}>Next action</span>
+            <p className={styles.nextActionText}>{session.next_action}</p>
           </div>
         )}
         {qa && (
-          <div className="flex flex-col gap-space-sm border-t border-divider pt-space-md">
-            <div className="flex items-baseline justify-between">
-              <span className="text-label-md text-on-surface">QA score</span>
-              <span className="text-headline-md text-primary">{qa.score} / 5</span>
+          <div className={styles.qa}>
+            <div className={styles.qaHead}>
+              <span className={styles.label}>QA score</span>
+              <span className={styles.score}>{qa.score} / 5</span>
             </div>
-            <ul className="flex flex-col gap-1.5">
+            <ul className={styles.checks}>
               {(Object.keys(QA_LABEL) as (keyof typeof QA_LABEL)[]).map((k) => (
-                <li key={k} className="flex items-center gap-space-sm text-body-sm">
+                <li key={k} className={styles.check}>
                   {qa[k]
-                    ? <CircleCheck aria-label="Passed" className="size-4 text-success" />
-                    : <CircleX aria-label="Failed" className="size-4 text-danger" />}
-                  <span className={qa[k] ? "text-on-surface" : "text-danger-text"}>{QA_LABEL[k]}</span>
+                    ? <CircleCheck aria-label="Passed" className={styles.passIcon} />
+                    : <CircleX aria-label="Failed" className={styles.failIcon} />}
+                  <span className={qa[k] ? styles.passed : styles.failed}>{QA_LABEL[k]}</span>
                 </li>
               ))}
             </ul>
-            <span className="text-label-xs font-medium text-outline">Scored by AI · QA analysts can review it in QA Review</span>
+            <span className={styles.footnote}>Scored by AI · QA analysts can review it in QA Review</span>
           </div>
         )}
         {!qa && session.outcome !== "no_answer" && (
-          <p className="border-t border-divider pt-space-md text-body-sm text-on-surface-variant">
+          <p className={styles.notScored}>
             QA not scored automatically. A QA analyst will review this call.
           </p>
         )}

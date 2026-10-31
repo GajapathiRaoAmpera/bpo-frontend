@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import type { Schemas } from "@/lib/api";
+import { cn } from "@/lib/utils";
+
+import styles from "./shared.module.scss";
 
 type Status = Schemas["CampaignStatus"]; // superset of ApprovalStatus
 
@@ -40,19 +43,19 @@ export function Panel({ title, action, children, className }: {
   title: React.ReactNode; action?: React.ReactNode; children: React.ReactNode; className?: string;
 }) {
   return (
-    <section className={`flex flex-col rounded-lg bg-surface-container-lowest shadow-card ${className ?? ""}`}>
-      <div className="flex min-h-12 items-center justify-between gap-space-sm border-b border-divider px-space-md py-space-sm">
-        <h2 className="text-headline-sm text-on-surface">{title}</h2>
+    <section className={cn(styles.panel, className)}>
+      <div className={styles.panelHead}>
+        <h2 className={styles.panelTitle}>{title}</h2>
         {action}
       </div>
-      <div className="flex flex-col gap-space-md p-space-md">{children}</div>
+      <div className={styles.panelBody}>{children}</div>
     </section>
   );
 }
 
 export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => void }) {
   return (
-    <div role="alert" className="flex items-center justify-between gap-space-md rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+    <div role="alert" className={styles.error}>
       {error.message}
       {onRetry && <Button size="sm" variant="outline" onClick={onRetry}>Try again</Button>}
     </div>
@@ -77,7 +80,7 @@ export function Confirm({ label, icon, title, description, confirmLabel, onConfi
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant={variant} size={size} disabled={disabled || busy}>
-          {busy ? <Loader2 aria-hidden className="animate-spin" /> : icon}
+          {busy ? <Loader2 aria-hidden className={styles.spinner} /> : icon}
           {label}
         </Button>
       </AlertDialogTrigger>
@@ -90,7 +93,7 @@ export function Confirm({ label, icon, title, description, confirmLabel, onConfi
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button variant={variant === "outline" ? "default" : variant} disabled={busy}
             onClick={() => onConfirm().then(() => setOpen(false), () => undefined)}>
-            {busy && <Loader2 aria-hidden className="animate-spin" />}
+            {busy && <Loader2 aria-hidden className={styles.spinner} />}
             {confirmLabel ?? label}
           </Button>
         </AlertDialogFooter>

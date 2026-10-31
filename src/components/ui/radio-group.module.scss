@@ -1,0 +1,57 @@
+@use "styles/mixins" as *;
+
+.group {
+  display: grid;
+  width: 100%;
+  gap: space(2);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  aspect-ratio: 1 / 1;
+  @include size(space(4));
+  flex-shrink: 0;
+  border: 1px solid var(--input);
+  border-radius: 9999px;
+  outline: none;
+
+  // Enlarged hit area.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: space(-2) space(-3);
+  }
+  &:focus-visible {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  &:disabled { cursor: not-allowed; opacity: 0.5; }
+  &[aria-invalid="true"] {
+    border-color: var(--destructive);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent);
+  }
+  &[data-state="checked"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--primary-foreground);
+  }
+  &[aria-invalid="true"][aria-checked="true"] { border-color: var(--color-primary); }
+}
+
+.indicator {
+  display: flex;
+  @include size(space(4));
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include size(space(2));
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background: var(--primary-foreground);
+}

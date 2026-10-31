@@ -1,0 +1,73 @@
+@use "styles/mixins" as *;
+
+.badge {
+  display: inline-flex;
+  height: space(5);
+  width: fit-content;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: space(1);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 2rem;
+  padding: space(0.5) space(2);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus-visible {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  &:has([data-icon="inline-end"]) { padding-right: space(1.5); }
+  &:has([data-icon="inline-start"]) { padding-left: space(1.5); }
+  &[aria-invalid="true"] {
+    border-color: var(--destructive);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent);
+  }
+
+  // Tailwind had size-3! here; the child selector out-ranks a caller's single icon class.
+  > svg {
+    pointer-events: none;
+    width: space(3);
+    height: space(3);
+  }
+}
+
+.default {
+  background: var(--color-primary);
+  color: var(--primary-foreground);
+  &:is(a):hover { background: color-mix(in srgb, var(--color-primary) 80%, transparent); }
+}
+
+.secondary {
+  background: var(--color-secondary);
+  color: var(--secondary-foreground);
+  &:is(a):hover { background: color-mix(in srgb, var(--color-secondary) 80%, transparent); }
+}
+
+.destructive {
+  background: color-mix(in srgb, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+  &:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &:is(a):hover { background: color-mix(in srgb, var(--destructive) 20%, transparent); }
+}
+
+.outline {
+  border-color: var(--border);
+  color: var(--foreground);
+  &:is(a):hover { background: var(--muted); color: var(--muted-foreground); }
+}
+
+.ghost {
+  &:hover { background: var(--muted); color: var(--muted-foreground); }
+}
+
+.link {
+  color: var(--color-primary);
+  text-underline-offset: 4px;
+  &:hover { text-decoration-line: underline; }
+}

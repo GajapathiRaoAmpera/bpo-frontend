@@ -1,0 +1,110 @@
+// Global styles: tokens, a minimal reset and base typography. Component styles live in co-located
+// *.module.scss files; never hard-code a colour that has a token (see src/styles/_tokens.scss).
+@use "styles/tokens";
+@use "styles/mixins" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid var(--border);
+  outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  line-height: 1.5;
+}
+
+body {
+  background: var(--background);
+  color: var(--color-on-surface);
+  @include text(body-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // tabular figures for policy numbers, premiums, durations
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 1em;
+}
+
+ol, ul, menu {
+  list-style: none;
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: block;
+  vertical-align: middle;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+button, input, select, optgroup, textarea {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+button, [role="button"] {
+  cursor: pointer;
+}
+
+:disabled {
+  cursor: default;
+}
+
+input::placeholder, textarea::placeholder {
+  opacity: 1;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+textarea {
+  resize: vertical;
+}
+
+table {
+  border-collapse: collapse;
+  text-indent: 0;
+  border-color: inherit;
+}
+
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none !important;
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

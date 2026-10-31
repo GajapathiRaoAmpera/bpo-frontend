@@ -19,6 +19,8 @@ import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./approvals.module.scss";
+
 type ScriptItem = Schemas["ScriptApproval"];
 type Campaign = Schemas["CampaignOut"];
 type Selected = { kind: "script"; id: number } | { kind: "campaign"; id: number };
@@ -38,29 +40,29 @@ export function Approvals() {
   const total = (data?.scripts.length ?? 0) + (data?.campaigns.length ?? 0);
 
   return (
-    <div className="flex flex-col gap-space-lg">
+    <div className={styles.page}>
       <PageHeader
         title="Approvals"
         description="Maker-checker for bot scripts and outbound campaigns. Compare each change with what is live, tick the compliance checklist, then approve or send it back."
         badge={data ? <Pill tone={total ? "warning" : "success"}>{total} awaiting review</Pill> : undefined}
       />
       {error && <ErrorBox error={error} onRetry={() => refetch()} />}
-      {isLoading && <Skeleton className="h-96 rounded-lg" />}
+      {isLoading && <Skeleton className={styles.loading} />}
       {data && total === 0 && (
         <EmptyState icon={CircleCheckBig} title="Nothing awaiting approval"
           description="New script versions and campaigns appear here when their makers submit them." />
       )}
       {data && total > 0 && (
-        <div className="grid grid-cols-12 items-start gap-space-lg">
-          <Panel title="Queue" className="col-span-3">
+        <div className={styles.layout}>
+          <Panel title="Queue" className={styles.side}>
             {data.scripts.map(({ script: s }) => (
               <QueueButton key={`s${s.id}`} active={shownScript?.script.id === s.id} onClick={() => setSel({ kind: "script", id: s.id })}
-                icon={<Bot aria-hidden className="size-4" />} title={`${s.name} v${s.version}`}
+                icon={<Bot aria-hidden className={styles.icon} />} title={`${s.name} v${s.version}`}
                 meta={`Script · ${MODE_LABEL[s.mode]} · ${s.created_by_name}`} when={s.submitted_at} />
             ))}
             {data.campaigns.map((c) => (
               <QueueButton key={`c${c.id}`} active={shownCampaign?.id === c.id} onClick={() => setSel({ kind: "campaign", id: c.id })}
-                icon={<Megaphone aria-hidden className="size-4" />} title={c.name}
+                icon={<Megaphone aria-hidden className={styles.icon} />} title={c.name}
                 meta={`Campaign · ${PRODUCT_LABEL[c.product]} · ${c.created_by_name}`} when={c.submitted_at} />
             ))}
           </Panel>
@@ -77,13 +79,12 @@ function QueueButton({ active, onClick, icon, title, meta, when }: {
 }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={active}
-      className={cn("flex gap-space-sm rounded-lg border p-space-sm text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lang-border",
-        active ? "border-primary bg-surface-container-low" : "border-divider hover:bg-table-head")}>
-      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-surface-container-high text-primary">{icon}</span>
-      <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="truncate text-label-md text-on-surface">{title}</span>
-        <span className="truncate text-label-xs text-on-surface-variant">{meta}</span>
-        {when && <span className="text-label-xs text-outline">Submitted {formatDateTime(when)}</span>}
+      className={cn(styles.queueButton, active && styles.queueButtonActive)}>
+      <span className={styles.queueIcon}>{icon}</span>
+      <span className={styles.queueText}>
+        <span className={styles.queueTitle}>{title}</span>
+        <span className={styles.queueMeta}>{meta}</span>
+        {when && <span className={styles.queueWhen}>Submitted {formatDateTime(when)}</span>}
       </span>
     </button>
   );
@@ -106,27 +107,27 @@ function Decision({ name, checks, onDecide }: {
 
   return (
     <Panel title="Compliance checklist" action={<Pill tone={allTicked ? "success" : "neutral"}>{checks.filter((k) => ticked[k]).length}/{checks.length}</Pill>}>
-      <ul className="flex flex-col gap-space-sm">
+      <ul className={styles.checklist}>
         {checks.map((k) => (
-          <li key={k} className="flex items-start gap-space-sm">
-            <Checkbox id={`chk-${k}`} className="mt-0.5" checked={!!ticked[k]} onCheckedChange={(on) => setTicked({ ...ticked, [k]: on === true })} />
-            <Label htmlFor={`chk-${k}`} className="font-normal text-body-sm">{CHECK_LABEL[k] ?? k}</Label>
+          <li key={k} className={styles.checkItem}>
+            <Checkbox id={`chk-${k}`} className={styles.checkbox} checked={!!ticked[k]} onCheckedChange={(on) => setTicked({ ...ticked, [k]: on === true })} />
+            <Label htmlFor={`chk-${k}`} className={styles.checkLabel}>{CHECK_LABEL[k] ?? k}</Label>
           </li>
         ))}
       </ul>
-      <div className="flex flex-col gap-1.5">
+      <div className={styles.field}>
         <Label htmlFor="review-note">Reviewer note</Label>
         <Textarea id="review-note" value={note} onChange={(e) => setNote(e.target.value)} maxLength={2000}
-          placeholder="Required when sending back" className="min-h-24 border-divider text-body-sm" />
+          placeholder="Required when sending back" className={styles.note} />
       </div>
-      <div className="flex flex-col gap-space-sm">
+      <div className={styles.actions}>
         <Confirm label="Approve" icon={<ThumbsUp aria-hidden />} busy={busy === "approve"} disabled={!allTicked || busy !== null}
           title={`Approve “${name}”?`} description="It goes live immediately: approved scripts replace the bot's current version; approved campaigns can be launched by their maker. This is recorded in the audit log."
           onConfirm={() => decide(true)} />
         <Confirm label="Send back" variant="destructive" icon={<ThumbsDown aria-hidden />} busy={busy === "reject"} disabled={!note.trim() || busy !== null}
           title={`Reject “${name}”?`} description="The maker sees your note and must create a new version. This is recorded in the audit log."
           confirmLabel="Reject with note" onConfirm={() => decide(false)} />
-        {!allTicked && <p className="text-label-xs text-on-surface-variant">Tick every check to approve. Add a note to send it back.</p>}
+        {!allTicked && <p className={styles.hint}>Tick every check to approve. Add a note to send it back.</p>}
       </div>
     </Panel>
   );
@@ -152,34 +153,33 @@ function ScriptReview({ item, checks }: { item: ScriptItem; checks: string[] }) 
   const name = `${s.name} v${s.version}`;
   const decide = useDecide("script", s.id, name);
   const changed = diff.filter((d) => d.tag !== "equal").length;
-  const tone = { equal: "", delete: "bg-danger-bg text-danger-text", insert: "bg-success-bg text-success-text", replace: "" };
 
   return (
     <>
-      <Panel className="col-span-6" title={`Changes · ${MODE_LABEL[s.mode]}`} action={<Pill tone="info">{changed} lines changed</Pill>}>
-        <div className="overflow-hidden rounded-lg border border-divider">
-          <div className="grid grid-cols-2 border-b border-divider bg-table-head text-label-xs tracking-wider text-on-surface-variant uppercase">
-            <span className="px-space-sm py-2">{base ? `Live · v${base.version}` : "No approved version"}</span>
-            <span className="border-l border-divider px-space-sm py-2">Proposed · v{s.version}</span>
+      <Panel className={styles.main} title={`Changes · ${MODE_LABEL[s.mode]}`} action={<Pill tone="info">{changed} lines changed</Pill>}>
+        <div className={styles.diff}>
+          <div className={styles.diffHead}>
+            <span className={styles.diffHeadCell}>{base ? `Live · v${base.version}` : "No approved version"}</span>
+            <span className={cn(styles.diffHeadCell, styles.rightCell)}>Proposed · v{s.version}</span>
           </div>
-          <div className="max-h-[36rem] overflow-y-auto font-mono text-[12px] leading-5">
+          <div className={styles.diffBody}>
             {diff.map((d, i) => (
-              <div key={i} className="grid grid-cols-2">
-                <span className={cn("px-space-sm whitespace-pre-wrap", d.tag === "replace" ? "bg-danger-bg text-danger-text" : d.tag === "delete" && tone.delete)}>
+              <div key={i} className={styles.diffRow}>
+                <span className={cn(styles.diffCell, (d.tag === "replace" || d.tag === "delete") && styles.removed)}>
                   {d.left !== null && d.tag !== "equal" && <span className="sr-only">Removed: </span>}{d.left ?? ""}
                 </span>
-                <span className={cn("border-l border-divider px-space-sm whitespace-pre-wrap", d.tag === "replace" ? "bg-success-bg text-success-text" : d.tag === "insert" && tone.insert)}>
+                <span className={cn(styles.diffCell, styles.rightCell, (d.tag === "replace" || d.tag === "insert") && styles.added)}>
                   {d.right !== null && d.tag !== "equal" && <span className="sr-only">Added: </span>}{d.right ?? ""}
                 </span>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-label-sm text-on-surface-variant">
+        <p className={styles.caption}>
           By {s.created_by_name}{s.submitted_at && `, submitted ${formatDateTime(s.submitted_at)}`}. The bot keeps running {base ? `v${base.version}` : "nothing"} until this is approved.
         </p>
       </Panel>
-      <div className="col-span-3">
+      <div className={styles.side}>
         <Decision name={name} checks={checks} onDecide={(approve, body) => decide.mutateAsync({ approve, body })} />
       </div>
     </>
@@ -200,18 +200,18 @@ function CampaignReview({ campaign: c, checks }: { campaign: Campaign; checks: s
   ];
   return (
     <>
-      <Panel className="col-span-6" title={c.name} action={<Pill tone="warning"><ShieldCheck aria-hidden className="size-3" />Awaiting approval</Pill>}>
-        <dl className="divide-y divide-divider">
+      <Panel className={styles.main} title={c.name} action={<Pill tone="warning"><ShieldCheck aria-hidden className={styles.pillIcon} />Awaiting approval</Pill>}>
+        <dl className={styles.summary}>
           {rows.map(([k, v]) => (
-            <div key={k} className="grid grid-cols-3 gap-space-md py-2.5 text-body-sm">
-              <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">{k}</dt>
-              <dd className="col-span-2 text-on-surface">{v}</dd>
+            <div key={k} className={styles.summaryRow}>
+              <dt className={styles.summaryKey}>{k}</dt>
+              <dd className={styles.summaryValue}>{v}</dd>
             </div>
           ))}
         </dl>
-        <p className="text-label-sm text-on-surface-variant">Once approved, the maker can launch it.{IS_SANDBOX && " Sandbox launches place 3 simulated AI calls at a time."}</p>
+        <p className={styles.caption}>Once approved, the maker can launch it.{IS_SANDBOX && " Sandbox launches place 3 simulated AI calls at a time."}</p>
       </Panel>
-      <div className="col-span-3">
+      <div className={styles.side}>
         <Decision name={c.name} checks={checks} onDecide={(approve, body) => decide.mutateAsync({ approve, body })} />
       </div>
     </>

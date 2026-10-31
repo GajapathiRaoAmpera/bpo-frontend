@@ -19,6 +19,8 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
+import styles from "./bot-studio.module.scss";
+
 type Script = Schemas["ScriptOut"];
 const KEY = ["scripts"] as const;
 const MODES: Schemas["CallMode"][] = ["renewal", "inbound"];
@@ -37,24 +39,24 @@ export function BotStudio() {
   };
 
   return (
-    <div className="flex flex-col gap-space-lg">
+    <div className={styles.page}>
       <PageHeader
         title="Bot Studio"
         description="Write and test the voice agent's system prompts. A new version reaches the bot only after Operations or Compliance approves it."
-        badge={!canWrite ? <Pill tone="neutral"><Eye aria-hidden className="size-3" />View only</Pill> : undefined}
+        badge={!canWrite ? <Pill tone="neutral"><Eye aria-hidden className={styles.viewOnlyIcon} />View only</Pill> : undefined}
       />
       {error && <ErrorBox error={error} onRetry={() => refetch()} />}
 
-      <div className="grid grid-cols-2 gap-space-lg">
+      <div className={styles.modeGrid}>
         {MODES.map((mode) => {
           const active = data?.find((s) => s.mode === mode && s.active);
           const waiting = data?.filter((s) => s.mode === mode && s.status === "pending").length ?? 0;
           return (
-            <div key={mode} className="flex items-center gap-space-md rounded-lg bg-surface-container-lowest p-space-md shadow-card">
-              <span className="flex size-10 items-center justify-center rounded-lg bg-surface-container-high text-primary"><Bot aria-hidden className="size-5" /></span>
-              <div className="flex min-w-0 flex-1 flex-col">
-                <span className="text-headline-sm text-on-surface">Vani · {MODE_LABEL[mode]}</span>
-                <span className="text-label-sm text-on-surface-variant">
+            <div key={mode} className={styles.modeTile}>
+              <span className={styles.modeIcon}><Bot aria-hidden /></span>
+              <div className={styles.modeText}>
+                <span className={styles.modeTitle}>Vani · {MODE_LABEL[mode]}</span>
+                <span className={styles.modeMeta}>
                   {isLoading ? "Loading…" : active ? `${active.name} v${active.version} · approved ${active.reviewed_at ? formatDateTime(active.reviewed_at) : ""}` : "No approved script: calls can't start"}
                 </span>
               </div>
@@ -65,34 +67,33 @@ export function BotStudio() {
         })}
       </div>
 
-      <div className="grid grid-cols-12 items-start gap-space-lg">
-        <Panel title="Versions" className="col-span-3">
-          {isLoading && Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className="h-14 rounded-lg" />)}
-          {data?.length === 0 && <p className="text-body-sm text-on-surface-variant">No scripts yet.</p>}
+      <div className={styles.workspace}>
+        <Panel title="Versions" className={styles.versions}>
+          {isLoading && Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className={styles.versionSkeleton} />)}
+          {data?.length === 0 && <p className={styles.muted}>No scripts yet.</p>}
           {MODES.map((mode) => data?.some((s) => s.mode === mode) && (
-            <div key={mode} className="flex flex-col gap-space-xs">
-              <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">{MODE_LABEL[mode]}</span>
+            <div key={mode} className={styles.versionGroup}>
+              <span className={styles.groupLabel}>{MODE_LABEL[mode]}</span>
               {data.filter((s) => s.mode === mode).map((s) => (
                 <button key={s.id} type="button" onClick={() => setSelectedId(s.id)} aria-pressed={s.id === selected?.id}
-                  className={cn("flex flex-col gap-1 rounded-lg border p-space-sm text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lang-border",
-                    s.id === selected?.id ? "border-primary bg-surface-container-low" : "border-divider hover:bg-table-head")}>
-                  <div className="flex items-center justify-between gap-space-sm">
-                    <span className="truncate text-label-md text-on-surface">v{s.version} · {s.name}</span>
+                  className={cn(styles.version, s.id === selected?.id && styles.versionSelected)}>
+                  <div className={styles.versionHead}>
+                    <span className={styles.versionName}>v{s.version} · {s.name}</span>
                     {s.active ? <Pill tone="success">Live</Pill> : <Pill tone={STATUS[s.status].tone}>{STATUS[s.status].label}</Pill>}
                   </div>
-                  <span className="text-label-xs text-on-surface-variant">{s.created_by_name} · {formatDateTime(s.created_at)}</span>
+                  <span className={styles.small}>{s.created_by_name} · {formatDateTime(s.created_at)}</span>
                 </button>
               ))}
             </div>
           ))}
         </Panel>
 
-        <div className="col-span-6">
+        <div className={styles.editorCol}>
           {selected ? <Editor key={selected.id} script={selected} canWrite={canWrite} onSaved={refresh} />
             : !isLoading && <EmptyState icon={Bot} title="No script selected" description="Pick a version on the left to read or edit it." />}
         </div>
 
-        <div className="col-span-3">
+        <div className={styles.sideCol}>
           {selected && <Simulator key={selected.id} script={selected} canWrite={canWrite} />}
         </div>
       </div>
@@ -133,11 +134,11 @@ function Editor({ script, canWrite, onSaved }: { script: Script; canWrite: boole
     <Panel
       title={`System prompt · v${script.version}`}
       action={
-        <div className="flex gap-space-sm">
+        <div className={styles.toolbar}>
           {editable && (
             <>
               <Button size="sm" variant="outline" disabled={!dirty || !!invalid || save.isPending} onClick={() => save.mutate()}>
-                {save.isPending ? <Loader2 aria-hidden className="animate-spin" /> : <Save aria-hidden />}Save draft
+                {save.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <Save aria-hidden />}Save draft
               </Button>
               <Confirm size="sm" label="Submit for approval" icon={<Send aria-hidden />} busy={submit.isPending} disabled={!!invalid}
                 title={`Submit “${script.name}” v${script.version} for approval?`}
@@ -147,37 +148,37 @@ function Editor({ script, canWrite, onSaved }: { script: Script; canWrite: boole
           )}
           {canWrite && !editable && (
             <Button size="sm" variant="outline" disabled={fork.isPending} onClick={() => fork.mutate()}>
-              {fork.isPending ? <Loader2 aria-hidden className="animate-spin" /> : <CopyPlus aria-hidden />}New version from this
+              {fork.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <CopyPlus aria-hidden />}New version from this
             </Button>
           )}
         </div>
       }
     >
-      <div className="flex flex-wrap items-center gap-space-sm text-label-sm text-on-surface-variant">
+      <div className={styles.scriptMeta}>
         <Pill tone={script.active ? "success" : STATUS[script.status].tone}>{script.active ? "Live on bot" : STATUS[script.status].label}</Pill>
         <span>{MODE_LABEL[script.mode]} · by {script.created_by_name}</span>
         {script.submitted_at && <span>· submitted {formatDateTime(script.submitted_at)}</span>}
         {script.reviewed_by_name && script.reviewed_at && <span>· reviewed by {script.reviewed_by_name}, {formatDateTime(script.reviewed_at)}</span>}
-        {!editable && <span className="ml-auto flex items-center gap-1"><Lock aria-hidden className="size-3.5" />Read only</span>}
+        {!editable && <span className={styles.readOnly}><Lock aria-hidden />Read only</span>}
       </div>
       {script.review_note && (
-        <p className={cn("rounded-lg border p-space-sm text-body-sm", script.status === "rejected" ? "border-danger-border bg-danger-bg text-danger-text" : "border-success-border bg-success-bg text-success-text")}>
+        <p className={cn(styles.reviewNote, script.status === "rejected" ? styles.reviewRejected : styles.reviewApproved)}>
           Reviewer note: {script.review_note}
         </p>
       )}
-      <div className="flex flex-col gap-1.5">
+      <div className={styles.field}>
         <Label htmlFor="s-name">Script name</Label>
         <Input id="s-name" value={name} onChange={(e) => setName(e.target.value)} readOnly={!editable} />
       </div>
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center justify-between">
+      <div className={styles.field}>
+        <div className={styles.fieldHead}>
           <Label htmlFor="s-prompt">Persona and rules</Label>
-          <span className="text-label-xs text-on-surface-variant">{prompt.length.toLocaleString("en-IN")} / 20,000 characters</span>
+          <span className={styles.small}>{prompt.length.toLocaleString("en-IN")} / 20,000 characters</span>
         </div>
         <Textarea id="s-prompt" value={prompt} onChange={(e) => setPrompt(e.target.value)} readOnly={!editable}
           aria-invalid={editable && !!invalid} aria-describedby={invalid && editable ? "s-prompt-error" : undefined}
-          className="field-sizing-fixed h-[28rem] resize-y border-divider bg-surface-container-low font-mono text-body-sm text-on-surface" />
-        {editable && invalid && <p id="s-prompt-error" className="text-label-sm text-danger-text">{invalid}</p>}
+          className={styles.prompt} />
+        {editable && invalid && <p id="s-prompt-error" className={styles.error}>{invalid}</p>}
       </div>
     </Panel>
   );
@@ -194,38 +195,37 @@ function Simulator({ script, canWrite }: { script: Script; canWrite: boolean }) 
   const result = run.data;
 
   return (
-    <div className="flex flex-col gap-space-lg">
+    <div className={styles.simulator}>
       <Panel title="Test call" action={<Pill tone="warning">Simulated</Pill>}>
         {canWrite ? (
           <>
-            <div className="flex flex-col gap-1.5">
+            <div className={styles.field}>
               <Label htmlFor="t-says">Customer says</Label>
               <Input id="t-says" value={says} onChange={(e) => setSays(e.target.value)} maxLength={500} />
             </div>
             <Button variant="ai" disabled={!says.trim() || run.isPending} onClick={() => run.mutate()}>
-              {run.isPending ? <Loader2 aria-hidden className="animate-spin" /> : <Play aria-hidden />}Run test call on v{script.version}
+              {run.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <Play aria-hidden />}Run test call on v{script.version}
             </Button>
           </>
         ) : (
-          <p className="text-body-sm text-on-surface-variant">Test calls are run by the Bot Designer.</p>
+          <p className={styles.muted}>Test calls are run by the Bot Designer.</p>
         )}
         {result ? (
-          <ol className="flex flex-col gap-space-sm" aria-label="Test call transcript">
+          <ol className={styles.transcript} aria-label="Test call transcript">
             {result.turns.map((t, i) => (
-              <li key={i} className={cn("rounded-lg p-space-sm text-body-sm",
-                t.speaker === "bot" ? "bg-primary-container text-on-primary" : "ml-6 bg-surface-container-low text-on-surface")}>
-                <span className="block text-label-xs opacity-80">{t.speaker === "bot" ? "Vani (AI)" : "Customer"}</span>
+              <li key={i} className={cn(styles.turn, t.speaker === "bot" ? styles.botTurn : styles.customerTurn)}>
+                <span className={styles.speaker}>{t.speaker === "bot" ? "Vani (AI)" : "Customer"}</span>
                 {t.text}
               </li>
             ))}
           </ol>
         ) : canWrite && (
-          <div className="flex flex-col items-center gap-space-sm py-space-md text-center text-body-sm text-on-surface-variant">
-            <MessageSquareText aria-hidden className="size-6 text-primary-container" />
+          <div className={styles.simEmpty}>
+            <MessageSquareText aria-hidden className={styles.simEmptyIcon} />
             Run a test to preview the opening of a call with this version.
           </div>
         )}
-        {result && <p className="text-label-xs text-on-surface-variant">{result.note}</p>}
+        {result && <p className={styles.small}>{result.note}</p>}
       </Panel>
       {result && (
         <Panel title="Compliance pre-check" action={
@@ -233,16 +233,16 @@ function Simulator({ script, canWrite }: { script: Script; canWrite: boolean }) 
             {Object.values(result.checks).filter(Boolean).length}/{Object.keys(result.checks).length} found
           </Pill>
         }>
-          <ul className="flex flex-col gap-space-sm">
+          <ul className={styles.checks}>
             {Object.entries(result.checks).map(([k, ok]) => (
-              <li key={k} className="flex items-start gap-space-sm text-body-sm">
-                {ok ? <CircleCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-secondary" /> : <CircleX aria-hidden className="mt-0.5 size-4 shrink-0 text-danger" />}
-                <span className="flex-1">{CHECK_LABEL[k] ?? k}</span>
-                <span className="text-label-xs text-on-surface-variant">{ok ? "Found" : "Missing"}</span>
+              <li key={k} className={styles.check}>
+                {ok ? <CircleCheck aria-hidden className={cn(styles.checkIcon, styles.found)} /> : <CircleX aria-hidden className={cn(styles.checkIcon, styles.missing)} />}
+                <span className={styles.checkLabel}>{CHECK_LABEL[k] ?? k}</span>
+                <span className={styles.small}>{ok ? "Found" : "Missing"}</span>
               </li>
             ))}
           </ul>
-          <p className="text-label-xs text-on-surface-variant">Keyword check of the prompt. The approver makes the final call.</p>
+          <p className={styles.small}>Keyword check of the prompt. The approver makes the final call.</p>
         </Panel>
       )}
     </div>

@@ -17,6 +17,8 @@ import { useVoiceCall } from "@/hooks/use-voice-call";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { OUTCOME_LABEL } from "@/lib/labels";
 
+import styles from "./agent-console.module.scss";
+
 export function AgentConsole() {
   const queryClient = useQueryClient();
   const { data: me } = useMe();
@@ -95,8 +97,8 @@ export function AgentConsole() {
         badge={inCall ? <Pill tone="live" pulse>Call in progress</Pill> : undefined}
         actions={callDone ? <Button onClick={nextCall}><RotateCcw aria-hidden />Start next call</Button> : undefined}
       />
-      <div className="grid grid-cols-12 items-start gap-space-lg">
-        <div className="col-span-3">
+      <div className={styles.layout}>
+        <div className={styles.queueCol}>
           <RenewalQueue
             selectedId={selected?.policy_id ?? null}
             onSelect={setSelected}
@@ -108,7 +110,7 @@ export function AgentConsole() {
             disabled={inCall}
           />
         </div>
-        <div className="col-span-6">
+        <div className={styles.callCol}>
           {session ? (
             <LiveCall
               session={session}
@@ -127,7 +129,7 @@ export function AgentConsole() {
             />
           )}
         </div>
-        <div className="col-span-3 flex flex-col gap-space-lg">
+        <div className={styles.sideCol}>
           {callDone && <CallSummary session={session} />}
           <CustomerCard session={session} preview={session ? null : selected} />
           <ActionsTimeline session={session} />

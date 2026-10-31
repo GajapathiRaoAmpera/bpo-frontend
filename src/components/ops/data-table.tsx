@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
+import styles from "./data-table.module.scss";
+
 export const features = tableFeatures({});
 export type Features = typeof features;
 
@@ -32,11 +34,11 @@ export function DataTable<T extends RowData>({
   onPage?: (page: number) => void;
 }) {
   const table = useTable({ features, columns, data: data ?? (EMPTY as T[]) });
-  const right = (id: string) => numeric.includes(id) && "text-right";
+  const right = (id: string) => numeric.includes(id) && styles.right;
 
   if (error) {
     return (
-      <div role="alert" className="flex items-center justify-between gap-space-md rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+      <div role="alert" className={styles.alert}>
         {error.message}
         {onRetry && <Button size="sm" variant="outline" onClick={onRetry}>Try again</Button>}
       </div>
@@ -46,14 +48,14 @@ export function DataTable<T extends RowData>({
 
   const pages = total && pageSize ? Math.max(1, Math.ceil(total / pageSize)) : 1;
   return (
-    <div className="overflow-hidden rounded-lg bg-surface-container-lowest shadow-card">
-      <div className="overflow-x-auto">
-        <table className="w-full text-left">
-          <thead className="bg-table-head">
+    <div className={styles.card}>
+      <div className={styles.scroll}>
+        <table className={styles.table}>
+          <thead className={styles.head}>
             {table.getHeaderGroups().map((group) => (
-              <tr key={group.id} className="border-b border-divider">
+              <tr key={group.id} className={styles.headRow}>
                 {group.headers.map((header) => (
-                  <th key={header.id} scope="col" className={cn("h-9 px-space-md text-label-xs tracking-wider whitespace-nowrap text-on-surface-variant uppercase", right(header.column.id))}>
+                  <th key={header.id} scope="col" className={cn(styles.th, right(header.column.id))}>
                     {header.isPlaceholder ? null : <table.FlexRender header={header} />}
                   </th>
                 ))}
@@ -63,8 +65,8 @@ export function DataTable<T extends RowData>({
           <tbody>
             {isLoading
               ? Array.from({ length: 8 }, (_, i) => (
-                <tr key={i} className="border-b border-divider last:border-0">
-                  {columns.map((_, j) => <td key={j} className="h-12 px-space-md"><Skeleton className="h-4 w-full" /></td>)}
+                <tr key={i} className={styles.row}>
+                  {columns.map((_, j) => <td key={j} className={styles.skeletonCell}><Skeleton className={styles.bone} /></td>)}
                 </tr>
               ))
               : table.getRowModel().rows.map((row) => (
@@ -74,10 +76,10 @@ export function DataTable<T extends RowData>({
                   onKeyDown={onRowClick ? (e) => { if (e.key === "Enter") onRowClick(row.original); } : undefined}
                   tabIndex={onRowClick ? 0 : undefined}
                   aria-label={rowLabel?.(row.original)}
-                  className={cn("border-b border-divider last:border-0", onRowClick && "cursor-pointer outline-none hover:bg-table-head focus-visible:bg-surface-container-low")}
+                  className={cn(styles.row, onRowClick && styles.clickable)}
                 >
                   {row.getAllCells().map((cell) => (
-                    <td key={cell.id} className={cn("h-12 px-space-md text-body-sm text-on-surface", right(cell.column.id))}>
+                    <td key={cell.id} className={cn(styles.td, right(cell.column.id))}>
                       <table.FlexRender cell={cell} />
                     </td>
                   ))}
@@ -87,9 +89,9 @@ export function DataTable<T extends RowData>({
         </table>
       </div>
       {onPage && page && total !== undefined && (
-        <div className="flex items-center justify-between border-t border-divider px-space-md py-space-sm text-label-sm text-on-surface-variant">
+        <div className={styles.footer}>
           <span>{total.toLocaleString("en-IN")} {total === 1 ? "record" : "records"} · page {page} of {pages}</span>
-          <div className="flex gap-space-xs">
+          <div className={styles.pager}>
             <Button size="icon-sm" variant="outline" aria-label="Previous page" disabled={page <= 1 || isLoading} onClick={() => onPage(page - 1)}>
               <ChevronLeft aria-hidden />
             </Button>

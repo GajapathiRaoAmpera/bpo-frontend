@@ -1,0 +1,8 @@
+@use "styles/mixins" as *;
+
+.icon { @include size(space(4)); }
+
+.spinner {
+  @include size(space(4));
+  @include spin;
+}

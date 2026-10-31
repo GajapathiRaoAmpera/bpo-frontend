@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import { Providers } from "@/app/providers";
 import { SandboxBanner } from "@/components/shell/sandbox-banner";
 import { IS_SANDBOX } from "@/lib/personas";
-import "./globals.css";
+import "./globals.scss";
+
+import styles from "./layout.module.scss";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -17,8 +19,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${inter.variable} h-full`} data-env={IS_SANDBOX ? "sandbox" : "production"}>
-      <body className="min-h-full">
+    <html lang="en-IN" className={`${inter.variable} ${styles.html}`} data-env={IS_SANDBOX ? "sandbox" : "production"}>
+      <body className={styles.body}>
         {IS_SANDBOX && <SandboxBanner />}
         <Providers>{children}</Providers>
       </body>

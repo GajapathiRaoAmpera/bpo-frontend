@@ -1,0 +1,66 @@
+@use "styles/mixins" as *;
+
+.card {
+  --card-spacing: #{space(4)};
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-spacing);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--card);
+  padding: var(--card-spacing) 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--card-foreground);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--foreground) 10%, transparent);
+
+  &[data-size="sm"] { --card-spacing: #{space(3)}; }
+  &:has([data-slot="card-footer"]) { padding-bottom: 0; }
+  &:has(> img:first-child) { padding-top: 0; }
+  > img:first-child { border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+  > img:last-child { border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
+}
+
+.header {
+  container: card-header / inline-size;
+  display: grid;
+  grid-auto-rows: min-content;
+  align-items: start;
+  gap: space(1);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 0 var(--card-spacing);
+  &:has([data-slot="card-action"]) { grid-template-columns: 1fr auto; }
+  &:has([data-slot="card-description"]) { grid-template-rows: auto auto; }
+}
+
+.title {
+  font-size: 16px;
+  line-height: 1.375;
+  font-weight: 500;
+}
+
+.card[data-size="sm"] .title { font-size: 14px; }
+
+.description {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted-foreground);
+}
+
+.action {
+  grid-column-start: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  justify-self: end;
+}
+
+.content { padding: 0 var(--card-spacing); }
+
+.footer {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background: color-mix(in srgb, var(--muted) 50%, transparent);
+  padding: var(--card-spacing);
+}

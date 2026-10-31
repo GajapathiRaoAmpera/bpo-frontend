@@ -1,0 +1,46 @@
+@use "styles/mixins" as *;
+
+.checkbox {
+  position: relative;
+  display: flex;
+  @include size(space(4));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-outline);
+  border-radius: 4px;
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+
+  // Enlarged hit area.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: space(-2) space(-3);
+  }
+  &:focus-visible {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  &:disabled { cursor: not-allowed; opacity: 0.5; }
+  &[aria-invalid="true"] {
+    border-color: var(--destructive);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent);
+  }
+  &[data-state="checked"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--primary-foreground);
+  }
+  &[aria-invalid="true"][aria-checked="true"] { border-color: var(--color-primary); }
+}
+
+.indicator {
+  display: grid;
+  place-content: center;
+  color: currentColor;
+  transition-property: none;
+  > svg { @include size(space(3.5)); }
+}

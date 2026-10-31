@@ -1,0 +1,101 @@
+@use "styles/mixins" as *;
+
+.avatar {
+  position: relative;
+  display: flex;
+  @include size(space(8));
+  flex-shrink: 0;
+  border-radius: 9999px;
+  user-select: none;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    mix-blend-mode: darken;
+  }
+  &[data-size="lg"] { @include size(space(10)); }
+  &[data-size="sm"] { @include size(space(6)); }
+}
+
+.image {
+  aspect-ratio: 1 / 1;
+  @include size(100%);
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.fallback {
+  display: flex;
+  @include size(100%);
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted-foreground);
+}
+
+.avatar[data-size="sm"] .fallback { font-size: 12px; line-height: 16px; }
+
+.badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--primary-foreground);
+  background-blend-mode: color;
+  box-shadow: 0 0 0 2px var(--background);
+  user-select: none;
+}
+
+.avatar[data-size="sm"] .badge {
+  @include size(space(2));
+  > svg { display: none; }
+}
+.avatar[data-size="default"] .badge {
+  @include size(space(2.5));
+  > svg { @include size(space(2)); }
+}
+.avatar[data-size="lg"] .badge {
+  @include size(space(3));
+  > svg { @include size(space(2)); }
+}
+
+.group {
+  display: flex;
+  > :not(:last-child) { margin-inline-end: space(-2); }
+  > [data-slot="avatar"] { box-shadow: 0 0 0 2px var(--background); }
+}
+
+.groupCount {
+  position: relative;
+  display: flex;
+  @include size(space(8));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted-foreground);
+  box-shadow: 0 0 0 2px var(--background);
+  > svg { @include size(space(4)); }
+}
+
+.group:has([data-size="lg"]) .groupCount {
+  @include size(space(10));
+  > svg { @include size(space(5)); }
+}
+.group:has([data-size="sm"]) .groupCount {
+  @include size(space(6));
+  > svg { @include size(space(3)); }
+}

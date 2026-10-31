@@ -18,6 +18,8 @@ import { initials } from "@/lib/format";
 import { IS_SANDBOX, personaEmail, SANDBOX_PERSONAS } from "@/lib/personas";
 import { SCREEN_HREF, screenForPath } from "@/lib/routes";
 
+import styles from "./login-form.module.scss";
+
 const schema = z.object({
   email: z.email("Enter your work email, e.g. name@sandbox.assurevoice.in"),
   password: z.string().min(1, "Enter your password"),
@@ -62,61 +64,61 @@ export function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col gap-space-xl">
-      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-space-lg">
+    <div className={styles.root}>
+      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
         {serverError && (
-          <div role="alert" className="flex items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
-            <CircleAlert aria-hidden className="mt-0.5 size-4 shrink-0" />
+          <div role="alert" className={styles.alert}>
+            <CircleAlert aria-hidden className={styles.alertIcon} />
             <span>{serverError}</span>
           </div>
         )}
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="email" className="text-label-md text-on-surface">Work email</Label>
+        <div className={styles.field}>
+          <Label htmlFor="email" className={styles.label}>Work email</Label>
           <Input id="email" type="email" autoComplete="username" aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined} {...form.register("email")} />
-          {errors.email && <p id="email-error" className="text-label-sm text-danger-text">{errors.email.message}</p>}
+          {errors.email && <p id="email-error" className={styles.error}>{errors.email.message}</p>}
         </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="password" className="text-label-md text-on-surface">Password</Label>
-          <div className="relative">
+        <div className={styles.field}>
+          <Label htmlFor="password" className={styles.label}>Password</Label>
+          <div className={styles.passwordWrap}>
             <Input id="password" type={showPassword ? "text" : "password"} autoComplete="current-password"
-              className="pr-10" aria-invalid={!!errors.password}
+              className={styles.passwordInput} aria-invalid={!!errors.password}
               aria-describedby={errors.password ? "password-error" : undefined} {...form.register("password")} />
             <button type="button" onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
-              className="absolute inset-y-0 right-0 flex w-10 items-center justify-center rounded-r-lg text-outline hover:text-on-surface focus-visible:outline-2 focus-visible:outline-lang-border">
-              {showPassword ? <EyeOff aria-hidden className="size-4" /> : <Eye aria-hidden className="size-4" />}
+              className={styles.reveal}>
+              {showPassword ? <EyeOff aria-hidden className={styles.revealIcon} /> : <Eye aria-hidden className={styles.revealIcon} />}
             </button>
           </div>
-          {errors.password && <p id="password-error" className="text-label-sm text-danger-text">{errors.password.message}</p>}
+          {errors.password && <p id="password-error" className={styles.error}>{errors.password.message}</p>}
         </div>
-        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full">
-          {isSubmitting && <Loader2 aria-hidden className="animate-spin" />}
+        <Button type="submit" size="lg" disabled={isSubmitting} className={styles.submit}>
+          {isSubmitting && <Loader2 aria-hidden className={styles.spinner} />}
           {isSubmitting ? "Signing in…" : "Sign in"}
         </Button>
       </form>
 
       {IS_SANDBOX && (
-      <section aria-labelledby="personas-heading" className="flex flex-col gap-space-sm">
-        <div className="flex items-center gap-space-md">
-          <span className="h-px flex-1 bg-divider" />
-          <h2 id="personas-heading" className="text-label-xs tracking-wider text-outline uppercase">Sandbox personas</h2>
-          <span className="h-px flex-1 bg-divider" />
+      <section aria-labelledby="personas-heading" className={styles.personas}>
+        <div className={styles.personasHead}>
+          <span className={styles.rule} />
+          <h2 id="personas-heading" className={styles.personasTitle}>Sandbox personas</h2>
+          <span className={styles.rule} />
         </div>
-        <p className="text-body-sm text-on-surface-variant">
+        <p className={styles.hint}>
           Pick a persona to fill the email, then enter the sandbox password.
         </p>
-        <ul className="grid grid-cols-2 gap-space-sm">
+        <ul className={styles.personaList}>
           {SANDBOX_PERSONAS.map((p) => (
             <li key={p.role}>
               <button type="button" onClick={() => pickPersona(p.name)}
-                className="flex w-full items-center gap-space-sm rounded-lg border border-divider bg-surface-container-lowest p-space-sm text-left transition-colors hover:border-neutral-border hover:bg-table-head focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lang-border">
-                <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-label-sm text-primary">
+                className={styles.persona}>
+                <span aria-hidden className={styles.avatar}>
                   {initials(p.name)}
                 </span>
-                <span className="flex min-w-0 flex-col">
-                  <span className="truncate text-label-md text-on-surface">{p.name}</span>
-                  <span className="truncate text-label-sm text-on-surface-variant">{p.roleLabel}</span>
+                <span className={styles.personaText}>
+                  <span className={styles.personaName}>{p.name}</span>
+                  <span className={styles.personaRole}>{p.roleLabel}</span>
                 </span>
               </button>
             </li>

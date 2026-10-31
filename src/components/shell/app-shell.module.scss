@@ -1,0 +1,91 @@
+@use "styles/mixins" as *;
+
+.offset {
+  padding-left: space(60);
+}
+
+.main {
+  min-height: 100vh;
+  padding: calc(var(--banner-h) + 4rem) $gutter-desktop 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  padding-top: $space-lg;
+  padding-bottom: space(10);
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.alertText {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.alertIcon {
+  @include size(space(4));
+}
+
+.headerSkeleton {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--banner-h);
+  z-index: 40;
+  display: flex;
+  height: space(16);
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-container-lowest);
+  padding: 0 $gutter-desktop;
+  box-shadow: var(--shadow-chrome);
+}
+
+.brandBone {
+  height: space(8);
+  width: space(44);
+}
+
+.accountBone {
+  height: space(8);
+  width: space(52);
+}
+
+.sidebarSkeleton {
+  position: fixed;
+  top: calc(var(--banner-h) + 4rem);
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: space(60);
+  flex-direction: column;
+  gap: space(2);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-chrome);
+}
+
+.groupBone {
+  margin-bottom: space(2);
+  height: space(3);
+  width: space(28);
+}
+
+.linkBone {
+  height: space(9);
+  width: 100%;
+}

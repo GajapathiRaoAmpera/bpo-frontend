@@ -7,6 +7,8 @@ import { Brand } from "@/components/shell/brand";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./page.module.scss";
+
 export const metadata: Metadata = { title: "Sign in" };
 
 const POINTS = [
@@ -21,38 +23,38 @@ const POINTS = [
 export default function LoginPage() {
   return (
     <>
-      <div className="grid min-h-screen grid-cols-[minmax(0,5fr)_minmax(0,7fr)] pt-(--banner-h)">
-        <aside className="flex flex-col justify-between bg-primary p-12 text-on-primary">
+      <div className={styles.page}>
+        <aside className={styles.aside}>
           <Brand inverted />
-          <div className="flex max-w-md flex-col gap-space-xl">
-            <h1 className="text-display text-on-primary">
+          <div className={styles.pitch}>
+            <h1 className={styles.headline}>
               AI contact centre for renewals, reminders and policy service
             </h1>
-            <ul className="flex flex-col gap-space-lg">
+            <ul className={styles.points}>
               {POINTS.map(({ icon: Icon, title, text }) => (
-                <li key={title} className="flex gap-space-md">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-container">
-                    <Icon aria-hidden className="size-[18px]" />
+                <li key={title} className={styles.point}>
+                  <span className={styles.pointIcon}>
+                    <Icon aria-hidden className={styles.icon} />
                   </span>
-                  <span className="flex flex-col gap-0.5">
-                    <span className="text-label-md">{title}</span>
-                    <span className="text-body-sm text-on-primary/75">{text}</span>
+                  <span className={styles.pointBody}>
+                    <span className={styles.pointTitle}>{title}</span>
+                    <span className={styles.pointText}>{text}</span>
                   </span>
                 </li>
               ))}
             </ul>
           </div>
           {/* kept empty in production so justify-between keeps the headline centred */}
-          <p className="text-label-sm text-on-primary/60">{IS_SANDBOX && "Sandbox edition · all customer data is synthetic"}</p>
+          <p className={styles.footnote}>{IS_SANDBOX && "Sandbox edition · all customer data is synthetic"}</p>
         </aside>
 
-        <main className="flex items-center justify-center px-gutter-desktop py-12">
-          <div className="flex w-full max-w-[440px] flex-col gap-space-xl rounded-lg border border-divider bg-surface-container-lowest p-8 shadow-card">
-            <div className="flex flex-col gap-1">
-              <h2 className="text-headline-lg text-on-surface">Sign in</h2>
-              <p className="text-body-sm text-on-surface-variant">Use your AssureVoice work account.</p>
+        <main className={styles.main}>
+          <div className={styles.card}>
+            <div className={styles.cardHead}>
+              <h2 className={styles.cardTitle}>Sign in</h2>
+              <p className={styles.cardText}>Use your AssureVoice work account.</p>
             </div>
-            <Suspense fallback={<Skeleton className="h-96 rounded-lg" />}>
+            <Suspense fallback={<Skeleton className={styles.formSkeleton} />}>
               <LoginForm />
             </Suspense>
           </div>

@@ -1,0 +1,121 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+// --- KPI tiles ---
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-on-surface);
+}
+
+.kpiFoot {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.track {
+  height: space(1.5);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+}
+
+.bar {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+.barDialled {
+  background: var(--color-secondary);
+}
+
+// --- Table cells ---
+.campaignCell {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+  padding: $space-sm 0;
+}
+
+.campaignName {
+  @include text(label-md);
+  color: var(--color-primary);
+}
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.script {
+  @include text(body-sm);
+}
+
+.progress {
+  display: flex;
+  min-width: space(40);
+  flex-direction: column;
+  gap: space(1);
+}
+
+.progressHead {
+  display: flex;
+  justify-content: space-between;
+  @include text(data-mono);
+}
+
+.progressPct {
+  color: var(--color-secondary);
+}
+
+.mono {
+  @include text(data-mono);
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: space(0.5);
+}
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
+}
+
+.rejectNote {
+  max-width: space(48);
+  @include truncate;
+  @include text(label-xs);
+  color: var(--color-danger-text);
+}

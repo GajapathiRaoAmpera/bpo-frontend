@@ -21,6 +21,8 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./followup-dialog.module.scss";
+
 const KINDS: Schemas["FollowupKind"][] = ["callback", "reminder", "payment_link"];
 const IST_OFFSET_MS = 330 * 60_000;
 
@@ -78,32 +80,32 @@ export function FollowupDialog({ policyNo, policyId, trigger }: { policyNo?: str
       <DialogTrigger asChild>
         {trigger ?? <Button><CalendarPlus aria-hidden />Schedule follow-up</Button>}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className={styles.content}>
         <DialogHeader>
-          <DialogTitle className="text-headline-md text-on-surface">Schedule follow-up</DialogTitle>
-          <DialogDescription className="text-body-sm text-on-surface-variant">
+          <DialogTitle className={styles.title}>Schedule follow-up</DialogTitle>
+          <DialogDescription className={styles.description}>
             {IS_SANDBOX ? "When it is due, the sandbox timer writes the WhatsApp message and marks it sent. Nothing reaches a real phone." : "When it is due, the timer writes the WhatsApp message and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
           </DialogDescription>
         </DialogHeader>
-        <form id="followup-form" noValidate onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-space-lg">
+        <form id="followup-form" noValidate onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
           {serverError && (
-            <div role="alert" className="flex items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
-              <CircleAlert aria-hidden className="mt-0.5 size-4 shrink-0" />
+            <div role="alert" className={styles.alert}>
+              <CircleAlert aria-hidden className={styles.alertIcon} />
               <span>{serverError}</span>
             </div>
           )}
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="fu-policy" className="text-label-md text-on-surface">Policy number</Label>
+          <div className={styles.field}>
+            <Label htmlFor="fu-policy" className={styles.label}>Policy number</Label>
             <Input id="fu-policy" readOnly={!!policyNo} placeholder="MOT-2026-001234" aria-invalid={!!errors.policyNo}
               aria-describedby={errors.policyNo ? "fu-policy-error" : undefined} {...form.register("policyNo")} />
-            {errors.policyNo && <p id="fu-policy-error" className="text-label-sm text-danger-text">{errors.policyNo.message}</p>}
+            {errors.policyNo && <p id="fu-policy-error" className={styles.error}>{errors.policyNo.message}</p>}
           </div>
-          <fieldset className="flex flex-col gap-1.5">
-            <legend className="mb-1.5 text-label-md text-on-surface">Type</legend>
+          <fieldset className={styles.field}>
+            <legend className={styles.legend}>Type</legend>
             <Controller control={form.control} name="kind" render={({ field }) => (
-              <RadioGroup value={field.value} onValueChange={field.onChange} className="grid grid-cols-3 gap-space-sm">
+              <RadioGroup value={field.value} onValueChange={field.onChange} className={styles.kinds}>
                 {KINDS.map((k) => (
-                  <Label key={k} htmlFor={`fu-${k}`} className="flex cursor-pointer items-center gap-space-sm rounded-lg border border-divider p-space-sm text-body-sm font-normal has-data-[state=checked]:border-primary-container has-data-[state=checked]:bg-surface-container-low">
+                  <Label key={k} htmlFor={`fu-${k}`} className={styles.kind}>
                     <RadioGroupItem id={`fu-${k}`} value={k} />
                     {FOLLOWUP_KIND_LABEL[k]}
                   </Label>
@@ -111,23 +113,23 @@ export function FollowupDialog({ policyNo, policyId, trigger }: { policyNo?: str
               </RadioGroup>
             )} />
           </fieldset>
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="fu-due" className="text-label-md text-on-surface">Due (IST)</Label>
+          <div className={styles.field}>
+            <Label htmlFor="fu-due" className={styles.label}>Due (IST)</Label>
             <Input id="fu-due" type="datetime-local" aria-invalid={!!errors.due}
               aria-describedby={errors.due ? "fu-due-error" : undefined} {...form.register("due")} />
-            {errors.due && <p id="fu-due-error" className="text-label-sm text-danger-text">{errors.due.message}</p>}
+            {errors.due && <p id="fu-due-error" className={styles.error}>{errors.due.message}</p>}
           </div>
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="fu-reason" className="text-label-md text-on-surface">Reason</Label>
+          <div className={styles.field}>
+            <Label htmlFor="fu-reason" className={styles.label}>Reason</Label>
             <Textarea id="fu-reason" rows={3} aria-invalid={!!errors.reason}
               aria-describedby={errors.reason ? "fu-reason-error" : undefined} {...form.register("reason")} />
-            {errors.reason && <p id="fu-reason-error" className="text-label-sm text-danger-text">{errors.reason.message}</p>}
+            {errors.reason && <p id="fu-reason-error" className={styles.error}>{errors.reason.message}</p>}
           </div>
         </form>
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
           <Button type="submit" form="followup-form" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 aria-hidden className="animate-spin" />}
+            {isSubmitting && <Loader2 aria-hidden className={styles.spinner} />}
             {isSubmitting ? "Scheduling…" : "Schedule follow-up"}
           </Button>
         </DialogFooter>

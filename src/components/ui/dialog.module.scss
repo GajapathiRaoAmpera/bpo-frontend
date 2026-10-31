@@ -1,0 +1,76 @@
+@use "styles/mixins" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  isolation: isolate;
+  z-index: 50;
+  background: rgb(0 0 0 / 0.1);
+  @supports (backdrop-filter: blur(0)) { backdrop-filter: blur(4px); }
+  &[data-state="open"] { @include enter(false, null, 100ms); }
+  &[data-state="closed"] { @include exit(false, 100ms); }
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  display: grid;
+  width: 100%;
+  max-width: calc(100% - 2rem);
+  translate: -50% -50%;
+  gap: space(4);
+  border-radius: var(--radius-xl);
+  background: var(--popover);
+  padding: space(4);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--popover-foreground);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--foreground) 10%, transparent);
+  outline: none;
+  @include up(sm) { max-width: 24rem; }
+  &[data-state="open"] { @include enter(true, null, 100ms); }
+  &[data-state="closed"] { @include exit(true, 100ms); }
+}
+
+.close {
+  position: absolute;
+  top: space(2);
+  right: space(2);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: space(2);
+}
+
+.footer {
+  margin: 0 space(-4) space(-4);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: space(2);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background: color-mix(in srgb, var(--muted) 50%, transparent);
+  padding: space(4);
+  @include up(sm) { flex-direction: row; justify-content: flex-end; }
+}
+
+.title {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted-foreground);
+  > a {
+    text-decoration-line: underline;
+    text-underline-offset: 3px;
+    &:hover { color: var(--foreground); }
+  }
+}

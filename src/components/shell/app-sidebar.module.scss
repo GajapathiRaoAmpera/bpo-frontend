@@ -1,0 +1,93 @@
+@use "styles/mixins" as *;
+
+.sidebar {
+  position: fixed;
+  top: calc(var(--banner-h) + 4rem);
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: flex;
+  width: space(60);
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-chrome);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  padding: $space-md;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.groupLabel {
+  padding: 0 $space-sm $space-sm;
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.admin {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+  padding: $space-md;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  padding: space(2) $space-md;
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.compact {
+  padding-top: space(1.5);
+  padding-bottom: space(1.5);
+}
+
+.active {
+  background: var(--color-primary-container);
+  @include text(label-md);
+  color: var(--color-on-primary);
+}
+
+.idle {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+
+  &:hover {
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+  }
+}
+
+.icon {
+  @include size(18px);
+}
+
+.iconCompact {
+  @include size(space(4));
+}

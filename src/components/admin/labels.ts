@@ -1,6 +1,8 @@
 import type { PillTone } from "@/components/common/pill";
 import type { Schemas } from "@/lib/api";
 
+import styles from "./labels.module.scss";
+
 // Display labels only; which role can do what comes from the API (/auth/me, /rbac/matrix).
 export const ROLE_LABEL: Record<Schemas["Role"], string> = {
   super_admin: "Super Admin",
@@ -50,9 +52,7 @@ export const LEVEL_LABEL: Record<Schemas["Level"], string> = {
   own: "Own",
 };
 
-// Native <select> styled like the Input primitive (no shadcn Select needed for plain option lists).
-export const SELECT_CLASS =
-  "h-10 w-full rounded-lg border border-divider bg-surface-container-lowest px-3 text-body-md text-on-surface outline-none focus-visible:border-primary-container focus-visible:ring-3 focus-visible:ring-primary-container/12 disabled:cursor-not-allowed disabled:opacity-50";
-
-export const TH = "h-9 px-space-md text-left text-label-xs tracking-wider text-on-surface-variant uppercase";
-export const TD = "px-space-md py-space-sm align-middle";
+// Shared table/select classes for the admin, audit and QA screens.
+export const SELECT_CLASS = styles.select;
+export const TH = styles.th;
+export const TD = styles.td;

@@ -18,25 +18,27 @@ import { formatDateTime } from "@/lib/format";
 import { formatDuration, OUTCOME_LABEL, SENTIMENT_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
 
+import styles from "./calls-table.module.scss";
+
 type Row = Schemas["CallRow"];
 const h = createColumnHelper<Features, Row>();
 const columns = h.columns([
   h.display({ id: "ref", header: "Call", cell: ({ row: { original: c } }) => (
-    <div className="flex flex-col">
-      <span className="text-data-mono text-primary">{c.call_ref}</span>
-      <span className="text-label-xs font-medium text-on-surface-variant">{formatDateTime(c.started_at)}</span>
+    <div className={styles.stack}>
+      <span className={styles.ref}>{c.call_ref}</span>
+      <span className={styles.when}>{formatDateTime(c.started_at)}</span>
     </div>
   ) }),
   h.display({ id: "customer", header: "Customer", cell: ({ row: { original: c } }) => (
-    <div className="flex flex-col">
-      <span className="text-label-md">{c.customer_name ?? "Unidentified caller"}</span>
-      <span className="text-data-mono text-label-xs text-on-surface-variant">{c.policy_no ?? "—"}</span>
+    <div className={styles.stack}>
+      <span className={styles.name}>{c.customer_name ?? "Unidentified caller"}</span>
+      <span className={styles.policy}>{c.policy_no ?? "—"}</span>
     </div>
   ) }),
   h.display({ id: "mode", header: "Type", cell: ({ row: { original: c } }) => (c.mode === "renewal" ? "Renewal · outbound" : "Inbound query") }),
   h.display({ id: "handled", header: "Handled by", cell: ({ row: { original: c } }) => (
-    <span className="flex items-center gap-1.5">
-      {c.agent_name ? <UserRound aria-hidden className="size-3.5 text-outline" /> : <Bot aria-hidden className="size-3.5 text-secondary" />}
+    <span className={styles.handled}>
+      {c.agent_name ? <UserRound aria-hidden className={styles.agentIcon} /> : <Bot aria-hidden className={styles.botIcon} />}
       {c.agent_name ? `AI + ${c.agent_name}` : "AI agent"}
     </span>
   ) }),
@@ -44,8 +46,8 @@ const columns = h.columns([
     ? <Pill tone={OUTCOME_TONE[c.outcome]}>{OUTCOME_LABEL[c.outcome]}</Pill> : <Pill tone="live" pulse>In progress</Pill>) }),
   h.display({ id: "sentiment", header: "Sentiment", cell: ({ row: { original: c } }) => (c.sentiment
     ? <Pill tone={SENTIMENT_TONE[c.sentiment]}>{SENTIMENT_LABEL[c.sentiment]}</Pill> : "—") }),
-  h.display({ id: "qa", header: "QA", cell: ({ row: { original: c } }) => <span className="text-data-mono">{c.qa_score === null ? "—" : `${c.qa_score}/5`}</span> }),
-  h.display({ id: "duration", header: "Duration", cell: ({ row: { original: c } }) => <span className="text-data-mono">{formatDuration(c.duration_sec)}</span> }),
+  h.display({ id: "qa", header: "QA", cell: ({ row: { original: c } }) => <span className={styles.mono}>{c.qa_score === null ? "—" : `${c.qa_score}/5`}</span> }),
+  h.display({ id: "duration", header: "Duration", cell: ({ row: { original: c } }) => <span className={styles.mono}>{formatDuration(c.duration_sec)}</span> }),
 ]);
 
 const OUTCOMES = Object.keys(OUTCOME_LABEL) as Schemas["CallOutcome"][];
@@ -66,7 +68,7 @@ export function CallsTable() {
   });
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Call History"
         badge={own ? <Pill tone="info">Your calls</Pill> : undefined}
@@ -74,19 +76,18 @@ export function CallsTable() {
           ? "Calls you handled or took over, with outcome, sentiment, AI summary, transcript and QA score."
           : "Every call with outcome, sentiment, AI summary, transcript and QA score. Open a call to read the transcript."}
       />
-      <div className="flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-md shadow-card">
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="calls-q" className="text-label-md text-on-surface">Search calls</Label>
-          <div className="relative max-w-md">
-            <Search aria-hidden className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-outline" />
-            <Input id="calls-q" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="pl-9" placeholder="CALL-20261029-0001, name or policy no." />
+      <div className={styles.filters}>
+        <div className={styles.search}>
+          <Label htmlFor="calls-q" className={styles.searchLabel}>Search calls</Label>
+          <div className={styles.searchBox}>
+            <Search aria-hidden className={styles.searchIcon} />
+            <Input id="calls-q" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className={styles.searchInput} placeholder="CALL-20261029-0001, name or policy no." />
           </div>
         </div>
-        <div role="group" aria-label="Filter by outcome" className="flex flex-wrap gap-1 text-label-xs">
+        <div role="group" aria-label="Filter by outcome" className={styles.outcomes}>
           {[null, ...OUTCOMES].map((o) => (
             <button key={o ?? "all"} type="button" aria-pressed={outcome === o} onClick={() => { setOutcome(o); setPage(1); }}
-              className={cn("rounded-lg px-2.5 py-1.5 font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-lang-border",
-                outcome === o ? "bg-primary-container text-on-primary" : "text-on-surface-variant hover:bg-surface-container-high")}>
+              className={cn(styles.outcome, outcome === o && styles.outcomeActive)}>
               {o ? OUTCOME_LABEL[o] : "All outcomes"}
             </button>
           ))}

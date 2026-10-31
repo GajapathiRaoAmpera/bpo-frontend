@@ -1,6 +1,6 @@
 # Design System
 
-**Visual source of truth:** `design/stitch/<screen>/code.html` + `screen.png`, and `design/stitch/assurevoice_precision_enterprise/DESIGN.md`. Before building a screen, read both files for it. Tokens are implemented once in `src/app/globals.css`; never hard-code a colour that has a token.
+**Visual source of truth:** `design/stitch/<screen>/code.html` + `screen.png`, and `design/stitch/assurevoice_precision_enterprise/DESIGN.md`. Before building a screen, read both files for it. Tokens are implemented once in `src/styles/_tokens.scss` (colours, radius, shadows as CSS variables) and `src/styles/_mixins.scss` (type scale, spacing); never hard-code a colour that has a token.
 
 ## 1. Direction
 Corporate / modern, high information density, strict hierarchy, crisp borders over shadows, no decoration. Mood: institutional trust + live operational awareness.
@@ -8,7 +8,7 @@ Corporate / modern, high information density, strict hierarchy, crisp borders ov
 ## 2. Brand
 AssureVoice · "Enterprise AI Ops". Voice: plain, precise, verb-first buttons. No lorem ipsum, no "test"/"foo", no invented telemetry or vendor names.
 
-## 3. Colour (Stitch roles → Tailwind classes, e.g. `bg-primary`, `text-on-surface-variant`)
+## 3. Colour (Stitch roles → CSS variables, e.g. `var(--color-primary)`, `var(--color-on-surface-variant)`)
 | Role | Hex | Use |
 |---|---|---|
 | primary | #00377d | primary buttons, links, key numbers |
@@ -26,7 +26,7 @@ AssureVoice · "Enterprise AI Ops". Voice: plain, precise, verb-first buttons. N
 Status pills (DESIGN.md): success `success-bg/-border/-text`, warning `warning-*`, danger `danger-*`, neutral `neutral-*`, language `lang-*`. Sandbox banner: `amber-50` / `amber-200` / `amber-900` + pulsing `amber-500` dot.
 
 ## 4. Typography (Inter, tabular figures on)
-Classes: `text-display` 28/34 700 · `text-headline-lg` 22/28 600 · `text-headline-md` 18/24 600 · `text-headline-sm` 16/22 600 · `text-body-lg` 15/22 · `text-body-md` 14/20 · `text-body-sm` 13/18 · `text-data-mono` 13/18 500 · `text-label-md` 13/18 600 · `text-label-sm` 12/16 500 · `text-label-xs` 11/14 600 (uppercase + `tracking-wider` for table headers and KPI labels).
+Mixin `@include text(<name>)`: `display` 28/34 700 · `headline-lg` 22/28 600 · `headline-md` 18/24 600 · `headline-sm` 16/22 600 · `body-lg` 15/22 · `body-md` 14/20 · `body-sm` 13/18 · `data-mono` 13/18 500 · `label-md` 13/18 600 · `label-sm` 12/16 500 · `label-xs` 11/14 600 (uppercase + `letter-spacing: 0.05em` for table headers and KPI labels).
 
 ## 5. Spacing
 4px base. Named: `space-xs` 4 · `space-sm` 8 · `space-md` 12 · `space-lg` 16 · `space-xl` 24 · `gutter` 16 · `gutter-desktop` 24.

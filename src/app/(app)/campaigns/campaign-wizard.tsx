@@ -19,6 +19,8 @@ import { formatDate } from "@/lib/format";
 import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
 
+import styles from "./campaign-wizard.module.scss";
+
 const PRODUCTS = Object.keys(PRODUCT_LABEL) as Schemas["Product"][];
 const LANGUAGES = Object.keys(LANGUAGE_LABEL) as Schemas["Language"][];
 const STEPS = ["Campaign details", "Audience", "Review & schedule"] as const;
@@ -91,35 +93,33 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
       title={campaign ? `Edit draft · ${campaign.name}` : "New renewal campaign"}
       action={<Button size="icon-sm" variant="ghost" aria-label="Close the campaign wizard" onClick={onClose}><X aria-hidden /></Button>}
     >
-      <ol className="grid grid-cols-3 gap-space-sm" aria-label="Wizard steps">
+      <ol className={styles.steps} aria-label="Wizard steps">
         {STEPS.map((label, i) => (
           <li key={label} aria-current={i === step ? "step" : undefined}
-            className={cn("flex items-center gap-space-sm rounded-lg border px-space-md py-space-sm text-label-md",
-              i === step ? "border-primary bg-surface-container-low text-primary" : "border-divider text-on-surface-variant")}>
-            <span className={cn("flex size-6 items-center justify-center rounded-full text-label-xs",
-              i <= step ? "bg-primary text-on-primary" : "bg-surface-container-high")}>{i + 1}</span>
+            className={cn(styles.step, i === step && styles.stepCurrent)}>
+            <span className={cn(styles.stepNo, i <= step && styles.stepNoDone)}>{i + 1}</span>
             {label}
           </li>
         ))}
       </ol>
 
-      <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-space-lg">
+      <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
         {step === 0 && (
-          <div className="grid grid-cols-2 gap-space-lg">
-            <div className="flex flex-col gap-1.5">
+          <div className={styles.grid2}>
+            <div className={styles.field}>
               <Label htmlFor="c-name">Campaign name</Label>
               <Input id="c-name" placeholder="e.g. December Motor Renewal Wave" aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "c-name-error" : undefined} {...form.register("name")} />
-              {errors.name && <p id="c-name-error" className="text-label-sm text-danger-text">{errors.name.message}</p>}
+              {errors.name && <p id="c-name-error" className={styles.error}>{errors.name.message}</p>}
             </div>
-            <fieldset className="flex flex-col gap-1.5">
-              <legend className="mb-1.5 text-label-md text-on-surface">Line of business</legend>
+            <fieldset className={styles.field}>
+              <legend className={styles.legend}>Line of business</legend>
               <Controller control={form.control} name="product" render={({ field }) => (
-                <RadioGroup value={field.value} onValueChange={field.onChange} className="flex gap-space-lg">
+                <RadioGroup value={field.value} onValueChange={field.onChange} className={styles.options}>
                   {PRODUCTS.map((p) => (
-                    <div key={p} className="flex items-center gap-space-sm">
+                    <div key={p} className={styles.option}>
                       <RadioGroupItem id={`c-product-${p}`} value={p} />
-                      <Label htmlFor={`c-product-${p}`} className="font-normal">{PRODUCT_LABEL[p]}</Label>
+                      <Label htmlFor={`c-product-${p}`} className={styles.optionLabel}>{PRODUCT_LABEL[p]}</Label>
                     </div>
                   ))}
                 </RadioGroup>
@@ -129,77 +129,77 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
         )}
 
         {step === 1 && (
-          <div className="grid grid-cols-3 gap-space-lg">
-            <div className="flex flex-col gap-1.5">
+          <div className={styles.grid3}>
+            <div className={styles.field}>
               <Label htmlFor="c-days">Renewal due within (days)</Label>
               <Input id="c-days" type="number" min={1} max={90} aria-invalid={!!errors.renewal_within_days}
                 {...form.register("renewal_within_days", { valueAsNumber: true })} />
-              {errors.renewal_within_days && <p className="text-label-sm text-danger-text">{errors.renewal_within_days.message}</p>}
+              {errors.renewal_within_days && <p className={styles.error}>{errors.renewal_within_days.message}</p>}
             </div>
-            <fieldset className="flex flex-col gap-1.5">
-              <legend className="mb-1.5 text-label-md text-on-surface">Preferred languages</legend>
+            <fieldset className={styles.field}>
+              <legend className={styles.legend}>Preferred languages</legend>
               <Controller control={form.control} name="languages" render={({ field }) => (
-                <div className="flex gap-space-lg">
+                <div className={styles.options}>
                   {LANGUAGES.map((l) => (
-                    <div key={l} className="flex items-center gap-space-sm">
+                    <div key={l} className={styles.option}>
                       <Checkbox id={`c-lang-${l}`} checked={field.value.includes(l)} onCheckedChange={(on) => {
                         field.onChange(on ? [...field.value, l] : field.value.filter((x) => x !== l));
                         field.onBlur();
                       }} />
-                      <Label htmlFor={`c-lang-${l}`} className="font-normal">{LANGUAGE_LABEL[l]}</Label>
+                      <Label htmlFor={`c-lang-${l}`} className={styles.optionLabel}>{LANGUAGE_LABEL[l]}</Label>
                     </div>
                   ))}
                 </div>
               )} />
-              {errors.languages && <p className="text-label-sm text-danger-text">{errors.languages.message}</p>}
+              {errors.languages && <p className={styles.error}>{errors.languages.message}</p>}
             </fieldset>
-            <div aria-live="polite" className="flex flex-col justify-center rounded-lg bg-surface-container-low p-space-md">
-              <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">Matching policies</span>
-              <span className="text-display text-primary">
-                {audience.isFetching ? <Loader2 aria-label="Counting" className="size-6 animate-spin" /> : (audience.data?.total_targets ?? 0).toLocaleString("en-IN")}
+            <div aria-live="polite" className={styles.audience}>
+              <span className={styles.eyebrow}>Matching policies</span>
+              <span className={styles.count}>
+                {audience.isFetching ? <Loader2 aria-label="Counting" className={styles.counting} /> : (audience.data?.total_targets ?? 0).toLocaleString("en-IN")}
               </span>
-              <span className="text-label-sm text-on-surface-variant">{PRODUCT_LABEL[v.product]} policies, active or due, not lapsed</span>
+              <span className={styles.hint}>{PRODUCT_LABEL[v.product]} policies, active or due, not lapsed</span>
             </div>
           </div>
         )}
 
         {step === 2 && (
-          <div className="grid grid-cols-3 gap-space-lg">
-            <dl className="col-span-2 grid grid-cols-2 gap-x-space-lg gap-y-space-sm rounded-lg border border-divider p-space-md text-body-sm">
-              <dt className="text-on-surface-variant">Name</dt><dd className="text-label-md">{v.name}</dd>
-              <dt className="text-on-surface-variant">Line of business</dt><dd>{PRODUCT_LABEL[v.product]}</dd>
-              <dt className="text-on-surface-variant">Audience</dt>
+          <div className={styles.grid3}>
+            <dl className={styles.review}>
+              <dt>Name</dt><dd className={styles.reviewName}>{v.name}</dd>
+              <dt>Line of business</dt><dd>{PRODUCT_LABEL[v.product]}</dd>
+              <dt>Audience</dt>
               <dd>{(audience.data?.total_targets ?? 0).toLocaleString("en-IN")} policies renewing within {v.renewal_within_days} days</dd>
-              <dt className="text-on-surface-variant">Languages</dt><dd>{v.languages.map((l) => LANGUAGE_LABEL[l]).join(", ")}</dd>
-              <dt className="text-on-surface-variant">Voice AI script</dt>
+              <dt>Languages</dt><dd>{v.languages.map((l) => LANGUAGE_LABEL[l]).join(", ")}</dd>
+              <dt>Voice AI script</dt>
               <dd>{audience.data?.script ? `${audience.data.script.name} · v${audience.data.script.version} (latest approved)` : "No approved renewal script"}</dd>
-              <dt className="text-on-surface-variant">Calling window</dt><dd>09:00–19:00 IST</dd>
+              <dt>Calling window</dt><dd>09:00–19:00 IST</dd>
             </dl>
-            <div className="flex flex-col gap-1.5">
+            <div className={styles.field}>
               <Label htmlFor="c-start">Start date (optional)</Label>
               <Input id="c-start" type="date" {...form.register("start_date")} />
-              <p className="text-label-sm text-on-surface-variant">
+              <p className={styles.hint}>
                 {v.start_date ? `Dialling may start ${formatDate(v.start_date)} at 09:00 IST, once approved.` : "Leave empty to launch as soon as it is approved."}
               </p>
             </div>
           </div>
         )}
 
-        <div className="flex items-center justify-between border-t border-divider pt-space-md">
+        <div className={styles.footer}>
           <Button type="button" variant="outline" onClick={() => (step ? setStep(step - 1) : onClose())}>
             <ArrowLeft aria-hidden />{step ? "Back" : "Cancel"}
           </Button>
           {step < 2 ? (
             <Button type="button" onClick={next}>Continue<ArrowRight aria-hidden /></Button>
           ) : (
-            <div className="flex gap-space-sm">
+            <div className={styles.footerActions}>
               <Button type="button" variant="outline" disabled={save.isPending}
                 onClick={form.handleSubmit((values) => save.mutate({ values, submit: false }))}>
                 <Save aria-hidden />Save draft
               </Button>
               <Button type="button" disabled={save.isPending || !audience.data?.total_targets}
                 onClick={form.handleSubmit((values) => save.mutate({ values, submit: true }))}>
-                {save.isPending ? <Loader2 aria-hidden className="animate-spin" /> : <Send aria-hidden />}Save and submit for approval
+                {save.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <Send aria-hidden />}Save and submit for approval
               </Button>
             </div>
           )}

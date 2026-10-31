@@ -1,0 +1,249 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+// --- KPI tiles ---
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-md;
+  @include up(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include up(lg) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.kpiSkeleton {
+  height: space(40);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.kpiLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.kpiIcon {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-secondary-container) 30%, transparent);
+  padding: space(1);
+  color: var(--color-on-secondary-container);
+
+  svg {
+    @include size(space(3.5));
+  }
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-primary);
+}
+
+.kpiNote {
+  margin-top: space(1);
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.kpiTrack {
+  height: space(1.5);
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+}
+
+.kpiFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+// --- Chart cards ---
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+  @include up(lg) { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.wide {
+  @include up(lg) { grid-column: span 8 / span 8; }
+}
+
+.narrow {
+  @include up(lg) { grid-column: span 4 / span 4; }
+}
+
+.cardHeader {
+  border-bottom: 1px solid var(--color-surface-container-highest);
+  padding-bottom: $space-md;
+}
+
+.cardTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.cardDescription {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.volumeChart { height: space(72); }
+.collectionsChart { height: space(64); }
+.sentimentChart { height: space(48); }
+
+.chartSkeleton {
+  height: 100%;
+  width: 100%;
+}
+
+.outcomesSkeleton {
+  height: space(72);
+  width: 100%;
+}
+
+// --- Tooltip ---
+.tip {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-sm;
+  @include text(label-sm);
+  box-shadow: var(--shadow-popover);
+}
+
+.tipLabel {
+  margin-bottom: space(1);
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.tipRow {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  color: var(--color-on-surface-variant);
+}
+
+.tipSwatch {
+  @include size(space(2));
+  border-radius: 9999px;
+}
+
+.value {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+// --- Outcomes list ---
+.outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.outcomeHead {
+  display: flex;
+  justify-content: space-between;
+  @include text(label-sm);
+}
+
+.outcomeName {
+  color: var(--color-on-surface);
+}
+
+.outcomeCount {
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.outcomeTrack {
+  height: space(1.5);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+}
+
+.outcomeFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary-container);
+}
+
+.outcomeFillEscalated {
+  background: var(--color-error);
+}
+
+// --- Sentiment legend ---
+.legend {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-sm;
+  @include text(label-sm);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: space(1.5);
+  color: var(--color-on-surface-variant);
+}
+
+.legendSwatch {
+  @include size(space(2.5));
+  border-radius: var(--radius-sm);
+}

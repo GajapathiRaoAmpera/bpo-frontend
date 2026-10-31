@@ -1,0 +1,329 @@
+@use "styles/mixins" as *;
+
+// --- Card / Field ---
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-card);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-bottom: 1px solid var(--color-divider);
+  padding: $space-sm $space-md;
+}
+
+.cardTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.cardBody {
+  padding: $space-md;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: space(1.5) 0;
+}
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.fieldValue {
+  text-align: right;
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+// --- Customer ---
+.emptyCustomer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-lg 0;
+  text-align: center;
+}
+
+.emptyIcon {
+  display: flex;
+  @include size(space(10));
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+  color: var(--color-primary-container);
+}
+
+.iconLg {
+  @include size(space(5));
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  padding-bottom: $space-sm;
+}
+
+.avatar {
+  display: flex;
+  @include size(space(11));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(headline-sm);
+  color: var(--color-primary);
+}
+
+.identityText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.name {
+  @include truncate;
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.location {
+  @include truncate;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.fields {
+  border-top: 1px solid var(--color-divider);
+
+  > * + * {
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+.verifyNote {
+  margin-top: $space-sm;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+// --- Actions timeline ---
+.noActions {
+  padding: $space-sm 0;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: space(2);
+    bottom: space(2);
+    left: space(3.25);
+    width: 1px;
+    background: var(--color-divider);
+  }
+}
+
+.action {
+  position: relative;
+  display: flex;
+  gap: $space-sm;
+}
+
+.actionIcon {
+  z-index: 10;
+  display: flex;
+  @include size(space(7));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+
+  :where(svg) {
+    @include size(space(3.5));
+  }
+}
+
+.actionOk {
+  background: var(--color-lang-bg);
+  color: var(--color-secondary);
+}
+
+.actionFailed {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.actionBody {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.actionHead {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.time {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-outline);
+}
+
+.actionText {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.actionTextFailed {
+  color: var(--color-danger-text);
+}
+
+// --- Call summary ---
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.pending {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.line {
+  height: space(4);
+}
+
+.lineFull { width: 100%; }
+.lineLong { width: 83.333333%; }
+.lineShort { width: 66.666667%; }
+
+.summaryMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.mono {
+  @include text(data-mono);
+}
+
+.summary {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}
+
+.nextAction {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-sm;
+}
+
+.nextActionText {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.qa {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+}
+
+.qaHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.score {
+  @include text(headline-md);
+  color: var(--color-primary);
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(body-sm);
+}
+
+.passIcon {
+  @include size(space(4));
+  color: var(--color-success);
+}
+
+.failIcon {
+  @include size(space(4));
+  color: var(--color-danger);
+}
+
+.passed { color: var(--color-on-surface); }
+.failed { color: var(--color-danger-text); }
+
+.footnote {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-outline);
+}
+
+.notScored {
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

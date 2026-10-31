@@ -12,19 +12,21 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./integrations-list.module.scss";
+
 function IntegrationCard({ item }: { item: Schemas["IntegrationOut"] }) {
   const connected = item.status === "connected";
   return (
-    <li className="flex flex-col gap-space-md rounded-lg border border-divider bg-surface-container-lowest p-space-lg shadow-card">
-      <div className="flex items-start justify-between gap-space-sm">
-        <div className="flex flex-col gap-0.5">
-          <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">{item.category}</span>
-          <h3 className="text-headline-sm text-on-surface">{item.name}</h3>
+    <li className={styles.card}>
+      <div className={styles.cardHeader}>
+        <div className={styles.titleBlock}>
+          <span className={styles.category}>{item.category}</span>
+          <h3 className={styles.name}>{item.name}</h3>
         </div>
         {connected ? <Pill tone="success" pulse>Connected</Pill> : <Pill tone="warning">Pilot integration</Pill>}
       </div>
-      <p className="flex-1 text-body-sm text-on-surface-variant">{item.description}</p>
-      <p className="border-t border-divider pt-space-sm text-label-sm text-outline">
+      <p className={styles.description}>{item.description}</p>
+      <p className={styles.status}>
         {connected && item.last_sync_at ? `Last used ${formatDateTime(item.last_sync_at)}` : IS_SANDBOX ? "Not connected in the sandbox" : "Not connected"}
       </p>
     </li>
@@ -42,23 +44,23 @@ export function IntegrationsList() {
   ];
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader title="Integrations" description={IS_SANDBOX ? "Systems AssureVoice connects to. Only the AI voice stack is live in the sandbox; the rest are pilot integrations with nothing sent to real systems." : "Systems AssureVoice connects to. Only the AI voice stack is live; the rest are pilot integrations with nothing sent to real systems."} />
-      {isLoading && <div className="grid grid-cols-3 gap-space-lg">{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-44 rounded-lg bg-surface-container-lowest" />)}</div>}
+      {isLoading && <div className={styles.loadingGrid}>{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className={styles.loadingCard} />)}</div>}
       {error && (
-        <div role="alert" className="flex flex-col items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+        <div role="alert" className={styles.error}>
           {error.message}
           <Button size="sm" variant="outline" onClick={() => refetch()}>Try again</Button>
         </div>
       )}
       {data?.length === 0 && <EmptyState icon={Plug} title="No integrations configured" description={IS_SANDBOX ? "Run make reset in bpo-backend to restore the sandbox integrations." : "Run python -m app.bootstrap in bpo-backend to create the integration rows."} />}
       {groups.filter((g) => g.items.length > 0).map((g) => (
-        <section key={g.title} aria-label={g.title} className="flex flex-col gap-space-md">
-          <div className="flex items-baseline gap-space-sm">
-            <h2 className="text-headline-md text-on-surface">{g.title}</h2>
-            <span className="text-body-sm text-on-surface-variant">{g.note}</span>
+        <section key={g.title} aria-label={g.title} className={styles.group}>
+          <div className={styles.groupHeader}>
+            <h2 className={styles.groupTitle}>{g.title}</h2>
+            <span className={styles.groupNote}>{g.note}</span>
           </div>
-          <ul className="grid grid-cols-1 gap-space-lg md:grid-cols-2 xl:grid-cols-3">
+          <ul className={styles.grid}>
             {g.items.map((i) => <IntegrationCard key={i.key} item={i} />)}
           </ul>
         </section>

@@ -20,7 +20,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 If a request conflicts with these docs or the design, say so and ask; don't guess.
 
 ## Non-negotiables
-- Reproduce the Stitch layout, spacing, colours and components faithfully with tokens from `globals.css`. Missing design → same visual language.
+- Reproduce the Stitch layout, spacing, colours and components faithfully with tokens from `src/styles/_tokens.scss` (CSS variables) and the mixins in `src/styles/_mixins.scss`. Missing design → same visual language.
 - API types only from `npm run gen:types` (`src/types/api.d.ts`). Never hand-copy types.
 - The menu comes from `/api/v1/auth/me`; don't duplicate the access matrix.
 - Every page: sandbox banner, persona header. Every table: skeleton + designed empty state. Confirm approve/reject/launch/delete. Toast on success.

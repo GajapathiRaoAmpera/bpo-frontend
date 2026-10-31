@@ -1,0 +1,7 @@
+@use "styles/mixins" as *;
+
+.fallback {
+  height: space(40);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}

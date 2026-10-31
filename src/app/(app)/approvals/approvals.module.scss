@@ -1,0 +1,221 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.loading {
+  height: space(96);
+  border-radius: var(--radius-lg);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: $space-lg;
+}
+
+.side {
+  grid-column: span 3 / span 3;
+}
+
+.main {
+  grid-column: span 6 / span 6;
+}
+
+.icon {
+  @include size(space(4));
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+// Queue item
+.queueButton {
+  display: flex;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  text-align: left;
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.queueButtonActive {
+  border-color: var(--color-primary);
+  background: var(--color-surface-container-low);
+
+  &:hover {
+    background: var(--color-surface-container-low);
+  }
+}
+
+.queueIcon {
+  margin-top: space(0.5);
+  display: flex;
+  @include size(space(7));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-high);
+  color: var(--color-primary);
+}
+
+.queueText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.queueTitle {
+  @include truncate;
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.queueMeta {
+  @include truncate;
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.queueWhen {
+  @include text(label-xs);
+  color: var(--color-outline);
+}
+
+// Decision
+.checklist,
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+}
+
+.checkbox {
+  margin-top: space(0.5);
+}
+
+.checkLabel {
+  @include text(body-sm);
+  font-weight: 400;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.note {
+  min-height: space(24);
+  border-color: var(--color-divider);
+  @include text(body-sm);
+}
+
+.hint {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.caption {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+// Script diff
+.diff {
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+}
+
+.diffHead,
+.diffRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.diffHead {
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-table-head);
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.diffHeadCell {
+  padding: space(2) $space-sm;
+}
+
+.diffBody {
+  max-height: 36rem;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: space(5);
+}
+
+.diffCell {
+  padding: 0 $space-sm;
+  white-space: pre-wrap;
+}
+
+.rightCell {
+  border-left: 1px solid var(--color-divider);
+}
+
+.removed {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.added {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+// Campaign summary
+.summary > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-md;
+  padding: space(2.5) 0;
+  @include text(body-sm);
+}
+
+.summaryKey {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.summaryValue {
+  grid-column: span 2 / span 2;
+  color: var(--color-on-surface);
+}

@@ -1,0 +1,112 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+// --- Table cells ---
+.customer {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerLink {
+  @include text(label-md);
+  color: var(--color-on-surface);
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration-line: underline;
+  }
+}
+
+// text-data-mono after text-label-xs in Tailwind's order: data-mono size/weight, label-xs letter-spacing.
+.policyNo {
+  @include text(label-xs);
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.due {
+  white-space: nowrap;
+}
+
+.message {
+  display: flex;
+  max-width: 28rem;
+  align-items: flex-start;
+  gap: space(1.5);
+}
+
+.messageIcon {
+  margin-top: space(0.5);
+  @include size(space(3.5));
+  flex-shrink: 0;
+  color: var(--color-success);
+}
+
+.messageText {
+  @include line-clamp(2);
+}
+
+.reason {
+  color: var(--color-on-surface-variant);
+}
+
+.aiAgent {
+  display: flex;
+  align-items: center;
+  gap: space(1);
+}
+
+.aiIcon {
+  @include size(space(3.5));
+  color: var(--color-secondary);
+}
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: space(1);
+}
+
+// --- Status filter tabs ---
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space(1);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-sm;
+  @include text(label-xs);
+  box-shadow: var(--shadow-card);
+}
+
+.tab {
+  border-radius: var(--radius-lg);
+  padding: space(1.5) space(2.5);
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: var(--color-surface-container-high);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+  }
+}
+
+.tabActive {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background: var(--color-primary-container);
+  }
+}

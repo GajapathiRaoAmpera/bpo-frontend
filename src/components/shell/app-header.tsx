@@ -18,6 +18,8 @@ import {
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { initials } from "@/lib/format";
 
+import styles from "./app-header.module.scss";
+
 export function AppHeader({ me }: { me: Schemas["MeOut"] }) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -37,35 +39,35 @@ export function AppHeader({ me }: { me: Schemas["MeOut"] }) {
 
   const { user } = me;
   return (
-    <header className="fixed inset-x-0 top-(--banner-h) z-40 h-16 bg-surface-container-lowest/90 shadow-chrome backdrop-blur-md">
-      <div className="flex h-16 items-center justify-between gap-space-lg px-gutter-desktop">
-        <div className="w-60 shrink-0">
+    <header className={styles.header}>
+      <div className={styles.bar}>
+        <div className={styles.brandSlot}>
           <Brand />
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger
-            className="flex items-center gap-space-sm rounded-lg py-1 pr-1.5 pl-space-sm text-left transition-colors hover:bg-surface-container-high focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lang-border"
+            className={styles.trigger}
             aria-label={`Account menu for ${user.full_name}`}
           >
             <span
               aria-hidden
-              className="flex size-8 items-center justify-center rounded-full bg-primary-container text-label-sm text-on-primary"
+              className={styles.avatar}
             >
               {initials(user.full_name)}
             </span>
-            <span className="flex flex-col">
-              <span className="text-label-md leading-tight text-on-surface">{user.full_name}</span>
-              <span className="text-label-xs leading-tight font-medium text-on-surface-variant">
+            <span className={styles.who}>
+              <span className={styles.name}>{user.full_name}</span>
+              <span className={styles.role}>
                 {user.job_title} · {me.role_label}
               </span>
             </span>
-            <ChevronDown aria-hidden className="size-4 text-on-surface-variant" />
+            <ChevronDown aria-hidden className={styles.chevron} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-64">
-            <DropdownMenuLabel className="flex flex-col gap-0.5 font-normal">
-              <span className="text-label-md text-on-surface">{user.full_name}</span>
-              <span className="text-label-sm text-on-surface-variant">{user.email}</span>
-              <span className="mt-1 w-fit rounded-full border border-neutral-border bg-neutral-bg px-2 py-0.5 text-label-xs text-neutral-text">
+          <DropdownMenuContent align="end" className={styles.menu}>
+            <DropdownMenuLabel className={styles.menuLabel}>
+              <span className={styles.menuName}>{user.full_name}</span>
+              <span className={styles.menuEmail}>{user.email}</span>
+              <span className={styles.roleChip}>
                 {me.role_label}
               </span>
             </DropdownMenuLabel>

@@ -1,0 +1,290 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+// Uppercase field / KPI label.
+.label {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.muted {
+  color: var(--color-on-surface-variant);
+}
+
+.strong {
+  color: var(--color-on-surface);
+}
+
+// --- KPI tiles ---
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-lg;
+  @include up(lg) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.kpiIcon {
+  display: flex;
+  @include size(space(7));
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  color: var(--color-primary);
+
+  svg {
+    @include size(space(4));
+  }
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-on-surface);
+}
+
+.kpiNote {
+  @include text(label-sm);
+  color: var(--color-outline);
+}
+
+// --- Layout ---
+.layout {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+  @include up(xl) { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+.calls {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  @include up(xl) { grid-column: span 12 / span 12; }
+}
+
+.callsWithPanel {
+  @include up(xl) { grid-column: span 8 / span 8; }
+}
+
+.panelSlot {
+  @include up(xl) { grid-column: span 4 / span 4; }
+}
+
+.callSkeleton {
+  height: space(44);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-sm;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.callList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+// --- Call card ---
+.callCard {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.callCardSelected {
+  border: 2px solid var(--color-primary);
+}
+
+.callHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.dot {
+  @include size(space(2));
+  border-radius: 9999px;
+  background: var(--color-secondary);
+}
+
+.dotHuman {
+  background: var(--color-warning-text);
+}
+
+.callName {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.phone {
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.callStatus {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface-container-low) 60%, transparent);
+  padding: $space-md;
+  @include text(body-sm);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.callRef {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+.callFoot {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.lastLine {
+  min-width: 0;
+  flex: 1 1 0%;
+  @include truncate;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.lastSpeaker {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+// --- Call detail panel ---
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.panelTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.panelError {
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.panelPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+}
+
+.panelNote {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.transcript {
+  display: flex;
+  max-height: 28rem;
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+}
+
+.turn {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+}
+
+.turnSpeaker {
+  display: flex;
+  align-items: center;
+  gap: space(1);
+  @include text(label-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+
+  svg {
+    @include size(space(3));
+  }
+}
+
+.turnOffset {
+  @include text(data-mono);
+  font-weight: 400;
+  color: var(--color-outline);
+}
+
+.turnText {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}

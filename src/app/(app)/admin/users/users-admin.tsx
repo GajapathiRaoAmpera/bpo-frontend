@@ -22,12 +22,14 @@ import { formatDateTime, initials } from "@/lib/format";
 import { NAV } from "@/lib/nav";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./users-admin.module.scss";
+
 type User = Schemas["UserAdminRow"];
 const LEVEL_TONE: Record<Schemas["Level"], PillTone> = { full: "success", view: "info", approve: "warning", masked: "lang", own: "neutral" };
 
 function ErrorBox({ message, retry }: { message: string; retry: () => void }) {
   return (
-    <div role="alert" className="flex flex-col items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+    <div role="alert" className={styles.error}>
       {message}
       <Button size="sm" variant="outline" onClick={retry}>Try again</Button>
     </div>
@@ -41,33 +43,33 @@ function PermissionMatrix() {
     staleTime: Infinity,
   });
   return (
-    <section aria-labelledby="matrix-heading" className="flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-      <div className="flex flex-col gap-1">
-        <h2 id="matrix-heading" className="flex items-center gap-space-sm text-headline-md text-on-surface">
-          <ShieldCheck aria-hidden className="size-5 text-primary" /> Permission matrix
+    <section aria-labelledby="matrix-heading" className={styles.card}>
+      <div className={styles.intro}>
+        <h2 id="matrix-heading" className={`${styles.heading} ${styles.iconHeading}`}>
+          <ShieldCheck aria-hidden className={styles.headingIcon} /> Permission matrix
         </h2>
-        <p className="text-body-sm text-on-surface-variant">Read from the API&apos;s single access matrix, which every endpoint enforces. Role access is fixed{IS_SANDBOX && " in this sandbox"}.</p>
+        <p className={styles.lede}>Read from the API&apos;s single access matrix, which every endpoint enforces. Role access is fixed{IS_SANDBOX && " in this sandbox"}.</p>
       </div>
       {error && <ErrorBox message={error.message} retry={() => refetch()} />}
-      {isLoading && <Skeleton className="h-96" />}
+      {isLoading && <Skeleton className={styles.loading} />}
       {data && (
-        <div className="overflow-x-auto rounded-lg border border-divider">
-          <table className="w-full text-body-sm">
-            <thead className="bg-table-head">
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead className={styles.thead}>
               <tr>
                 <th className={TH}>Screen</th>
                 {data.roles.map((r) => <th key={r.role} className={TH}>{r.label}</th>)}
               </tr>
             </thead>
-            <tbody className="divide-y divide-divider">
+            <tbody className={styles.tbody}>
               {data.screens.map((s) => (
-                <tr key={s} className="h-11 hover:bg-table-head">
-                  <th scope="row" className={`${TD} text-left text-label-md whitespace-nowrap text-on-surface`}>{NAV[s].label}</th>
+                <tr key={s} className={styles.matrixRow}>
+                  <th scope="row" className={`${TD} ${styles.screenName}`}>{NAV[s].label}</th>
                   {data.roles.map((r) => {
                     const level = data.matrix[s]?.[r.role];
                     return (
                       <td key={r.role} className={TD}>
-                        {level ? <Pill tone={LEVEL_TONE[level]}>{LEVEL_LABEL[level]}</Pill> : <span className="text-outline" aria-label="No access">—</span>}
+                        {level ? <Pill tone={LEVEL_TONE[level]}>{LEVEL_LABEL[level]}</Pill> : <span className={styles.noAccess} aria-label="No access">—</span>}
                       </td>
                     );
                   })}
@@ -105,16 +107,16 @@ export function UsersAdmin() {
   });
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Users & Roles"
         description="Staff accounts and their roles. Accounts are deactivated, never deleted, so the audit trail stays intact. Every change is audited."
         actions={<Button onClick={() => setCreating(true)}><UserPlus aria-hidden /> Add user</Button>}
       />
 
-      <section aria-labelledby="users-heading" className="flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-        <div className="flex items-center gap-space-sm">
-          <h2 id="users-heading" className="text-headline-md text-on-surface">Users</h2>
+      <section aria-labelledby="users-heading" className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h2 id="users-heading" className={styles.heading}>Users</h2>
           {data && <Pill tone="info">{data.filter((u) => u.is_active).length} active · {data.length} total</Pill>}
         </div>
         {error && <ErrorBox message={error.message} retry={() => refetch()} />}
@@ -122,34 +124,34 @@ export function UsersAdmin() {
           <EmptyState icon={Users} title="No users yet" description="Add the first staff account to get started."
             action={<Button onClick={() => setCreating(true)}><UserPlus aria-hidden /> Add user</Button>} />
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-divider">
-            <table className="w-full text-body-sm">
-              <thead className="bg-table-head">
-                <tr><th className={TH}>Name</th><th className={TH}>Job title</th><th className={TH}>Role</th><th className={TH}>Status</th><th className={TH}>Last sign-in</th><th className={`${TH} text-right`}>Actions</th></tr>
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead className={styles.thead}>
+                <tr><th className={TH}>Name</th><th className={TH}>Job title</th><th className={TH}>Role</th><th className={TH}>Status</th><th className={TH}>Last sign-in</th><th className={`${TH} ${styles.right}`}>Actions</th></tr>
               </thead>
-              <tbody className="divide-y divide-divider">
-                {isLoading && Array.from({ length: 6 }, (_, i) => <tr key={i}><td colSpan={6} className={TD}><Skeleton className="h-8" /></td></tr>)}
+              <tbody className={styles.tbody}>
+                {isLoading && Array.from({ length: 6 }, (_, i) => <tr key={i}><td colSpan={6} className={TD}><Skeleton className={styles.skeletonRow} /></td></tr>)}
                 {data?.map((u) => {
                   const self = u.id === me?.user.id;
                   return (
-                    <tr key={u.id} className="h-12 hover:bg-table-head">
+                    <tr key={u.id} className={styles.userRow}>
                       <td className={TD}>
-                        <div className="flex items-center gap-space-sm">
-                          <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-label-sm text-primary">{initials(u.full_name)}</span>
-                          <span className="flex min-w-0 flex-col">
-                            <span className="text-label-md text-on-surface">{u.full_name}{self && <span className="text-on-surface-variant"> (you)</span>}</span>
-                            <span className="truncate text-label-sm text-on-surface-variant">{u.email}</span>
+                        <div className={styles.person}>
+                          <span aria-hidden className={styles.avatar}>{initials(u.full_name)}</span>
+                          <span className={styles.personText}>
+                            <span className={styles.name}>{u.full_name}{self && <span className={styles.you}> (you)</span>}</span>
+                            <span className={styles.email}>{u.email}</span>
                           </span>
                         </div>
                       </td>
-                      <td className={`${TD} text-on-surface`}>{u.job_title}</td>
+                      <td className={`${TD} ${styles.jobTitle}`}>{u.job_title}</td>
                       <td className={TD}><Pill tone="info">{ROLE_LABEL[u.role]}</Pill></td>
                       <td className={TD}>{u.is_active ? <Pill tone="success">Active</Pill> : <Pill tone="neutral">Deactivated</Pill>}</td>
-                      <td className={`${TD} text-data-mono whitespace-nowrap text-on-surface-variant`}>{u.last_login_at ? formatDateTime(u.last_login_at) : "Never"}</td>
-                      <td className={`${TD} text-right whitespace-nowrap`}>
+                      <td className={`${TD} ${styles.lastLogin}`}>{u.last_login_at ? formatDateTime(u.last_login_at) : "Never"}</td>
+                      <td className={`${TD} ${styles.actions}`}>
                         <Button size="sm" variant="ghost" onClick={() => setEditing(u)} aria-label={`Edit ${u.full_name}`}><Pencil aria-hidden /> Edit</Button>
                         {u.is_active ? (
-                          <Button size="sm" variant="ghost" className="text-danger-text" disabled={self} title={self ? "You can't deactivate your own account" : undefined}
+                          <Button size="sm" variant="ghost" className={styles.danger} disabled={self} title={self ? "You can't deactivate your own account" : undefined}
                             onClick={() => setDeactivating(u)} aria-label={`Deactivate ${u.full_name}`}><UserMinus aria-hidden /> Deactivate</Button>
                         ) : (
                           <Button size="sm" variant="ghost" disabled={setActive.isPending}

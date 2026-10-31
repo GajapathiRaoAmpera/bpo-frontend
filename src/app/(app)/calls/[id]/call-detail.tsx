@@ -15,42 +15,44 @@ import { formatDate, formatDateTime, formatINR } from "@/lib/format";
 import { formatDuration, OUTCOME_LABEL, PRODUCT_LABEL, QA_LABEL, SENTIMENT_LABEL, TOOL_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
 
+import styles from "./call-detail.module.scss";
+
 type Turn = Schemas["TurnOut"];
 
 function Card({ title, action, children }: { title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <section className="flex flex-col rounded-lg bg-surface-container-lowest shadow-card">
-      <div className="flex items-center justify-between gap-space-sm border-b border-divider px-space-lg py-space-md">
-        <h2 className="text-headline-sm text-on-surface">{title}</h2>
+    <section className={styles.card}>
+      <div className={styles.cardHead}>
+        <h2 className={styles.cardTitle}>{title}</h2>
         {action}
       </div>
-      <div className="p-space-lg">{children}</div>
+      <div className={styles.cardBody}>{children}</div>
     </section>
   );
 }
 
 function Meta({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-label-xs tracking-wider text-outline uppercase">{label}</span>
-      <span className="text-label-md text-on-surface">{children}</span>
+    <div className={styles.meta}>
+      <span className={styles.metaLabel}>{label}</span>
+      <span className={styles.metaValue}>{children}</span>
     </div>
   );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between gap-space-md py-2">
-      <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">{label}</dt>
-      <dd className="text-right text-data-mono text-on-surface">{children}</dd>
+    <div className={styles.field}>
+      <dt className={styles.fieldLabel}>{label}</dt>
+      <dd className={styles.fieldValue}>{children}</dd>
     </div>
   );
 }
 
 const SPEAKER = {
-  bot: { label: "AssureVoice AI", icon: Bot, box: "border-lang-border/40 bg-lang-bg/40", tag: "bg-secondary-container/50 text-secondary" },
-  customer: { label: "Customer", icon: UserRound, box: "border-divider bg-surface-container-lowest", tag: "bg-surface-container-high text-primary" },
-  agent: { label: "Human agent", icon: Headset, box: "border-primary-container/30 bg-surface-container-low", tag: "bg-primary-container text-on-primary" },
+  bot: { label: "AssureVoice AI", icon: Bot, box: styles.turnBot, tag: styles.speakerBot },
+  customer: { label: "Customer", icon: UserRound, box: styles.turnCustomer, tag: styles.speakerCustomer },
+  agent: { label: "Human agent", icon: Headset, box: styles.turnAgent, tag: styles.speakerAgent },
 } as const;
 
 function TurnItem({ t }: { t: Turn }) {
@@ -58,22 +60,22 @@ function TurnItem({ t }: { t: Turn }) {
     // Seeded sample calls store only the tool arguments; only an explicit ok:false is a failure.
     const ok = (t.tool_payload?.result as { ok?: boolean } | undefined)?.ok !== false;
     return (
-      <li className={cn("flex items-center gap-space-sm rounded-lg px-space-md py-space-sm text-label-sm", ok ? "bg-surface-container-low text-on-surface-variant" : "bg-danger-bg text-danger-text")}>
-        <Wrench aria-hidden className="size-3.5 shrink-0" />
-        <span className="font-semibold">{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}</span>
-        <span className="truncate">{t.text}</span>
-        <span className="ml-auto text-data-mono text-label-xs">{formatDuration(t.offset_ms / 1000)}</span>
+      <li className={cn(styles.toolTurn, !ok && styles.toolFailed)}>
+        <Wrench aria-hidden className={styles.toolIcon} />
+        <span className={styles.toolName}>{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}</span>
+        <span className={styles.toolText}>{t.text}</span>
+        <span className={styles.toolTime}>{formatDuration(t.offset_ms / 1000)}</span>
       </li>
     );
   }
   const s = SPEAKER[t.speaker];
   return (
-    <li className={cn("flex flex-col gap-space-xs rounded-lg border p-space-md", s.box)}>
-      <div className="flex items-center gap-space-sm text-label-xs">
-        <span className={cn("rounded-sm px-1.5 py-0.5 font-semibold", s.tag)}>{s.label}</span>
-        <span className="text-data-mono text-on-surface-variant">{formatDuration(t.offset_ms / 1000)}</span>
+    <li className={cn(styles.turn, s.box)}>
+      <div className={styles.turnHead}>
+        <span className={cn(styles.speaker, s.tag)}>{s.label}</span>
+        <span className={styles.turnTime}>{formatDuration(t.offset_ms / 1000)}</span>
       </div>
-      <p className="text-body-md text-on-surface">{t.text}</p>
+      <p className={styles.bodyMd}>{t.text}</p>
     </li>
   );
 }
@@ -94,18 +96,18 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
   }
   if (error) {
     return (
-      <div role="alert" className="flex items-center justify-between rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+      <div role="alert" className={styles.error}>
         {error.message}<Button size="sm" variant="outline" onClick={() => refetch()}>Try again</Button>
       </div>
     );
   }
   if (isLoading || !c) {
     return (
-      <div className="flex flex-col gap-space-xl" aria-busy="true">
-        <Skeleton className="h-44 rounded-lg bg-surface-container-lowest" />
-        <div className="grid grid-cols-12 gap-space-xl">
-          <Skeleton className="col-span-8 h-96 rounded-lg bg-surface-container-lowest" />
-          <Skeleton className="col-span-4 h-96 rounded-lg bg-surface-container-lowest" />
+      <div className={styles.page} aria-busy="true">
+        <Skeleton className={styles.skeletonHeader} />
+        <div className={styles.skeletonGrid}>
+          <Skeleton className={styles.skeletonMain} />
+          <Skeleton className={styles.skeletonSide} />
         </div>
       </div>
     );
@@ -113,34 +115,34 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
 
   const qa = c.qa;
   return (
-    <div className="flex flex-col gap-space-xl">
-      <nav aria-label="Breadcrumb" className="flex items-center gap-space-sm text-label-sm text-on-surface-variant">
-        <Link href="/calls" className="hover:text-primary hover:underline">Call History</Link>
+    <div className={styles.page}>
+      <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
+        <Link href="/calls" className={styles.crumbLink}>Call History</Link>
         <span aria-hidden>›</span>
-        <span className="rounded-sm bg-surface-container-high px-1.5 py-0.5 text-data-mono text-primary">{c.call_ref}</span>
+        <span className={styles.crumbRef}>{c.call_ref}</span>
       </nav>
 
-      <section className="flex flex-col gap-space-lg rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-        <div className="flex flex-wrap items-start justify-between gap-space-md">
-          <div className="flex flex-col gap-space-sm">
-            <div className="flex flex-wrap items-center gap-space-sm">
+      <section className={styles.hero}>
+        <div className={styles.heroTop}>
+          <div className={styles.heroIntro}>
+            <div className={styles.badges}>
               <Pill tone="info">{c.mode === "renewal" ? "Renewal call" : "Inbound query"}</Pill>
               {c.outcome && <Pill tone={OUTCOME_TONE[c.outcome]}>{OUTCOME_LABEL[c.outcome]}</Pill>}
               {c.verified ? <Pill tone="success">Identity verified</Pill> : <Pill tone="warning">Not verified</Pill>}
               {c.is_simulated && <Pill tone="neutral">Seeded sample call</Pill>}
             </div>
-            <h1 className="text-headline-lg text-on-surface">
+            <h1 className={styles.title}>
               {c.customer?.full_name ?? "Unidentified caller"}{c.policy ? ` · ${c.policy.plan_name}` : ""}
             </h1>
-            <div className="flex flex-wrap gap-x-space-lg gap-y-1 text-body-sm text-on-surface-variant">
+            <div className={styles.facts}>
               {c.customer && <span>{c.customer.phone} · {c.customer.city}, {c.customer.state}</span>}
-              {c.policy && <span>Policy <span className="text-data-mono text-primary">{c.policy.policy_no}</span></span>}
-              {c.customer && <Link href={`/customers/${c.customer.id}`} className="text-primary-container hover:underline">Open Customer 360</Link>}
+              {c.policy && <span>Policy <span className={styles.policyNo}>{c.policy.policy_no}</span></span>}
+              {c.customer && <Link href={`/customers/${c.customer.id}`} className={styles.customerLink}>Open Customer 360</Link>}
             </div>
           </div>
           {back}
         </div>
-        <div className="grid grid-cols-2 gap-space-md border-t border-divider pt-space-md md:grid-cols-5">
+        <div className={styles.metaGrid}>
           <Meta label="Started">{formatDateTime(c.started_at)}</Meta>
           <Meta label="Duration">{formatDuration(c.duration_sec)}</Meta>
           <Meta label="Handled by">{c.agent_name ? `AI, then ${c.agent_name}` : "AI agent"}</Meta>
@@ -149,16 +151,16 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-space-xl lg:grid-cols-12">
-        <div className="flex flex-col gap-space-xl lg:col-span-8">
+      <div className={styles.columns}>
+        <div className={styles.mainCol}>
           {(c.summary || c.next_action) && (
             <Card title="AI summary">
-              <div className="flex flex-col gap-space-md">
-                {c.summary && <p className="text-body-md text-on-surface">{c.summary}</p>}
+              <div className={styles.summary}>
+                {c.summary && <p className={styles.bodyMd}>{c.summary}</p>}
                 {c.next_action && (
-                  <div className="rounded-lg bg-surface-container-low p-space-sm">
-                    <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">Next action</span>
-                    <p className="text-body-sm text-on-surface">{c.next_action}</p>
+                  <div className={styles.nextAction}>
+                    <span className={styles.noteLabel}>Next action</span>
+                    <p className={styles.bodySm}>{c.next_action}</p>
                   </div>
                 )}
               </div>
@@ -166,31 +168,31 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
           )}
           <Card title="Transcript" action={<Pill tone="info">{c.turns.filter((t) => t.speaker !== "tool").length} turns</Pill>}>
             {c.turns.length === 0
-              ? <p className="text-body-sm text-on-surface-variant">No transcript: the customer didn&apos;t answer.</p>
-              : <ol className="flex flex-col gap-space-sm">{c.turns.map((t) => <TurnItem key={t.seq} t={t} />)}</ol>}
+              ? <p className={styles.muted}>No transcript: the customer didn&apos;t answer.</p>
+              : <ol className={styles.turns}>{c.turns.map((t) => <TurnItem key={t.seq} t={t} />)}</ol>}
           </Card>
         </div>
 
-        <div className="flex flex-col gap-space-xl lg:col-span-4">
-          <Card title="QA score" action={qa && <span className="text-headline-md text-primary">{qa.score} / 5</span>}>
+        <div className={styles.sideCol}>
+          <Card title="QA score" action={qa && <span className={styles.qaScore}>{qa.score} / 5</span>}>
             {qa ? (
-              <div className="flex flex-col gap-space-sm">
-                <ul className="flex flex-col gap-space-sm">
+              <div className={styles.qaBlock}>
+                <ul className={styles.qaList}>
                   {(Object.keys(QA_LABEL) as (keyof typeof QA_LABEL)[]).map((k) => (
-                    <li key={k} className="flex items-center gap-space-sm text-body-sm">
-                      {qa[k] ? <CircleCheck aria-label="Passed" className="size-4 text-success" /> : <CircleX aria-label="Failed" className="size-4 text-danger" />}
-                      <span className={qa[k] ? "text-on-surface" : "text-danger-text"}>{QA_LABEL[k]}</span>
+                    <li key={k} className={styles.qaItem}>
+                      {qa[k] ? <CircleCheck aria-label="Passed" className={styles.passIcon} /> : <CircleX aria-label="Failed" className={styles.failIcon} />}
+                      <span className={qa[k] ? styles.passText : styles.failText}>{QA_LABEL[k]}</span>
                     </li>
                   ))}
                 </ul>
-                <span className="text-label-xs font-medium text-outline">Scored by {qa.source === "human" ? "a QA analyst" : "AI"}</span>
+                <span className={styles.scoredBy}>Scored by {qa.source === "human" ? "a QA analyst" : "AI"}</span>
               </div>
-            ) : <p className="text-body-sm text-on-surface-variant">Not scored. Calls without a conversation, or where automatic analysis failed, are left for a QA analyst.</p>}
+            ) : <p className={styles.muted}>Not scored. Calls without a conversation, or where automatic analysis failed, are left for a QA analyst.</p>}
           </Card>
 
           {c.policy && (
             <Card title="Policy">
-              <dl className="divide-y divide-divider">
+              <dl className={styles.fields}>
                 <Field label="Policy no.">{c.policy.policy_no}</Field>
                 <Field label="Product">{PRODUCT_LABEL[c.policy.product]}</Field>
                 <Field label="Premium">{formatINR(c.policy.premium_inr)}</Field>
@@ -202,15 +204,15 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
 
           {c.escalations.length > 0 && (
             <Card title="Escalations">
-              <ul className="flex flex-col gap-space-md">
+              <ul className={styles.list}>
                 {c.escalations.map((e) => (
-                  <li key={e.id} className="flex flex-col gap-1">
-                    <div className="flex items-center gap-space-sm">
+                  <li key={e.id} className={styles.item}>
+                    <div className={styles.itemHead}>
                       <Pill tone={PRIORITY_TONE[e.priority]}>{e.priority}</Pill>
                       <Pill tone={e.status === "resolved" ? "success" : "warning"}>{e.status}</Pill>
                     </div>
-                    <p className="text-body-sm text-on-surface">{e.reason}</p>
-                    {e.resolution_note && <p className="text-body-sm text-on-surface-variant">Resolved{e.assigned_to_name ? ` by ${e.assigned_to_name}` : ""}: {e.resolution_note}</p>}
+                    <p className={styles.bodySm}>{e.reason}</p>
+                    {e.resolution_note && <p className={styles.muted}>Resolved{e.assigned_to_name ? ` by ${e.assigned_to_name}` : ""}: {e.resolution_note}</p>}
                   </li>
                 ))}
               </ul>
@@ -219,15 +221,15 @@ export function CallDetail({ params }: { params: Promise<{ id: string }> }) {
 
           {c.followups.length > 0 && (
             <Card title="Follow-ups">
-              <ul className="flex flex-col gap-space-md">
+              <ul className={styles.list}>
                 {c.followups.map((f) => (
-                  <li key={f.id} className="flex flex-col gap-1">
-                    <div className="flex items-center justify-between gap-space-sm">
-                      <span className="text-label-md text-on-surface">{FOLLOWUP_KIND_LABEL[f.kind]}</span>
+                  <li key={f.id} className={styles.item}>
+                    <div className={cn(styles.itemHead, styles.itemHeadSplit)}>
+                      <span className={styles.followupKind}>{FOLLOWUP_KIND_LABEL[f.kind]}</span>
                       <Pill tone={FOLLOWUP_TONE[f.status]}>{FOLLOWUP_STATUS_LABEL[f.status]}</Pill>
                     </div>
-                    <span className="text-label-xs font-medium text-on-surface-variant">Due {formatDateTime(f.due_at)}</span>
-                    {f.message_text && <p className="rounded-lg bg-success-bg p-space-sm text-body-sm text-on-surface">{f.message_text}</p>}
+                    <span className={styles.due}>Due {formatDateTime(f.due_at)}</span>
+                    {f.message_text && <p className={styles.message}>{f.message_text}</p>}
                   </li>
                 ))}
               </ul>

@@ -1,0 +1,278 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.spinner {
+  @include spin;
+}
+
+.lockIcon {
+  @include size(space(3));
+}
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+
+  @include up(xl) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.ledger {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+
+  @include up(xl) {
+    grid-column: span 8 / span 8;
+  }
+}
+
+.side {
+  @include up(xl) {
+    grid-column: span 4 / span 4;
+  }
+}
+
+.ledgerHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.ledgerIcon {
+  @include size(space(5));
+  color: var(--color-primary);
+}
+
+.heading {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+// Filters
+.filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-md;
+
+  @include up(lg) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.filterActions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-sm;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-sm;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+// Table
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+}
+
+.refetching {
+  opacity: 0.7;
+}
+
+.table {
+  width: 100%;
+  @include text(body-sm);
+}
+
+.thead {
+  background: var(--color-table-head);
+}
+
+.tbody > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.skeletonRow {
+  height: space(8);
+}
+
+.row {
+  height: space(12);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+    outline-offset: -2px;
+  }
+}
+
+.rowSelected {
+  background: var(--color-surface-container-low);
+}
+
+.mono {
+  @include text(data-mono);
+  white-space: nowrap;
+}
+
+.actorName {
+  display: block;
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.actorRole {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.detailCell {
+  max-width: space(72);
+  @include truncate;
+  color: var(--color-on-surface-variant);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+// Detail panel
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-xl;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.placeholderIcon {
+  @include size(space(6));
+  color: var(--color-primary-container);
+}
+
+.placeholderTitle {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.placeholderText {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface-container-low) 60%, transparent);
+  padding: $space-md;
+  @include text(body-sm);
+}
+
+.fieldRow {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.fieldKey {
+  color: var(--color-on-surface-variant);
+}
+
+.fieldValue {
+  text-align: right;
+  @include text(data-mono);
+  word-break: break-all;
+  color: var(--color-on-surface);
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.raw {
+  max-height: space(64);
+  overflow: auto;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-table-head);
+  padding: $space-md;
+  @include text(data-mono);
+  white-space: pre-wrap;
+  color: var(--color-on-surface);
+}

@@ -1,0 +1,179 @@
+@use "styles/mixins" as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.alertIcon {
+  margin-top: space(0.5);
+  @include size(space(4));
+  flex-shrink: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
+.passwordWrap {
+  position: relative;
+}
+
+.passwordInput {
+  padding-right: space(10);
+}
+
+.reveal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  width: space(10);
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  color: var(--color-outline);
+
+  &:hover {
+    color: var(--color-on-surface);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+  }
+}
+
+.revealIcon {
+  @include size(space(4));
+}
+
+.submit {
+  width: 100%;
+}
+
+.spinner {
+  @include spin;
+}
+
+.personas {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.personasHead {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.rule {
+  height: 1px;
+  flex: 1 1 0%;
+  background: var(--color-divider);
+}
+
+.personasTitle {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.hint {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.personaList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-sm;
+}
+
+.persona {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-sm;
+  text-align: left;
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: var(--color-neutral-border);
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.avatar {
+  display: flex;
+  @include size(space(8));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(label-sm);
+  color: var(--color-primary);
+}
+
+.personaText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.personaName {
+  @include truncate;
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.personaRole {
+  @include truncate;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const backend = process.env.BACKEND_URL ?? "http://localhost:8000";
@@ -6,14 +7,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   output: "standalone",
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  // Lets every *.module.scss `@use "styles/mixins" as *;` without relative paths.
+  sassOptions: { loadPaths: [path.join(process.cwd(), "src")] },
   // One browser origin for UI + API, so the backend's httpOnly session cookie just works.
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${backend}/api/:path*` }];

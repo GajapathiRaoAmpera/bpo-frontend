@@ -16,6 +16,7 @@ import { formatTime } from "@/lib/format";
 import { SCREEN_HREF } from "@/lib/routes";
 import { formatDuration, SENTIMENT_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
+import styles from "./live-monitor.module.scss";
 
 type LiveCall = Schemas["LiveCallRow"];
 
@@ -35,20 +36,20 @@ function useNow() {
 }
 
 function status(call: LiveCall) {
-  if (call.taken_over) return <Pill tone="warning"><Headset aria-hidden className="size-3" /> Human on call</Pill>;
+  if (call.taken_over) return <Pill tone="warning"><Headset aria-hidden className={styles.pillIcon} /> Human on call</Pill>;
   if (call.bot_connected) return <Pill tone="live" pulse>AI on call</Pill>;
   return <Pill tone="neutral">Connecting</Pill>;
 }
 
 function Kpi({ label, value, icon: Icon, note }: { label: string; value: number; icon: typeof Activity; note: string }) {
   return (
-    <div className="flex flex-col gap-space-sm rounded-lg bg-surface-container-lowest p-space-md shadow-card">
-      <div className="flex items-start justify-between">
-        <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">{label}</span>
-        <span className="flex size-7 items-center justify-center rounded-lg bg-surface-container-low text-primary"><Icon aria-hidden className="size-4" /></span>
+    <div className={styles.kpi}>
+      <div className={styles.kpiTop}>
+        <span className={styles.label}>{label}</span>
+        <span className={styles.kpiIcon}><Icon aria-hidden /></span>
       </div>
-      <span className="text-display text-on-surface">{value}</span>
-      <span className="text-label-sm text-outline">{note}</span>
+      <span className={styles.kpiValue}>{value}</span>
+      <span className={styles.kpiNote}>{note}</span>
     </div>
   );
 }
@@ -56,40 +57,39 @@ function Kpi({ label, value, icon: Icon, note }: { label: string; value: number;
 function CallCard({ call, now, selected, onOpen }: { call: LiveCall; now: number; selected: boolean; onOpen?: () => void }) {
   const elapsed = now ? Math.max(0, (now - new Date(call.started_at).getTime()) / 1000) : 0;
   return (
-    <li className={cn("flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card",
-      selected ? "border-2 border-primary" : "border border-divider")}>
-      <div className="flex flex-wrap items-center gap-space-sm">
-        <span className={cn("size-2 rounded-full", call.taken_over ? "bg-warning-text" : "bg-secondary")} aria-hidden />
-        <span className="text-headline-sm text-on-surface">{call.customer_name ?? "Unidentified caller"}</span>
-        {call.customer_phone && <span className="text-data-mono text-on-surface-variant">{call.customer_phone}</span>}
-        <span className="ml-auto flex items-center gap-space-sm">
+    <li className={cn(styles.callCard, selected && styles.callCardSelected)}>
+      <div className={styles.callHead}>
+        <span className={cn(styles.dot, call.taken_over && styles.dotHuman)} aria-hidden />
+        <span className={styles.callName}>{call.customer_name ?? "Unidentified caller"}</span>
+        {call.customer_phone && <span className={styles.phone}>{call.customer_phone}</span>}
+        <span className={styles.callStatus}>
           {status(call)}
           <Pill tone="info">In call · {formatDuration(Math.max(0, elapsed))}</Pill>
         </span>
       </div>
-      <dl className="grid grid-cols-3 gap-space-md rounded-lg bg-surface-container-low/60 p-space-md text-body-sm">
-        <div className="flex flex-col gap-0.5">
-          <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">Call</dt>
-          <dd className="text-data-mono text-on-surface">{call.call_ref}</dd>
-          <dd className="text-on-surface-variant">{call.mode === "renewal" ? "Renewal" : "Inbound"}{call.policy_no ? ` · ${call.policy_no}` : ""}</dd>
+      <dl className={styles.facts}>
+        <div className={styles.fact}>
+          <dt className={styles.label}>Call</dt>
+          <dd className={styles.callRef}>{call.call_ref}</dd>
+          <dd className={styles.muted}>{call.mode === "renewal" ? "Renewal" : "Inbound"}{call.policy_no ? ` · ${call.policy_no}` : ""}</dd>
         </div>
-        <div className="flex flex-col gap-0.5">
-          <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">Agent desk</dt>
-          <dd className="text-on-surface">{call.agent_name ?? "AI only"}</dd>
-          <dd className="text-on-surface-variant">Started {formatTime(call.started_at)}</dd>
+        <div className={styles.fact}>
+          <dt className={styles.label}>Agent desk</dt>
+          <dd className={styles.strong}>{call.agent_name ?? "AI only"}</dd>
+          <dd className={styles.muted}>Started {formatTime(call.started_at)}</dd>
         </div>
-        <div className="flex flex-col gap-0.5">
-          <dt className="text-label-xs tracking-wider text-on-surface-variant uppercase">Verification · sentiment</dt>
-          <dd>{call.verified ? <Pill tone="success"><ShieldCheck aria-hidden className="size-3" /> Verified</Pill> : <Pill tone="neutral">Not verified yet</Pill>}</dd>
+        <div className={styles.fact}>
+          <dt className={styles.label}>Verification · sentiment</dt>
+          <dd>{call.verified ? <Pill tone="success"><ShieldCheck aria-hidden className={styles.pillIcon} /> Verified</Pill> : <Pill tone="neutral">Not verified yet</Pill>}</dd>
           <dd>{call.sentiment
             ? <Pill tone={SENTIMENT_TONE[call.sentiment]}>{SENTIMENT_LABEL[call.sentiment]}</Pill>
-            : <span className="text-on-surface-variant">Sentiment scored after the call</span>}</dd>
+            : <span className={styles.muted}>Sentiment scored after the call</span>}</dd>
         </div>
       </dl>
-      <div className="flex items-center gap-space-md">
-        <p className="min-w-0 flex-1 truncate text-body-sm text-on-surface-variant">
+      <div className={styles.callFoot}>
+        <p className={styles.lastLine}>
           {call.last_text
-            ? <><span className="font-semibold text-primary">{SPEAKER[call.last_speaker ?? "bot"]}:</span> {call.last_text}</>
+            ? <><span className={styles.lastSpeaker}>{SPEAKER[call.last_speaker ?? "bot"]}:</span> {call.last_text}</>
             : "Waiting for the first words on the call."}
         </p>
         {onOpen && (
@@ -110,30 +110,30 @@ function CallPanel({ callId, onClose }: { callId: number; onClose: () => void })
   });
   const turns = data?.turns.filter((t) => t.speaker !== "tool").slice(-12) ?? [];
   return (
-    <aside aria-label="Call detail" className="flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-      <div className="flex items-center justify-between gap-space-sm">
-        <h2 className="text-headline-sm text-on-surface">{data?.call_ref ?? "Loading call…"}</h2>
+    <aside aria-label="Call detail" className={styles.panel}>
+      <div className={styles.panelHead}>
+        <h2 className={styles.panelTitle}>{data?.call_ref ?? "Loading call…"}</h2>
         <Button size="icon-sm" variant="ghost" onClick={onClose} aria-label="Close call detail"><X aria-hidden /></Button>
       </div>
-      {error && <p role="alert" className="text-body-sm text-danger-text">{error.message}</p>}
+      {error && <p role="alert" className={styles.panelError}>{error.message}</p>}
       {data && (
         <>
-          <div className="flex flex-wrap gap-space-sm">
+          <div className={styles.panelPills}>
             {data.ended_at ? <Pill tone="neutral">Call ended</Pill> : data.taken_over ? <Pill tone="warning">Taken over by agent</Pill> : <Pill tone="live" pulse>AI handling</Pill>}
-            {data.customer && <Pill tone="info"><UserRound aria-hidden className="size-3" /> {data.customer.full_name}</Pill>}
+            {data.customer && <Pill tone="info"><UserRound aria-hidden className={styles.pillIcon} /> {data.customer.full_name}</Pill>}
           </div>
-          <p className="text-body-sm text-on-surface-variant">
+          <p className={styles.panelNote}>
             Takeover is done by the agent who started the call, from their Agent Console. This view follows the transcript live.
           </p>
-          <ol className="flex max-h-[28rem] flex-col gap-space-sm overflow-y-auto">
-            {turns.length === 0 && <li className="text-body-sm text-on-surface-variant">No transcript yet.</li>}
+          <ol className={styles.transcript}>
+            {turns.length === 0 && <li className={styles.panelNote}>No transcript yet.</li>}
             {turns.map((t) => (
-              <li key={t.seq} className="rounded-lg border border-divider p-space-sm">
-                <span className="flex items-center gap-1 text-label-sm font-semibold text-primary">
-                  {t.speaker === "bot" ? <Bot aria-hidden className="size-3" /> : t.speaker === "agent" ? <Headset aria-hidden className="size-3" /> : <UserRound aria-hidden className="size-3" />}
-                  {SPEAKER[t.speaker]} · <span className="text-data-mono font-normal text-outline">{formatDuration(t.offset_ms / 1000)}</span>
+              <li key={t.seq} className={styles.turn}>
+                <span className={styles.turnSpeaker}>
+                  {t.speaker === "bot" ? <Bot aria-hidden className={styles.pillIcon} /> : t.speaker === "agent" ? <Headset aria-hidden className={styles.pillIcon} /> : <UserRound aria-hidden className={styles.pillIcon} />}
+                  {SPEAKER[t.speaker]} · <span className={styles.turnOffset}>{formatDuration(t.offset_ms / 1000)}</span>
                 </span>
-                <p className="text-body-sm text-on-surface">{t.text}</p>
+                <p className={styles.turnText}>{t.text}</p>
               </li>
             ))}
           </ol>
@@ -157,7 +157,7 @@ export function LiveMonitor() {
   const calls = data ?? [];
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Live Monitor"
         badge={<Pill tone="live" pulse>Live · every 5 s</Pill>}
@@ -166,18 +166,18 @@ export function LiveMonitor() {
           : "Every call in progress on the floor. View only for your role."}
       />
 
-      <div className="grid grid-cols-2 gap-space-lg lg:grid-cols-4">
+      <div className={styles.kpiGrid}>
         <Kpi label="Active calls" value={calls.length} icon={PhoneCall} note="In progress right now" />
         <Kpi label="AI handling" value={calls.filter((c) => c.bot_connected && !c.taken_over).length} icon={Bot} note="Voice agent connected" />
         <Kpi label="Human on call" value={calls.filter((c) => c.taken_over).length} icon={Headset} note="Taken over by an agent" />
         <Kpi label="Verified callers" value={calls.filter((c) => c.verified).length} icon={ShieldCheck} note="Identity check passed" />
       </div>
 
-      <div className="grid grid-cols-1 gap-space-xl xl:grid-cols-12">
-        <section aria-label="Calls in progress" className={cn("flex flex-col gap-space-md", openId ? "xl:col-span-8" : "xl:col-span-12")}>
-          {isLoading && Array.from({ length: 3 }, (_, i) => <Skeleton key={i} className="h-44 rounded-lg bg-surface-container-lowest" />)}
+      <div className={styles.layout}>
+        <section aria-label="Calls in progress" className={cn(styles.calls, !!openId && styles.callsWithPanel)}>
+          {isLoading && Array.from({ length: 3 }, (_, i) => <Skeleton key={i} className={styles.callSkeleton} />)}
           {error && (
-            <div role="alert" className="flex flex-col items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+            <div role="alert" className={styles.error}>
               {error.message}
               <Button size="sm" variant="outline" onClick={() => refetch()}>Try again</Button>
             </div>
@@ -188,7 +188,7 @@ export function LiveMonitor() {
               action={canConsole ? <Button asChild><Link href={SCREEN_HREF.agent_console}>Open Agent Console</Link></Button> : undefined} />
           )}
           {calls.length > 0 && (
-            <ul className="flex flex-col gap-space-md">
+            <ul className={styles.callList}>
               {calls.map((c) => (
                 <CallCard key={c.call_id} call={c} now={now} selected={c.call_id === openId}
                   onOpen={canOpen ? () => setOpenId(c.call_id) : undefined} />
@@ -197,7 +197,7 @@ export function LiveMonitor() {
           )}
         </section>
         {openId && canOpen && (
-          <div className="xl:col-span-4"><CallPanel callId={openId} onClose={() => setOpenId(null)} /></div>
+          <div className={styles.panelSlot}><CallPanel callId={openId} onClose={() => setOpenId(null)} /></div>
         )}
       </div>
     </div>

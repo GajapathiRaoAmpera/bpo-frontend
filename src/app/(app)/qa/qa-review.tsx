@@ -23,6 +23,8 @@ import { formatDateTime, formatTime } from "@/lib/format";
 import { formatDuration, OUTCOME_LABEL, QA_LABEL, TOOL_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
 
+import styles from "./qa-review.module.scss";
+
 type Row = Schemas["QARow"];
 type Check = keyof typeof QA_LABEL;
 const CHECKS = Object.keys(QA_LABEL) as Check[];
@@ -46,9 +48,9 @@ export function QAReview() {
     {
       id: "call", header: "Call",
       cell: ({ row: { original: r } }) => (
-        <div className={cn("flex flex-col py-1", r.call_id === callId && "font-semibold")}>
-          <span className="text-data-mono text-primary">{r.call_ref}</span>
-          <span className="text-label-xs text-on-surface-variant">{formatDateTime(r.started_at)} · {MODE_LABEL[r.mode]}</span>
+        <div className={cn(styles.callCell, r.call_id === callId && styles.callCellActive)}>
+          <span className={styles.callRef}>{r.call_ref}</span>
+          <span className={styles.callMeta}>{formatDateTime(r.started_at)} · {MODE_LABEL[r.mode]}</span>
         </div>
       ),
     },
@@ -57,22 +59,22 @@ export function QAReview() {
     {
       id: "score", header: "QA score",
       cell: ({ row: { original: r } }) => (
-        <span className="inline-flex items-center gap-1.5">
+        <span className={styles.score}>
           <Pill tone={scoreTone(r.score)}>{r.score === null ? "Not scored" : `${r.score}/5`}</Pill>
-          {r.locked_at && <Lock aria-label="Locked" className="size-3.5 text-on-surface-variant" />}
+          {r.locked_at && <Lock aria-label="Locked" className={styles.lockIcon} />}
         </span>
       ),
     },
   ];
 
   return (
-    <div className="flex flex-col gap-space-lg">
+    <div className={styles.page}>
       <PageHeader
         title="QA Review"
         description="Check the AI's 5-point quality score against the transcript, correct it where needed and lock the evaluation. Lowest scores are listed first."
-        badge={!canWrite ? <Pill tone="neutral"><Eye aria-hidden className="size-3" />View only</Pill> : undefined}
+        badge={!canWrite ? <Pill tone="neutral"><Eye aria-hidden className={styles.pillIcon} />View only</Pill> : undefined}
         actions={
-          <div role="group" aria-label="Filter evaluations" className="flex rounded-lg bg-surface-container-low p-1">
+          <div role="group" aria-label="Filter evaluations" className={styles.filter}>
             {STATES.map(([key, label]) => (
               <Button key={key} size="sm" variant={state === key ? "default" : "ghost"} aria-pressed={state === key}
                 onClick={() => { setState(key); setPage(1); }}>{label}</Button>
@@ -80,8 +82,8 @@ export function QAReview() {
           </div>
         }
       />
-      <div className="grid grid-cols-12 items-start gap-space-lg">
-        <div className="col-span-5">
+      <div className={styles.layout}>
+        <div className={styles.queueCol}>
           <DataTable
             columns={columns}
             data={queue.data?.items}
@@ -98,7 +100,7 @@ export function QAReview() {
             }}
           />
         </div>
-        <div className="col-span-7">
+        <div className={styles.detailCol}>
           {callId ? <Review key={callId} callId={callId} canWrite={canWrite} />
             : <EmptyState icon={MousePointerClick} title="Select a call to review" description="Pick a call from the queue to read its transcript next to the AI's QA score." />}
         </div>
@@ -114,7 +116,7 @@ function Review({ callId, canWrite }: { callId: number; canWrite: boolean }) {
     queryFn: () => unwrap(api.GET("/api/v1/qa/{call_id}", { params: { path: { call_id: callId } } })),
   });
   if (error) return <ErrorBox error={error} onRetry={() => refetch()} />;
-  if (isLoading || !data) return <Skeleton className="h-[32rem] rounded-lg" />;
+  if (isLoading || !data) return <Skeleton className={styles.skeleton} />;
   return <ReviewForm d={data} canWrite={canWrite} onSaved={(d, lock) => {
     qc.setQueryData(["qa", "detail", callId], d);
     void qc.invalidateQueries({ queryKey: ["qa", "queue"] });
@@ -138,19 +140,19 @@ function ReviewForm({ d, canWrite, onSaved }: { d: Schemas["QADetail"]; canWrite
   const start = new Date(d.started_at).getTime();
 
   return (
-    <div className="grid grid-cols-7 items-start gap-space-lg">
-      <Panel className="col-span-4" title={`Transcript · ${d.call_ref}`} action={<span className="text-label-sm text-on-surface-variant">{formatDuration(d.duration_sec)}</span>}>
-        {d.summary && <p className="rounded-lg bg-surface-container-low p-space-sm text-body-sm text-on-surface">{d.summary}</p>}
-        <ol className="flex max-h-[36rem] flex-col gap-space-sm overflow-y-auto pr-1" aria-label="Call transcript">
-          {d.turns.length === 0 && <li className="text-body-sm text-on-surface-variant">No transcript was captured for this call.</li>}
+    <div className={styles.review}>
+      <Panel className={styles.transcriptPanel} title={`Transcript · ${d.call_ref}`} action={<span className={styles.duration}>{formatDuration(d.duration_sec)}</span>}>
+        {d.summary && <p className={styles.summary}>{d.summary}</p>}
+        <ol className={styles.transcript} aria-label="Call transcript">
+          {d.turns.length === 0 && <li className={styles.empty}>No transcript was captured for this call.</li>}
           {d.turns.map((t) => t.speaker === "tool" ? (
-            <li key={t.seq} className="flex items-center gap-space-sm text-label-xs text-secondary">
-              <span className="h-px flex-1 bg-divider" />{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}: {t.text}<span className="h-px flex-1 bg-divider" />
+            <li key={t.seq} className={styles.toolTurn}>
+              <span className={styles.rule} />{TOOL_LABEL[t.tool_name ?? ""] ?? t.tool_name}: {t.text}<span className={styles.rule} />
             </li>
           ) : (
-            <li key={t.seq} className={cn("flex flex-col gap-0.5 rounded-lg p-space-sm text-body-sm",
-              t.speaker === "bot" ? "mr-6 bg-surface-container-low text-on-surface" : t.speaker === "agent" ? "ml-6 bg-warning-bg text-on-surface" : "ml-6 border border-divider")}>
-              <span className="text-label-xs text-on-surface-variant">
+            <li key={t.seq} className={cn(styles.turn,
+              t.speaker === "bot" ? styles.turnBot : t.speaker === "agent" ? styles.turnAgent : styles.turnCustomer)}>
+              <span className={styles.speaker}>
                 {t.speaker === "bot" ? "Vani (AI)" : t.speaker === "agent" ? "Human agent" : "Customer"} · {formatTime(new Date(start + t.offset_ms))}
               </span>
               {t.text}
@@ -158,30 +160,30 @@ function ReviewForm({ d, canWrite, onSaved }: { d: Schemas["QADetail"]; canWrite
           ))}
         </ol>
       </Panel>
-      <Panel className="col-span-3" title="QA evaluation" action={<Pill tone={scoreTone(score)}>{score}/5</Pill>}>
-        <div className="flex flex-wrap gap-space-sm text-label-xs text-on-surface-variant">
+      <Panel className={styles.evalPanel} title="QA evaluation" action={<Pill tone={scoreTone(score)}>{score}/5</Pill>}>
+        <div className={styles.scoredBy}>
           <span>Scored by {d.source === "human" ? d.reviewer_name ?? "QA analyst" : d.source === "ai" ? "AI (Gemini Flash)" : "nobody yet"}</span>
-          {d.locked_at && <Pill tone="neutral"><Lock aria-hidden className="size-3" />Locked {formatDateTime(d.locked_at)}</Pill>}
+          {d.locked_at && <Pill tone="neutral"><Lock aria-hidden className={styles.pillIcon} />Locked {formatDateTime(d.locked_at)}</Pill>}
         </div>
-        <ul className="flex flex-col gap-space-sm">
+        <ul className={styles.checks}>
           {CHECKS.map((k) => (
-            <li key={k} className="flex items-start gap-space-sm">
-              <Checkbox id={`qa-${k}`} className="mt-0.5" checked={checks[k]} disabled={!editable}
+            <li key={k} className={styles.check}>
+              <Checkbox id={`qa-${k}`} className={styles.checkbox} checked={checks[k]} disabled={!editable}
                 onCheckedChange={(on) => setChecks({ ...checks, [k]: on === true })} />
-              <Label htmlFor={`qa-${k}`} className="flex-1 font-normal text-body-sm">{QA_LABEL[k]}</Label>
-              <span className={cn("text-label-xs", checks[k] ? "text-secondary" : "text-danger-text")}>{checks[k] ? "Pass" : "Fail"}</span>
+              <Label htmlFor={`qa-${k}`} className={styles.checkLabel}>{QA_LABEL[k]}</Label>
+              <span className={checks[k] ? styles.pass : styles.fail}>{checks[k] ? "Pass" : "Fail"}</span>
             </li>
           ))}
         </ul>
-        <div className="flex flex-col gap-1.5">
+        <div className={styles.noteField}>
           <Label htmlFor="qa-note">Reviewer note</Label>
           <Textarea id="qa-note" value={note} onChange={(e) => setNote(e.target.value)} readOnly={!editable} maxLength={2000}
-            className="min-h-24 border-divider text-body-sm" />
+            className={styles.note} />
         </div>
         {editable && (
-          <div className="flex flex-col gap-space-sm">
+          <div className={styles.actions}>
             <Button variant="outline" disabled={save.isPending} onClick={() => save.mutate(false)}>
-              {save.isPending && save.variables === false ? <Loader2 aria-hidden className="animate-spin" /> : <Save aria-hidden />}Save review
+              {save.isPending && save.variables === false ? <Loader2 aria-hidden className={styles.spinner} /> : <Save aria-hidden />}Save review
             </Button>
             <Confirm label="Lock evaluation" icon={<Lock aria-hidden />} busy={save.isPending && save.variables === true}
               title={`Lock the evaluation for ${d.call_ref}?`}

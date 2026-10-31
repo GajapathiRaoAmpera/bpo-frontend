@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useMe } from "@/hooks/use-me";
 
+import styles from "./app-shell.module.scss";
+
 // {children} always renders (Cache Components guidance: never hold a segment behind the session read).
 // Persona-dependent chrome fills in when /auth/me resolves; per-screen access is ScreenGuard's job.
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -24,13 +26,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       ) : (
         <SidebarSkeleton />
       )}
-      <div className="pl-60">
-        <main className="min-h-screen px-gutter-desktop pt-[calc(var(--banner-h)+4rem)]">
-          <div className="flex flex-col gap-space-lg py-space-lg pb-10">
+      <div className={styles.offset}>
+        <main className={styles.main}>
+          <div className={styles.content}>
             {error && (
-              <div role="alert" className="flex items-center justify-between gap-space-md rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
-                <span className="flex items-center gap-space-sm">
-                  <CircleAlert aria-hidden className="size-4" />
+              <div role="alert" className={styles.alert}>
+                <span className={styles.alertText}>
+                  <CircleAlert aria-hidden className={styles.alertIcon} />
                   We couldn&apos;t load your workspace. {error.message}
                 </span>
                 <Button size="sm" variant="outline" onClick={() => refetch()} disabled={isFetching}>
@@ -48,19 +50,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
 function HeaderSkeleton() {
   return (
-    <div className="fixed inset-x-0 top-(--banner-h) z-40 flex h-16 items-center justify-between bg-surface-container-lowest px-gutter-desktop shadow-chrome">
-      <Skeleton className="h-8 w-44" />
-      <Skeleton className="h-8 w-52" />
+    <div className={styles.headerSkeleton}>
+      <Skeleton className={styles.brandBone} />
+      <Skeleton className={styles.accountBone} />
     </div>
   );
 }
 
 function SidebarSkeleton() {
   return (
-    <aside aria-busy="true" className="fixed top-[calc(var(--banner-h)+4rem)] bottom-0 left-0 flex w-60 flex-col gap-2 bg-surface-container-lowest p-space-md shadow-chrome">
-      <Skeleton className="mb-2 h-3 w-28" />
+    <aside aria-busy="true" className={styles.sidebarSkeleton}>
+      <Skeleton className={styles.groupBone} />
       {Array.from({ length: 6 }, (_, i) => (
-        <Skeleton key={i} className="h-9 w-full" />
+        <Skeleton key={i} className={styles.linkBone} />
       ))}
     </aside>
   );

@@ -22,6 +22,7 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { IS_SANDBOX } from "@/lib/personas";
+import styles from "./followups.module.scss";
 
 type Row = Schemas["FollowupRow"];
 type Status = Schemas["FollowupStatus"];
@@ -56,21 +57,21 @@ export function Followups() {
   const { mutate, isPending } = patch;
   const columns = useMemo(() => h.columns([
     h.display({ id: "customer", header: "Customer", cell: ({ row: { original: f } }) => (
-      <div className="flex flex-col">
-        <Link href={`/customers/${f.customer_id}`} className="text-label-md text-on-surface hover:text-primary hover:underline">{f.customer_name}</Link>
-        <span className="text-data-mono text-label-xs text-on-surface-variant">{f.policy_no}</span>
+      <div className={styles.customer}>
+        <Link href={`/customers/${f.customer_id}`} className={styles.customerLink}>{f.customer_name}</Link>
+        <span className={styles.policyNo}>{f.policy_no}</span>
       </div>
     ) }),
     h.display({ id: "kind", header: "Type", cell: ({ row: { original: f } }) => FOLLOWUP_KIND_LABEL[f.kind] }),
-    h.display({ id: "due", header: "Due", cell: ({ row: { original: f } }) => <span className="whitespace-nowrap">{formatDateTime(f.due_at)}</span> }),
+    h.display({ id: "due", header: "Due", cell: ({ row: { original: f } }) => <span className={styles.due}>{formatDateTime(f.due_at)}</span> }),
     h.display({ id: "status", header: "Status", cell: ({ row: { original: f } }) => <Pill tone={FOLLOWUP_TONE[f.status]}>{FOLLOWUP_STATUS_LABEL[f.status]}</Pill> }),
     h.display({ id: "message", header: "WhatsApp message", cell: ({ row: { original: f } }) => (f.message_text
-      ? <span className="flex max-w-md items-start gap-1.5"><MessageCircle aria-hidden className="mt-0.5 size-3.5 shrink-0 text-success" /><span className="line-clamp-2" title={f.message_text}>{f.message_text}</span></span>
-      : <span className="text-on-surface-variant">{f.reason}</span>) }),
-    h.display({ id: "by", header: "Created by", cell: ({ row: { original: f } }) => (f.created_by_name ?? <span className="flex items-center gap-1"><Bot aria-hidden className="size-3.5 text-secondary" />AI agent</span>) }),
+      ? <span className={styles.message}><MessageCircle aria-hidden className={styles.messageIcon} /><span className={styles.messageText} title={f.message_text}>{f.message_text}</span></span>
+      : <span className={styles.reason}>{f.reason}</span>) }),
+    h.display({ id: "by", header: "Created by", cell: ({ row: { original: f } }) => (f.created_by_name ?? <span className={styles.aiAgent}><Bot aria-hidden className={styles.aiIcon} />AI agent</span>) }),
     ...(canWrite ? [h.display({ id: "actions", header: "Actions", cell: ({ row: { original: f } }) => (
       f.status === "scheduled" || f.status === "sent" ? (
-        <div className="flex justify-end gap-1">
+        <div className={styles.rowActions}>
           <Button size="sm" variant="outline" disabled={isPending} onClick={() => mutate({ id: f.id, to: "done" })}><Check aria-hidden />Mark done</Button>
           {f.status === "scheduled" && <Button size="sm" variant="ghost" onClick={() => setCancelling(f)}><X aria-hidden />Cancel</Button>}
         </div>
@@ -78,18 +79,17 @@ export function Followups() {
   ]), [canWrite, mutate, isPending]);
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Follow-ups"
         badge={<Pill tone="live" pulse>{IS_SANDBOX ? "Sandbox timer" : "Timer"} · every 2 min</Pill>}
         description={IS_SANDBOX ? "Payment links, callbacks and reminders. When one falls due, the sandbox timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. Nothing is sent to real numbers." : "Payment links, callbacks and reminders. When one falls due, the timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
         actions={canWrite ? <FollowupDialog /> : undefined}
       />
-      <div role="group" aria-label="Filter by status" className="flex flex-wrap gap-1 rounded-lg bg-surface-container-lowest p-space-sm text-label-xs shadow-card">
+      <div role="group" aria-label="Filter by status" className={styles.tabs}>
         {TABS.map((s) => (
           <button key={s ?? "all"} type="button" aria-pressed={status === s} onClick={() => { setStatus(s); setPage(1); }}
-            className={cn("rounded-lg px-2.5 py-1.5 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-lang-border",
-              status === s ? "bg-primary-container text-on-primary" : "text-on-surface-variant hover:bg-surface-container-high")}>
+            className={cn(styles.tab, status === s && styles.tabActive)}>
             {s ? FOLLOWUP_STATUS_LABEL[s] : "All"}
           </button>
         ))}

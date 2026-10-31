@@ -18,6 +18,9 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate } from "@/lib/format";
 import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
 import { IS_SANDBOX } from "@/lib/personas";
+import { cn } from "@/lib/utils";
+
+import styles from "./campaigns.module.scss";
 
 type Campaign = Schemas["CampaignOut"];
 const KEY = ["campaigns"] as const;
@@ -26,13 +29,13 @@ const pct = (n: number, d: number) => (d ? Math.round((n / d) * 1000) / 10 : 0);
 
 function Kpi({ label, value, foot, ratio }: { label: string; value: string; foot: string; ratio: number }) {
   return (
-    <div className="flex flex-col gap-space-sm rounded-lg bg-surface-container-lowest p-space-md shadow-card">
-      <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">{label}</span>
-      <span className="text-display text-on-surface">{value}</span>
-      <div className="h-1.5 overflow-hidden rounded-full bg-surface-container-high">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(ratio, 100)}%` }} />
+    <div className={styles.kpi}>
+      <span className={styles.kpiLabel}>{label}</span>
+      <span className={styles.kpiValue}>{value}</span>
+      <div className={styles.track}>
+        <div className={styles.bar} style={{ width: `${Math.min(ratio, 100)}%` }} />
       </div>
-      <span className="text-label-sm text-on-surface-variant">{foot}</span>
+      <span className={styles.kpiFoot}>{foot}</span>
     </div>
   );
 }
@@ -77,46 +80,46 @@ export function Campaigns() {
     {
       id: "campaign", header: "Campaign & cohort",
       cell: ({ row: { original: c } }) => (
-        <div className="flex flex-col gap-0.5 py-space-sm">
-          <span className="text-label-md text-primary">{c.name}</span>
-          <span className="text-label-xs text-on-surface-variant">{segmentText(c)}</span>
+        <div className={styles.campaignCell}>
+          <span className={styles.campaignName}>{c.name}</span>
+          <span className={styles.small}>{segmentText(c)}</span>
         </div>
       ),
     },
     { id: "product", header: "Line of business", cell: ({ row: { original: c } }) => <Pill tone="info">{PRODUCT_LABEL[c.product]}</Pill> },
     {
       id: "script", header: "Voice AI script",
-      cell: ({ row: { original: c } }) => c.script ? <span className="text-body-sm">{c.script.name} · v{c.script.version}</span> : "—",
+      cell: ({ row: { original: c } }) => c.script ? <span className={styles.script}>{c.script.name} · v{c.script.version}</span> : "—",
     },
     {
       id: "progress", header: "Dialled progress",
       cell: ({ row: { original: c } }) => (
-        <div className="flex min-w-40 flex-col gap-1">
-          <div className="flex justify-between text-data-mono">
+        <div className={styles.progress}>
+          <div className={styles.progressHead}>
             <span>{c.dialled.toLocaleString("en-IN")} / {c.total_targets.toLocaleString("en-IN")}</span>
-            <span className="text-secondary">{pct(c.dialled, c.total_targets)}%</span>
+            <span className={styles.progressPct}>{pct(c.dialled, c.total_targets)}%</span>
           </div>
-          <div className="h-1.5 overflow-hidden rounded-full bg-surface-container-high">
-            <div className="h-full rounded-full bg-secondary" style={{ width: `${pct(c.dialled, c.total_targets)}%` }} />
+          <div className={styles.track}>
+            <div className={cn(styles.bar, styles.barDialled)} style={{ width: `${pct(c.dialled, c.total_targets)}%` }} />
           </div>
         </div>
       ),
     },
-    { id: "connected", header: "Connected", cell: ({ row: { original: c } }) => <span className="text-data-mono">{c.connected}</span> },
-    { id: "converted", header: "Converted", cell: ({ row: { original: c } }) => <span className="text-data-mono">{c.converted}</span> },
+    { id: "connected", header: "Connected", cell: ({ row: { original: c } }) => <span className={styles.mono}>{c.connected}</span> },
+    { id: "converted", header: "Converted", cell: ({ row: { original: c } }) => <span className={styles.mono}>{c.converted}</span> },
     {
       id: "status", header: "Status",
       cell: ({ row: { original: c } }) => (
-        <div className="flex flex-col items-start gap-0.5">
+        <div className={styles.status}>
           <Pill tone={STATUS[c.status].tone} pulse={c.status === "running"}>{STATUS[c.status].label}</Pill>
-          {c.scheduled_at && <span className="text-label-xs text-on-surface-variant">From {formatDate(c.scheduled_at)}</span>}
+          {c.scheduled_at && <span className={styles.small}>From {formatDate(c.scheduled_at)}</span>}
         </div>
       ),
     },
     {
       id: "actions", header: "",
       cell: ({ row: { original: c } }) => (
-        <div className="flex justify-end gap-space-xs">
+        <div className={styles.rowActions}>
           {canWrite && c.status === "draft" && (
             <>
               <Button size="sm" variant="outline" onClick={() => setEditing(c)}><PencilLine aria-hidden />Edit</Button>
@@ -137,7 +140,7 @@ export function Campaigns() {
             <Button size="sm" variant="outline" asChild><Link href="/approvals"><ShieldCheck aria-hidden />Review</Link></Button>
           )}
           {c.status === "rejected" && c.review_note && (
-            <span className="max-w-48 truncate text-label-xs text-danger-text" title={c.review_note}>{c.review_note}</span>
+            <span className={styles.rejectNote} title={c.review_note}>{c.review_note}</span>
           )}
         </div>
       ),
@@ -145,13 +148,13 @@ export function Campaigns() {
   ];
 
   return (
-    <div className="flex flex-col gap-space-lg">
+    <div className={styles.page}>
       <PageHeader
         title="Outbound Campaigns"
         description={IS_SANDBOX ? "Build renewal campaigns, send them for maker-checker approval, and launch them on the AI dialler. Sandbox launches place simulated calls only." : "Build renewal campaigns, send them for maker-checker approval, and launch them on the AI dialler."}
         actions={canWrite && !editing && <Button onClick={() => setEditing("new")}><Plus aria-hidden />New campaign</Button>}
       />
-      <div className="grid grid-cols-5 gap-space-lg">
+      <div className={styles.kpiGrid}>
         <Kpi label="Total targets" value={targets.toLocaleString("en-IN")} ratio={100} foot={`${live.length} launched campaigns`} />
         <Kpi label="Dialled" value={dialled.toLocaleString("en-IN")} ratio={pct(dialled, targets)} foot={`${pct(dialled, targets)}% of targets`} />
         <Kpi label="Connected" value={connected.toLocaleString("en-IN")} ratio={pct(connected, dialled)} foot={`${pct(connected, dialled)}% answer rate`} />

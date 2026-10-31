@@ -1,0 +1,34 @@
+@use "styles/mixins" as *;
+
+// DESIGN.md status / language badges: full pill, label-xs, tinted fill + border + text.
+.pill {
+  display: inline-flex;
+  height: 1.375rem;
+  flex-shrink: 0;
+  align-items: center;
+  gap: space(1.5);
+  border: 1px solid;
+  border-radius: 9999px;
+  padding: 0 space(2.5);
+  @include text(label-xs);
+  white-space: nowrap;
+}
+
+.success { border-color: var(--color-success-border); background: var(--color-success-bg); color: var(--color-success-text); }
+.warning { border-color: var(--color-warning-border); background: var(--color-warning-bg); color: var(--color-warning-text); }
+.danger { border-color: var(--color-danger-border); background: var(--color-danger-bg); color: var(--color-danger-text); }
+.neutral { border-color: var(--color-neutral-border); background: var(--color-neutral-bg); color: var(--color-neutral-text); }
+.lang { border-color: var(--color-lang-border); background: var(--color-lang-bg); color: var(--color-lang-text); }
+.info { border-color: transparent; background: var(--color-surface-container-high); color: var(--color-primary); }
+.live {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--color-secondary-container) 50%, transparent);
+  color: var(--color-secondary);
+}
+
+.dot {
+  @include size(space(1.5));
+  border-radius: 9999px;
+  background: currentColor;
+  @include pulse;
+}

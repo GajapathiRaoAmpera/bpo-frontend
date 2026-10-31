@@ -8,6 +8,8 @@ import { GROUP_LABEL, NAV, type NavGroup } from "@/lib/nav";
 import { screenForPath } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+import styles from "./app-sidebar.module.scss";
+
 const GROUPS: NavGroup[] = ["operations", "governance", "admin"];
 // Display order is a UI decision: NAV order (as in the designs), not the API's order.
 const ORDER = Object.keys(NAV);
@@ -20,14 +22,14 @@ export function AppSidebar({ nav }: { nav: Schemas["NavItem"][] }) {
   const admin = byGroup("admin");
 
   return (
-    <aside className="fixed top-[calc(var(--banner-h)+4rem)] bottom-0 left-0 z-30 flex w-60 flex-col justify-between overflow-y-auto bg-surface-container-lowest shadow-chrome">
-      <nav aria-label="Main" className="flex flex-col gap-space-lg p-space-md">
+    <aside className={styles.sidebar}>
+      <nav aria-label="Main" className={styles.main}>
         {top.map((g) => (
-          <div key={g} className="flex flex-col">
-            <span className="px-space-sm pb-space-sm text-label-xs tracking-wider text-outline uppercase">
+          <div key={g} className={styles.group}>
+            <span className={styles.groupLabel}>
               {GROUP_LABEL[g]}
             </span>
-            <div className="flex flex-col gap-1">
+            <div className={styles.links}>
               {byGroup(g).map((n) => (
                 <NavLink key={n.screen} screen={n.screen} active={active === n.screen} />
               ))}
@@ -36,7 +38,7 @@ export function AppSidebar({ nav }: { nav: Schemas["NavItem"][] }) {
         ))}
       </nav>
       {admin.length > 0 && (
-        <nav aria-label={GROUP_LABEL.admin} className="flex flex-col gap-0.5 p-space-md">
+        <nav aria-label={GROUP_LABEL.admin} className={styles.admin}>
           {admin.map((n) => (
             <NavLink key={n.screen} screen={n.screen} active={active === n.screen} compact />
           ))}
@@ -53,14 +55,12 @@ function NavLink({ screen, active, compact }: { screen: Schemas["Screen"]; activ
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-space-sm rounded-lg px-space-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lang-border",
-        compact ? "py-1.5" : "py-2",
-        active
-          ? "bg-primary-container text-label-md text-on-primary"
-          : "text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface",
+        styles.link,
+        compact && styles.compact,
+        active ? styles.active : styles.idle,
       )}
     >
-      <Icon aria-hidden className={compact ? "size-4" : "size-[18px]"} />
+      <Icon aria-hidden className={compact ? styles.iconCompact : styles.icon} />
       <span>{label}</span>
     </Link>
   );

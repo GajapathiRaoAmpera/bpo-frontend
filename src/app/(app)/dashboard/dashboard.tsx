@@ -12,6 +12,8 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate, formatINR } from "@/lib/format";
 import { OUTCOME_LABEL, SENTIMENT_LABEL } from "@/lib/labels";
 import { IS_SANDBOX } from "@/lib/personas";
+import { cn } from "@/lib/utils";
+import styles from "./dashboard.module.scss";
 
 const DAYS = 30;
 const C = { primary: "var(--color-primary)", secondary: "var(--color-secondary)", grid: "var(--color-divider)", text: "var(--color-on-surface-variant)" };
@@ -25,17 +27,17 @@ const lakh = (v: number) => (v >= 1_00_000 ? `₹${(v / 1_00_000).toFixed(1)}L` 
 
 function Kpi({ label, icon: Icon, value, note, bar }: { label: string; icon: LucideIcon; value: string; note: string; bar: number }) {
   return (
-    <div className="flex flex-col justify-between gap-space-sm rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-      <div className="flex items-start justify-between">
-        <span className="text-label-xs tracking-wider text-outline uppercase">{label}</span>
-        <span className="rounded-full bg-secondary-container/30 p-1 text-on-secondary-container"><Icon aria-hidden className="size-3.5" /></span>
+    <div className={styles.kpi}>
+      <div className={styles.kpiTop}>
+        <span className={styles.kpiLabel}>{label}</span>
+        <span className={styles.kpiIcon}><Icon aria-hidden /></span>
       </div>
       <div>
-        <span className="text-display text-primary">{value}</span>
-        <p className="mt-1 text-body-sm text-on-surface-variant">{note}</p>
+        <span className={styles.kpiValue}>{value}</span>
+        <p className={styles.kpiNote}>{note}</p>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-low">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.max(0, bar))}%` }} />
+      <div className={styles.kpiTrack}>
+        <div className={styles.kpiFill} style={{ width: `${Math.min(100, Math.max(0, bar))}%` }} />
       </div>
     </div>
   );
@@ -43,10 +45,10 @@ function Kpi({ label, icon: Icon, value, note, bar }: { label: string; icon: Luc
 
 function Card({ title, description, children, className }: { title: string; description: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className={`flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card ${className ?? ""}`}>
-      <div className="border-b border-surface-container-highest pb-space-md">
-        <h2 className="text-headline-sm text-on-surface">{title}</h2>
-        <p className="text-body-sm text-on-surface-variant">{description}</p>
+    <section className={cn(styles.card, className)}>
+      <div className={styles.cardHeader}>
+        <h2 className={styles.cardTitle}>{title}</h2>
+        <p className={styles.cardDescription}>{description}</p>
       </div>
       {children}
     </section>
@@ -56,12 +58,12 @@ function Card({ title, description, children, className }: { title: string; desc
 function ChartTip({ active, payload, label, money }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string; money?: boolean }) {
   if (!active || !payload?.length || !label) return null;
   return (
-    <div className="rounded-lg border border-divider bg-surface-container-lowest p-space-sm text-label-sm shadow-popover">
-      <p className="mb-1 text-label-md text-on-surface">{formatDate(label)}</p>
+    <div className={styles.tip}>
+      <p className={styles.tipLabel}>{formatDate(label)}</p>
       {payload.map((p) => (
-        <p key={p.name} className="flex items-center gap-space-sm text-on-surface-variant">
-          <span aria-hidden className="size-2 rounded-full" style={{ background: p.color }} />
-          {p.name}: <span className="text-data-mono text-on-surface">{money ? formatINR(p.value) : n(p.value)}</span>
+        <p key={p.name} className={styles.tipRow}>
+          <span aria-hidden className={styles.tipSwatch} style={{ background: p.color }} />
+          {p.name}: <span className={styles.value}>{money ? formatINR(p.value) : n(p.value)}</span>
         </p>
       ))}
     </div>
@@ -82,21 +84,21 @@ export function Dashboard() {
   const error = summary.error ?? trends.error;
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Executive Dashboard"
         badge={<Pill tone="live">Last {DAYS} days</Pill>}
         description={IS_SANDBOX ? "Calls handled by the AI voice agent, renewals collected, containment, sentiment and QA across the contact centre. Figures come from the sandbox's synthetic call records." : "Calls handled by the AI voice agent, renewals collected, containment, sentiment and QA across the contact centre."}
       />
       {error && (
-        <div role="alert" className="flex items-center justify-between rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+        <div role="alert" className={styles.error}>
           {error.message}
           <Button size="sm" variant="outline" onClick={() => { void summary.refetch(); void trends.refetch(); }}>Try again</Button>
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-space-md md:grid-cols-2 lg:grid-cols-5">
-        {!s ? Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className="h-40 rounded-lg bg-surface-container-lowest" />) : <>
+      <div className={styles.kpiGrid}>
+        {!s ? Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className={styles.kpiSkeleton} />) : <>
           <Kpi label="Calls handled" icon={PhoneCall} value={n(s.calls)} bar={(s.connected / Math.max(1, s.calls)) * 100}
             note={`${n(s.connected)} reached the customer · ${n(s.calls_today)} today`} />
           <Kpi label="Renewals collected" icon={IndianRupee} value={formatINR(s.collections_inr)} bar={(s.renewals / Math.max(1, s.renewals_due_30d + s.renewals)) * 100}
@@ -110,10 +112,10 @@ export function Dashboard() {
         </>}
       </div>
 
-      <div className="grid grid-cols-1 gap-space-xl lg:grid-cols-12">
-        <Card className="lg:col-span-8" title="Call volume" description="Calls per day (IST), AI and human-assisted.">
-          <div className="h-72">
-            {!t ? <Skeleton className="h-full w-full" /> : (
+      <div className={styles.chartGrid}>
+        <Card className={styles.wide} title="Call volume" description="Calls per day (IST), AI and human-assisted.">
+          <div className={styles.volumeChart}>
+            {!t ? <Skeleton className={styles.chartSkeleton} /> : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={t} margin={{ top: 8, right: 8, left: -8, bottom: 0 }}>
                   <CartesianGrid vertical={false} stroke={C.grid} />
@@ -127,19 +129,19 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card className="lg:col-span-4" title="Call outcomes" description={`Share of ${s ? n(s.calls) : "all"} calls in the period.`}>
-          {!s ? <Skeleton className="h-72 w-full" /> : (
-            <ul className="flex flex-col gap-space-md">
+        <Card className={styles.narrow} title="Call outcomes" description={`Share of ${s ? n(s.calls) : "all"} calls in the period.`}>
+          {!s ? <Skeleton className={styles.outcomesSkeleton} /> : (
+            <ul className={styles.outcomes}>
               {(Object.entries(s.outcomes) as [Schemas["CallOutcome"], number][]).sort((a, b) => b[1] - a[1]).map(([o, count]) => {
                 const pct = Math.round((count / Math.max(1, s.calls)) * 100);
                 return (
-                  <li key={o} className="flex flex-col gap-1">
-                    <div className="flex justify-between text-label-sm">
-                      <span className="text-on-surface">{OUTCOME_LABEL[o]}</span>
-                      <span className="text-data-mono text-on-surface-variant">{n(count)} · {pct}%</span>
+                  <li key={o} className={styles.outcome}>
+                    <div className={styles.outcomeHead}>
+                      <span className={styles.outcomeName}>{OUTCOME_LABEL[o]}</span>
+                      <span className={styles.outcomeCount}>{n(count)} · {pct}%</span>
                     </div>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-surface-container-low">
-                      <div className={`h-full rounded-full ${o === "escalated" ? "bg-error" : "bg-primary-container"}`} style={{ width: `${pct}%` }} />
+                    <div className={styles.outcomeTrack}>
+                      <div className={cn(styles.outcomeFill, o === "escalated" && styles.outcomeFillEscalated)} style={{ width: `${pct}%` }} />
                     </div>
                   </li>
                 );
@@ -148,9 +150,9 @@ export function Dashboard() {
           )}
         </Card>
 
-        <Card className="lg:col-span-8" title="Collections" description="Renewal premiums received through payment links, per day.">
-          <div className="h-64">
-            {!t ? <Skeleton className="h-full w-full" /> : (
+        <Card className={styles.wide} title="Collections" description="Renewal premiums received through payment links, per day.">
+          <div className={styles.collectionsChart}>
+            {!t ? <Skeleton className={styles.chartSkeleton} /> : (
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={t} margin={{ top: 8, right: 8, left: 4, bottom: 0 }}>
                   <CartesianGrid vertical={false} stroke={C.grid} />
@@ -164,9 +166,9 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card className="lg:col-span-4" title="Customer sentiment" description="AI-assessed sentiment per call, per day.">
-          <div className="h-48">
-            {!t ? <Skeleton className="h-full w-full" /> : (
+        <Card className={styles.narrow} title="Customer sentiment" description="AI-assessed sentiment per call, per day.">
+          <div className={styles.sentimentChart}>
+            {!t ? <Skeleton className={styles.chartSkeleton} /> : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={t} margin={{ top: 4, right: 0, left: -24, bottom: 0 }}>
                   <XAxis dataKey="day" tickFormatter={shortDay} tick={{ fill: C.text, fontSize: 11 }} tickLine={false} axisLine={false} minTickGap={24} />
@@ -180,11 +182,11 @@ export function Dashboard() {
             )}
           </div>
           {s && (
-            <ul className="flex justify-between gap-space-sm border-t border-divider pt-space-sm text-label-sm">
+            <ul className={styles.legend}>
               {(["positive", "neutral", "negative"] as const).map((k) => (
-                <li key={k} className="flex items-center gap-1.5 text-on-surface-variant">
-                  <span aria-hidden className="size-2.5 rounded-sm" style={{ background: SENTIMENT_COLOR[k] }} />
-                  {SENTIMENT_LABEL[k]} <span className="text-data-mono text-on-surface">{n(s.sentiment[k] ?? 0)}</span>
+                <li key={k} className={styles.legendItem}>
+                  <span aria-hidden className={styles.legendSwatch} style={{ background: SENTIMENT_COLOR[k] }} />
+                  {SENTIMENT_LABEL[k]} <span className={styles.value}>{n(s.sentiment[k] ?? 0)}</span>
                 </li>
               ))}
             </ul>

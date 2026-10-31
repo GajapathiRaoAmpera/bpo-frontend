@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { api, type Schemas, unwrap } from "@/lib/api";
 
+import styles from "./user-dialog.module.scss";
+
 type User = Schemas["UserAdminRow"];
 const ROLES = Object.keys(ROLE_LABEL) as Schemas["Role"][];
 
@@ -61,27 +63,27 @@ export function UserDialog({ open, onOpenChange, user, isSelf }: {
   });
 
   const field = (id: keyof Values, label: string, input: React.ReactNode) => (
-    <div className="flex flex-col gap-1.5">
-      <Label htmlFor={`u-${id}`} className="text-label-md text-on-surface">{label}</Label>
+    <div className={styles.field}>
+      <Label htmlFor={`u-${id}`} className={styles.label}>{label}</Label>
       {input}
-      {errors[id] && <p id={`u-${id}-error`} className="text-label-sm text-danger-text">{errors[id]?.message}</p>}
+      {errors[id] && <p id={`u-${id}-error`} className={styles.fieldError}>{errors[id]?.message}</p>}
     </div>
   );
   const a11y = (id: keyof Values) => ({ id: `u-${id}`, "aria-invalid": !!errors[id], "aria-describedby": errors[id] ? `u-${id}-error` : undefined });
 
   return (
     <Dialog open={open} onOpenChange={(o) => { setServerError(null); if (!o) form.reset(); onOpenChange(o); }}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className={styles.content}>
         <DialogHeader>
-          <DialogTitle className="text-headline-sm text-on-surface">{user ? `Edit ${user.full_name}` : "Add user"}</DialogTitle>
-          <DialogDescription className="text-body-sm text-on-surface-variant">
+          <DialogTitle className={styles.title}>{user ? `Edit ${user.full_name}` : "Add user"}</DialogTitle>
+          <DialogDescription className={styles.description}>
             {user ? "Changes are recorded in the audit log." : "The person signs in with this email and password. The account is recorded in the audit log."}
           </DialogDescription>
         </DialogHeader>
-        <form noValidate id="user-form" onSubmit={form.handleSubmit((v) => { setServerError(null); save.mutate(v); })} className="flex flex-col gap-space-md">
+        <form noValidate id="user-form" onSubmit={form.handleSubmit((v) => { setServerError(null); save.mutate(v); })} className={styles.form}>
           {serverError && (
-            <div role="alert" className="flex items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
-              <CircleAlert aria-hidden className="mt-0.5 size-4 shrink-0" /><span>{serverError}</span>
+            <div role="alert" className={styles.error}>
+              <CircleAlert aria-hidden className={styles.errorIcon} /><span>{serverError}</span>
             </div>
           )}
           {field("email", "Work email", <Input type="email" autoComplete="off" disabled={!!user} {...a11y("email")} {...form.register("email")} />)}
@@ -92,14 +94,14 @@ export function UserDialog({ open, onOpenChange, user, isSelf }: {
               {ROLES.map((r) => <option key={r} value={r}>{ROLE_LABEL[r]}</option>)}
             </select>
           ))}
-          {isSelf && <p className="-mt-space-sm text-label-sm text-on-surface-variant">You can&apos;t change your own role.</p>}
+          {isSelf && <p className={styles.selfNote}>You can&apos;t change your own role.</p>}
           {field("password", user ? "New password (optional)" : "Password",
             <Input type="password" autoComplete="new-password" placeholder={user ? "Leave blank to keep the current one" : "At least 12 characters"} {...a11y("password")} {...form.register("password")} />)}
         </form>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
           <Button type="submit" form="user-form" disabled={save.isPending}>
-            {save.isPending && <Loader2 aria-hidden className="animate-spin" />}
+            {save.isPending && <Loader2 aria-hidden className={styles.spinner} />}
             {user ? (save.isPending ? "Saving…" : "Save changes") : (save.isPending ? "Adding…" : "Add user")}
           </Button>
         </DialogFooter>

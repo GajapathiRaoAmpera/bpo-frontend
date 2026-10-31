@@ -1,0 +1,7 @@
+@use "styles/mixins" as *;
+
+.skeleton {
+  border-radius: var(--radius-md);
+  background: var(--muted);
+  @include pulse;
+}

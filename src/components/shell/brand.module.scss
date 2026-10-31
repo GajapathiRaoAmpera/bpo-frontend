@@ -1,0 +1,54 @@
+@use "styles/mixins" as *;
+
+.mark {
+  display: flex;
+  @include size(space(8));
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.markInverted {
+  background: var(--color-on-primary);
+  color: var(--color-primary);
+}
+
+.markIcon {
+  @include size(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  @include text(headline-sm);
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.tagline {
+  @include text(label-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+}
+
+.inverted {
+  .name {
+    color: var(--color-on-primary);
+  }
+
+  .tagline {
+    color: color-mix(in srgb, var(--color-on-primary) 70%, transparent);
+  }
+}

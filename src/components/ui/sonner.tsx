@@ -3,26 +3,27 @@
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
 
+import styles from "./sonner.module.scss"
+
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme="light"
-      className="toaster group"
       icons={{
         success: (
-          <CircleCheckIcon className="size-4" />
+          <CircleCheckIcon className={styles.icon} />
         ),
         info: (
-          <InfoIcon className="size-4" />
+          <InfoIcon className={styles.icon} />
         ),
         warning: (
-          <TriangleAlertIcon className="size-4" />
+          <TriangleAlertIcon className={styles.icon} />
         ),
         error: (
-          <OctagonXIcon className="size-4" />
+          <OctagonXIcon className={styles.icon} />
         ),
         loading: (
-          <Loader2Icon className="size-4 animate-spin" />
+          <Loader2Icon className={styles.spinner} />
         ),
       }}
       style={
@@ -33,11 +34,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--border-radius": "var(--radius)",
         } as React.CSSProperties
       }
-      toastOptions={{
-        classNames: {
-          toast: "cn-toast",
-        },
-      }}
       {...props}
     />
   )

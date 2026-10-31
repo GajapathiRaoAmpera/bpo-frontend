@@ -17,19 +17,21 @@ import { formatDate } from "@/lib/format";
 import { LANGUAGE_LABEL } from "@/lib/labels";
 import { IS_SANDBOX } from "@/lib/personas";
 
+import styles from "./customers-table.module.scss";
+
 type Row = Schemas["CustomerRow"];
 const h = createColumnHelper<Features, Row>();
 const columns = h.columns([
   h.display({ id: "name", header: "Customer", cell: ({ row: { original: c } }) => (
-    <div className="flex flex-col">
-      <span className="text-label-md">{c.full_name}</span>
-      <span className="text-data-mono text-label-xs text-on-surface-variant">{c.customer_code}</span>
+    <div className={styles.stack}>
+      <span className={styles.name}>{c.full_name}</span>
+      <span className={styles.code}>{c.customer_code}</span>
     </div>
   ) }),
-  h.display({ id: "phone", header: "Mobile", cell: ({ row: { original: c } }) => <span className="text-data-mono">{c.phone}</span> }),
+  h.display({ id: "phone", header: "Mobile", cell: ({ row: { original: c } }) => <span className={styles.mono}>{c.phone}</span> }),
   h.display({ id: "city", header: "Location", cell: ({ row: { original: c } }) => `${c.city}, ${c.state}` }),
   h.display({ id: "lang", header: "Language", cell: ({ row: { original: c } }) => <Pill tone="lang">{LANGUAGE_LABEL[c.preferred_language]}</Pill> }),
-  h.display({ id: "policies", header: "Policies", cell: ({ row: { original: c } }) => <span className="text-data-mono">{c.policy_count}</span> }),
+  h.display({ id: "policies", header: "Policies", cell: ({ row: { original: c } }) => <span className={styles.mono}>{c.policy_count}</span> }),
   h.display({ id: "renewal", header: "Next renewal", cell: ({ row: { original: c } }) => (c.next_renewal ? formatDate(c.next_renewal) : "—") }),
 ]);
 const PAGE_SIZE = 25;
@@ -47,20 +49,20 @@ export function CustomersTable() {
   });
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Customers & Policies"
-        badge={masked ? <Pill tone="warning"><ShieldAlert aria-hidden className="size-3" />Masked view</Pill> : undefined}
+        badge={masked ? <Pill tone="warning"><ShieldAlert aria-hidden className={styles.badgeIcon} />Masked view</Pill> : undefined}
         description="Customer 360: policies, renewals, calls and follow-ups for each policyholder. Opening a customer is recorded in the audit log."
       />
-      <div className="flex flex-col gap-1.5 rounded-lg bg-surface-container-lowest p-space-md shadow-card">
-        <Label htmlFor="cust-q" className="text-label-md text-on-surface">Search customers</Label>
-        <div className="relative max-w-md">
-          <Search aria-hidden className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-outline" />
-          <Input id="cust-q" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="pl-9"
+      <div className={styles.searchCard}>
+        <Label htmlFor="cust-q" className={styles.searchLabel}>Search customers</Label>
+        <div className={styles.searchBox}>
+          <Search aria-hidden className={styles.searchIcon} />
+          <Input id="cust-q" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className={styles.searchInput}
             placeholder={masked ? "Name, customer code or policy no." : "Name, mobile, customer code or policy no."} />
         </div>
-        {masked && <p className="text-label-sm text-on-surface-variant">Your role sees masked mobile numbers and email, no date of birth, and can&apos;t search by mobile.</p>}
+        {masked && <p className={styles.hint}>Your role sees masked mobile numbers and email, no date of birth, and can&apos;t search by mobile.</p>}
       </div>
       <DataTable
         columns={columns}

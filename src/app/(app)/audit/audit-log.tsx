@@ -17,6 +17,8 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
+import styles from "./audit-log.module.scss";
+
 type Row = Schemas["AuditRow"];
 type Filters = { actor: string; action: Schemas["AuditAction"] | ""; entity_type: string; date_from: string; date_to: string };
 
@@ -34,10 +36,10 @@ function detailText(detail: Row["detail"]) {
 function DetailPanel({ row }: { row: Row | undefined }) {
   if (!row) {
     return (
-      <div className="flex flex-col items-center gap-space-sm rounded-lg bg-surface-container-lowest p-space-xl text-center shadow-card">
-        <FileSearch aria-hidden className="size-6 text-primary-container" />
-        <p className="text-label-md text-on-surface">Select an entry</p>
-        <p className="text-body-sm text-on-surface-variant">Its full record appears here.</p>
+      <div className={styles.placeholder}>
+        <FileSearch aria-hidden className={styles.placeholderIcon} />
+        <p className={styles.placeholderTitle}>Select an entry</p>
+        <p className={styles.placeholderText}>Its full record appears here.</p>
       </div>
     );
   }
@@ -50,23 +52,23 @@ function DetailPanel({ row }: { row: Row | undefined }) {
     ["IP address", row.ip ?? "—"],
   ];
   return (
-    <aside aria-label="Audit entry" className="flex flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card">
-      <div className="flex items-center justify-between gap-space-sm">
-        <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">Entry #{row.id}</span>
-        <Pill tone="live"><Lock aria-hidden className="size-3" /> Append-only</Pill>
+    <aside aria-label="Audit entry" className={styles.detail}>
+      <div className={styles.detailHeader}>
+        <span className={styles.eyebrow}>Entry #{row.id}</span>
+        <Pill tone="live"><Lock aria-hidden className={styles.lockIcon} /> Append-only</Pill>
       </div>
-      <h2 className="text-headline-md text-on-surface">{ACTION_LABEL[row.action]}</h2>
-      <dl className="flex flex-col gap-space-sm rounded-lg bg-surface-container-low/60 p-space-md text-body-sm">
+      <h2 className={styles.heading}>{ACTION_LABEL[row.action]}</h2>
+      <dl className={styles.fields}>
         {fields.map(([k, v]) => (
-          <div key={k} className="flex justify-between gap-space-md">
-            <dt className="text-on-surface-variant">{k}</dt>
-            <dd className="text-right text-data-mono break-all text-on-surface">{v}</dd>
+          <div key={k} className={styles.fieldRow}>
+            <dt className={styles.fieldKey}>{k}</dt>
+            <dd className={styles.fieldValue}>{v}</dd>
           </div>
         ))}
       </dl>
-      <div className="flex flex-col gap-space-xs">
-        <span className="text-label-xs tracking-wider text-on-surface-variant uppercase">Detail</span>
-        <pre className="max-h-64 overflow-auto rounded-lg border border-divider bg-table-head p-space-md text-data-mono whitespace-pre-wrap text-on-surface">
+      <div className={styles.detailBlock}>
+        <span className={styles.eyebrow}>Detail</span>
+        <pre className={styles.raw}>
           {row.detail ? JSON.stringify(row.detail, null, 2) : "No extra detail recorded."}
         </pre>
       </div>
@@ -114,59 +116,59 @@ export function AuditLog() {
   const filtered = Object.values(filters).some(Boolean);
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className={styles.page}>
       <PageHeader
         title="Audit Log"
-        badge={<Pill tone="live"><Lock aria-hidden className="size-3" /> Append-only</Pill>}
+        badge={<Pill tone="live"><Lock aria-hidden className={styles.lockIcon} /> Append-only</Pill>}
         description="Every sign-in, customer-data view, change, approval, takeover and export. Entries can't be edited or deleted; exports are themselves recorded."
         actions={
           <Button onClick={() => exportCsv.mutate()} disabled={exportCsv.isPending || total === 0}>
-            {exportCsv.isPending ? <Loader2 aria-hidden className="animate-spin" /> : <Download aria-hidden />}
+            {exportCsv.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <Download aria-hidden />}
             {exportCsv.isPending ? "Exporting…" : "Export CSV"}
           </Button>
         }
       />
 
-      <div className="grid grid-cols-1 gap-space-xl xl:grid-cols-12">
-        <section aria-labelledby="ledger-heading" className="flex min-w-0 flex-col gap-space-md rounded-lg bg-surface-container-lowest p-space-lg shadow-card xl:col-span-8">
-          <div className="flex items-center gap-space-sm">
-            <ScrollText aria-hidden className="size-5 text-primary" />
-            <h2 id="ledger-heading" className="text-headline-md text-on-surface">Audit ledger</h2>
+      <div className={styles.layout}>
+        <section aria-labelledby="ledger-heading" className={styles.ledger}>
+          <div className={styles.ledgerHeader}>
+            <ScrollText aria-hidden className={styles.ledgerIcon} />
+            <h2 id="ledger-heading" className={styles.heading}>Audit ledger</h2>
             {data && <Pill tone="info">{total.toLocaleString("en-IN")} entries</Pill>}
           </div>
 
-          <form className="grid grid-cols-2 gap-space-md lg:grid-cols-5" onSubmit={(e) => { e.preventDefault(); apply(draft); }}>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="f-actor" className="text-label-xs tracking-wider text-on-surface-variant uppercase">Actor</Label>
+          <form className={styles.filters} onSubmit={(e) => { e.preventDefault(); apply(draft); }}>
+            <div className={styles.field}>
+              <Label htmlFor="f-actor" className={styles.eyebrow}>Actor</Label>
               <Input id="f-actor" value={draft.actor} onChange={set("actor")} placeholder="Name or email" maxLength={80} />
             </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="f-action" className="text-label-xs tracking-wider text-on-surface-variant uppercase">Action</Label>
+            <div className={styles.field}>
+              <Label htmlFor="f-action" className={styles.eyebrow}>Action</Label>
               <select id="f-action" className={SELECT_CLASS} value={draft.action} onChange={set("action")}>
                 <option value="">All actions</option>
                 {(Object.keys(ACTION_LABEL) as Schemas["AuditAction"][]).map((a) => <option key={a} value={a}>{ACTION_LABEL[a]}</option>)}
               </select>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="f-entity" className="text-label-xs tracking-wider text-on-surface-variant uppercase">Entity</Label>
+            <div className={styles.field}>
+              <Label htmlFor="f-entity" className={styles.eyebrow}>Entity</Label>
               <Input id="f-entity" value={draft.entity_type} onChange={set("entity_type")} placeholder="e.g. customer" maxLength={40} />
             </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="f-from" className="text-label-xs tracking-wider text-on-surface-variant uppercase">From (IST)</Label>
+            <div className={styles.field}>
+              <Label htmlFor="f-from" className={styles.eyebrow}>From (IST)</Label>
               <Input id="f-from" type="date" value={draft.date_from} onChange={set("date_from")} />
             </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="f-to" className="text-label-xs tracking-wider text-on-surface-variant uppercase">To (IST)</Label>
+            <div className={styles.field}>
+              <Label htmlFor="f-to" className={styles.eyebrow}>To (IST)</Label>
               <Input id="f-to" type="date" value={draft.date_to} min={draft.date_from || undefined} onChange={set("date_to")} />
             </div>
-            <div className="col-span-full flex justify-end gap-space-sm">
+            <div className={styles.filterActions}>
               <Button type="button" variant="outline" onClick={() => { setDraft(EMPTY); apply(EMPTY); }} disabled={!filtered}>Reset filters</Button>
               <Button type="submit">Apply filters</Button>
             </div>
           </form>
 
           {error && (
-            <div role="alert" className="flex flex-col items-start gap-space-sm rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">
+            <div role="alert" className={styles.error}>
               {error.message}
               <Button size="sm" variant="outline" onClick={() => refetch()}>Try again</Button>
             </div>
@@ -177,27 +179,27 @@ export function AuditLog() {
               description={filtered ? "Widen the date range or clear a filter." : "Entries appear as people sign in and work."}
               action={filtered ? <Button variant="outline" onClick={() => { setDraft(EMPTY); apply(EMPTY); }}>Reset filters</Button> : undefined} />
           ) : (
-            <div className={cn("overflow-x-auto rounded-lg border border-divider", isFetching && !isLoading && "opacity-70")}>
-              <table className="w-full text-body-sm">
-                <thead className="bg-table-head">
+            <div className={cn(styles.tableWrap, isFetching && !isLoading && styles.refetching)}>
+              <table className={styles.table}>
+                <thead className={styles.thead}>
                   <tr><th className={TH}>Time (IST)</th><th className={TH}>Actor</th><th className={TH}>Action</th><th className={TH}>Entity</th><th className={TH}>Detail</th></tr>
                 </thead>
-                <tbody className="divide-y divide-divider">
+                <tbody className={styles.tbody}>
                   {isLoading && Array.from({ length: 8 }, (_, i) => (
-                    <tr key={i}><td colSpan={5} className={TD}><Skeleton className="h-8" /></td></tr>
+                    <tr key={i}><td colSpan={5} className={TD}><Skeleton className={styles.skeletonRow} /></td></tr>
                   ))}
                   {data?.items.map((r) => (
                     <tr key={r.id} tabIndex={0} aria-selected={r.id === selectedId}
                       onClick={() => setSelectedId(r.id)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedId(r.id); } }}
-                      className={cn("h-12 cursor-pointer hover:bg-table-head focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-lang-border", r.id === selectedId && "bg-surface-container-low")}>
-                      <td className={cn(TD, "text-data-mono whitespace-nowrap")}>{formatDateTime(r.ts)}</td>
+                      className={cn(styles.row, r.id === selectedId && styles.rowSelected)}>
+                      <td className={cn(TD, styles.mono)}>{formatDateTime(r.ts)}</td>
                       <td className={TD}>
-                        <span className="block text-label-md text-on-surface">{r.actor_name ?? "Unknown"}</span>
-                        <span className="text-label-sm text-on-surface-variant">{r.actor_role ? ROLE_LABEL[r.actor_role] : "Not signed in"}</span>
+                        <span className={styles.actorName}>{r.actor_name ?? "Unknown"}</span>
+                        <span className={styles.actorRole}>{r.actor_role ? ROLE_LABEL[r.actor_role] : "Not signed in"}</span>
                       </td>
                       <td className={TD}><Pill tone={ACTION_TONE[r.action] ?? "neutral"}>{ACTION_LABEL[r.action]}</Pill></td>
-                      <td className={cn(TD, "text-data-mono whitespace-nowrap")}>{r.entity_type ?? "—"}{r.entity_id ? ` #${r.entity_id}` : ""}</td>
-                      <td className={cn(TD, "max-w-72 truncate text-on-surface-variant")}>{detailText(r.detail)}</td>
+                      <td className={cn(TD, styles.mono)}>{r.entity_type ?? "—"}{r.entity_id ? ` #${r.entity_id}` : ""}</td>
+                      <td className={cn(TD, styles.detailCell)}>{detailText(r.detail)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -206,9 +208,9 @@ export function AuditLog() {
           )}
 
           {data && total > 0 && (
-            <div className="flex items-center justify-between text-body-sm text-on-surface-variant">
+            <div className={styles.pagination}>
               <span>Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, total)} of {total.toLocaleString("en-IN")}</span>
-              <div className="flex items-center gap-space-sm">
+              <div className={styles.pager}>
                 <Button size="sm" variant="outline" disabled={page <= 1} onClick={() => setPage(page - 1)}>Previous</Button>
                 <span>Page {page} of {pages}</span>
                 <Button size="sm" variant="outline" disabled={page >= pages} onClick={() => setPage(page + 1)}>Next</Button>
@@ -217,7 +219,7 @@ export function AuditLog() {
           )}
         </section>
 
-        <div className="xl:col-span-4">
+        <div className={styles.side}>
           <DetailPanel row={data?.items.find((r) => r.id === selectedId)} />
         </div>
       </div>

@@ -1,0 +1,148 @@
+// Shared SCSS helpers. Every *.module.scss starts with `@use "styles/mixins" as *;`.
+@use "sass:list";
+@use "sass:map";
+
+// --- Spacing (Stitch names; numeric steps follow the 4px grid: space(4) = 1rem) ---
+$space-xs: 0.25rem;
+$space-sm: 0.5rem;
+$space-md: 0.75rem;
+$space-lg: 1rem;
+$space-xl: 1.5rem;
+$gutter: 1rem;
+$gutter-desktop: 1.5rem;
+
+@function space($n) {
+  @return $n * 0.25rem;
+}
+
+// --- Breakpoints (min-width, mobile first) ---
+$breakpoints: (sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px);
+
+@mixin up($bp) {
+  @media (min-width: map.get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+// --- Typography (Inter everywhere): size, line-height, letter-spacing, weight ---
+$type: (
+  display: (28px, 34px, -0.02em, 700),
+  headline-lg: (22px, 28px, -0.015em, 600),
+  headline-md: (18px, 24px, -0.01em, 600),
+  headline-sm: (16px, 22px, -0.005em, 600),
+  body-lg: (15px, 22px, null, null),
+  body-md: (14px, 20px, null, null),
+  body-sm: (13px, 18px, null, null),
+  data-mono: (13px, 18px, null, 500),
+  label-md: (13px, 18px, null, 600),
+  label-sm: (12px, 16px, null, 500),
+  label-xs: (11px, 14px, 0.02em, 600),
+);
+
+@mixin text($name) {
+  $t: map.get($type, $name);
+  @if not $t {
+    @error "Unknown text style `#{$name}`.";
+  }
+  font-size: list.nth($t, 1);
+  line-height: list.nth($t, 2);
+  letter-spacing: list.nth($t, 3);
+  font-weight: list.nth($t, 4);
+}
+
+// --- Common patterns ---
+@mixin focus-ring {
+  outline: 2px solid var(--color-lang-border);
+  outline-offset: 2px;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin size($s) {
+  width: $s;
+  height: $s;
+}
+
+// Hairline card surface used by most modules (DESIGN.md: border, then soft shadow).
+@mixin card-surface {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-card);
+}
+
+// --- Motion. Keyframes are emitted into the calling module so names stay module-scoped. ---
+@mixin spin($duration: 1s) {
+  animation: spin $duration linear infinite;
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@mixin pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
+
+// Radix overlay enter/exit: fade + optional zoom (0.95) and slide (0.5rem) from a side.
+// Use inside `&[data-state="open"]` / `&[data-state="closed"]`.
+@mixin enter($zoom: false, $from: null, $duration: 150ms) {
+  $tx: 0;
+  $ty: 0;
+  @if $from == top { $ty: -0.5rem; }
+  @if $from == bottom { $ty: 0.5rem; }
+  @if $from == left { $tx: -0.5rem; }
+  @if $from == right { $tx: 0.5rem; }
+  $scale: 1;
+  $name: enter-n-#{$from or none};
+  @if $zoom { $scale: 0.95; $name: enter-z-#{$from or none}; }
+  animation: $name $duration ease-out;
+  @keyframes #{$name} {
+    from {
+      opacity: 0;
+      transform: translate($tx, $ty) scale($scale);
+    }
+  }
+}
+
+@mixin exit($zoom: false, $duration: 150ms) {
+  $scale: 1;
+  $name: exit-n;
+  @if $zoom { $scale: 0.95; $name: exit-z; }
+  animation: $name $duration ease-in forwards;
+  @keyframes #{$name} {
+    to {
+      opacity: 0;
+      transform: scale($scale);
+    }
+  }
+}

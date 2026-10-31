@@ -1,0 +1,90 @@
+@use "styles/mixins" as *;
+
+.content {
+  @include up(sm) {
+    max-width: 32rem;
+  }
+}
+
+.title {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+.description {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.alertIcon {
+  margin-top: space(0.5);
+  @include size(space(4));
+  flex-shrink: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.legend {
+  margin-bottom: space(1.5);
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
+.kinds {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-sm;
+}
+
+.kind {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  @include text(body-sm);
+  font-weight: 400;
+
+  &:has([data-state="checked"]) {
+    border-color: var(--color-primary-container);
+    background: var(--color-surface-container-low);
+  }
+}
+
+.spinner {
+  @include spin;
+}

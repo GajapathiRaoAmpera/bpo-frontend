@@ -1,0 +1,105 @@
+@use "styles/mixins" as *;
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  border: 1px solid var(--color-danger-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-card);
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+}
+
+.head {
+  background: var(--color-table-head);
+}
+
+.headRow {
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.th {
+  height: space(9);
+  padding: 0 $space-md;
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-divider);
+
+  &:last-child {
+    border-width: 0;
+  }
+}
+
+.clickable {
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    background: var(--color-surface-container-low);
+  }
+}
+
+.skeletonCell {
+  height: space(12);
+  padding: 0 $space-md;
+}
+
+.bone {
+  height: space(4);
+  width: 100%;
+}
+
+.td {
+  height: space(12);
+  padding: 0 $space-md;
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.right {
+  text-align: right;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-divider);
+  padding: $space-sm $space-md;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.pager {
+  display: flex;
+  gap: $space-xs;
+}

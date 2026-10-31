@@ -1,0 +1,45 @@
+@use "styles/mixins" as *;
+
+.content {
+  z-index: 50;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 20rem;
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  align-items: center;
+  gap: space(1.5);
+  border-radius: var(--radius-md);
+  background: var(--foreground);
+  padding: space(1.5) space(3);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--background);
+
+  &:has([data-slot="kbd"]) { padding-right: space(1.5); }
+  [data-slot="kbd"] {
+    position: relative;
+    isolation: isolate;
+    z-index: 50;
+    border-radius: var(--radius-sm);
+  }
+
+  &[data-state="delayed-open"],
+  &[data-state="open"] {
+    @include enter(true);
+    &[data-side="bottom"] { @include enter(true, top); }
+    &[data-side="left"] { @include enter(true, right); }
+    &[data-side="right"] { @include enter(true, left); }
+    &[data-side="top"] { @include enter(true, bottom); }
+  }
+  &[data-state="closed"] { @include exit(true); }
+}
+
+.arrow {
+  z-index: 50;
+  @include size(space(2.5));
+  translate: 0 calc(-50% - 2px);
+  rotate: 45deg;
+  border-radius: 2px;
+  background: var(--foreground);
+  fill: var(--foreground);
+}
