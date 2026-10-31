@@ -20,6 +20,7 @@ import { useMe } from "@/hooks/use-me";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime, initials } from "@/lib/format";
 import { NAV } from "@/lib/nav";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type User = Schemas["UserAdminRow"];
 const LEVEL_TONE: Record<Schemas["Level"], PillTone> = { full: "success", view: "info", approve: "warning", masked: "lang", own: "neutral" };
@@ -45,7 +46,7 @@ function PermissionMatrix() {
         <h2 id="matrix-heading" className="flex items-center gap-space-sm text-headline-md text-on-surface">
           <ShieldCheck aria-hidden className="size-5 text-primary" /> Permission matrix
         </h2>
-        <p className="text-body-sm text-on-surface-variant">Read from the API&apos;s single access matrix, which every endpoint enforces. Role access is fixed in this sandbox.</p>
+        <p className="text-body-sm text-on-surface-variant">Read from the API&apos;s single access matrix, which every endpoint enforces. Role access is fixed{IS_SANDBOX && " in this sandbox"}.</p>
       </div>
       {error && <ErrorBox message={error.message} retry={() => refetch()} />}
       {isLoading && <Skeleton className="h-96" />}

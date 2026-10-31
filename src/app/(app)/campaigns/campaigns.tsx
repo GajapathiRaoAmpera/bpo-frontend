@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate } from "@/lib/format";
 import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type Campaign = Schemas["CampaignOut"];
 const KEY = ["campaigns"] as const;
@@ -129,7 +130,7 @@ export function Campaigns() {
             <Confirm size="sm" variant="ai" label={c.status === "approved" ? "Launch" : "Dial next 3"} icon={<Rocket aria-hidden />}
               busy={launch.isPending && launch.variables?.id === c.id}
               title={`Launch “${c.name}”?`}
-              description="The sandbox places the next 3 simulated AI calls from this campaign, with transcripts and QA scores, and updates progress. No real customer is called."
+              description={IS_SANDBOX ? "The sandbox places the next 3 simulated AI calls from this campaign, with transcripts and QA scores, and updates progress. No real customer is called." : "Real phone dialling is not set up yet, so the launch will be refused. No customer is called."}
               confirmLabel="Place 3 simulated calls" onConfirm={() => launch.mutateAsync(c)} />
           )}
           {!canWrite && c.status === "pending" && (
@@ -147,7 +148,7 @@ export function Campaigns() {
     <div className="flex flex-col gap-space-lg">
       <PageHeader
         title="Outbound Campaigns"
-        description="Build renewal campaigns, send them for maker-checker approval, and launch them on the AI dialler. Sandbox launches place simulated calls only."
+        description={IS_SANDBOX ? "Build renewal campaigns, send them for maker-checker approval, and launch them on the AI dialler. Sandbox launches place simulated calls only." : "Build renewal campaigns, send them for maker-checker approval, and launch them on the AI dialler."}
         actions={canWrite && !editing && <Button onClick={() => setEditing("new")}><Plus aria-hidden />New campaign</Button>}
       />
       <div className="grid grid-cols-5 gap-space-lg">

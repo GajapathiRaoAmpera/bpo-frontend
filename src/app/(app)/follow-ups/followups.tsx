@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type Row = Schemas["FollowupRow"];
 type Status = Schemas["FollowupStatus"];
@@ -80,8 +81,8 @@ export function Followups() {
     <div className="flex flex-col gap-space-xl">
       <PageHeader
         title="Follow-ups"
-        badge={<Pill tone="live" pulse>Sandbox timer · every 2 min</Pill>}
-        description="Payment links, callbacks and reminders. When one falls due, the sandbox timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. Nothing is sent to real numbers."
+        badge={<Pill tone="live" pulse>{IS_SANDBOX ? "Sandbox timer" : "Timer"} · every 2 min</Pill>}
+        description={IS_SANDBOX ? "Payment links, callbacks and reminders. When one falls due, the sandbox timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. Nothing is sent to real numbers." : "Payment links, callbacks and reminders. When one falls due, the timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
         actions={canWrite ? <FollowupDialog /> : undefined}
       />
       <div role="group" aria-label="Filter by status" className="flex flex-wrap gap-1 rounded-lg bg-surface-container-lowest p-space-sm text-label-xs shadow-card">

@@ -19,6 +19,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
+import { IS_SANDBOX } from "@/lib/personas";
 
 const KINDS: Schemas["FollowupKind"][] = ["callback", "reminder", "payment_link"];
 const IST_OFFSET_MS = 330 * 60_000;
@@ -81,7 +82,7 @@ export function FollowupDialog({ policyNo, policyId, trigger }: { policyNo?: str
         <DialogHeader>
           <DialogTitle className="text-headline-md text-on-surface">Schedule follow-up</DialogTitle>
           <DialogDescription className="text-body-sm text-on-surface-variant">
-            When it is due, the sandbox timer writes the WhatsApp message and marks it sent. Nothing reaches a real phone.
+            {IS_SANDBOX ? "When it is due, the sandbox timer writes the WhatsApp message and marks it sent. Nothing reaches a real phone." : "When it is due, the timer writes the WhatsApp message and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
           </DialogDescription>
         </DialogHeader>
         <form id="followup-form" noValidate onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-space-lg">

@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate, formatINR } from "@/lib/format";
 import { OUTCOME_LABEL, SENTIMENT_LABEL } from "@/lib/labels";
+import { IS_SANDBOX } from "@/lib/personas";
 
 const DAYS = 30;
 const C = { primary: "var(--color-primary)", secondary: "var(--color-secondary)", grid: "var(--color-divider)", text: "var(--color-on-surface-variant)" };
@@ -85,7 +86,7 @@ export function Dashboard() {
       <PageHeader
         title="Executive Dashboard"
         badge={<Pill tone="live">Last {DAYS} days</Pill>}
-        description="Calls handled by the AI voice agent, renewals collected, containment, sentiment and QA across the contact centre. Figures come from the sandbox's synthetic call records."
+        description={IS_SANDBOX ? "Calls handled by the AI voice agent, renewals collected, containment, sentiment and QA across the contact centre. Figures come from the sandbox's synthetic call records." : "Calls handled by the AI voice agent, renewals collected, containment, sentiment and QA across the contact centre."}
       />
       {error && (
         <div role="alert" className="flex items-center justify-between rounded-lg border border-danger-border bg-danger-bg p-space-md text-body-sm text-danger-text">

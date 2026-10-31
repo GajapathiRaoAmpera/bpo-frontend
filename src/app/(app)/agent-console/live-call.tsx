@@ -12,6 +12,7 @@ import type { VoicePhase } from "@/hooks/use-voice-call";
 import type { Schemas } from "@/lib/api";
 import { formatDuration, OUTCOME_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type Session = Schemas["SessionOut"];
 type Turn = Schemas["TurnOut"];
@@ -134,7 +135,7 @@ export function LiveCall({ session, phase, voice, agentName, onTakeover, onEnd, 
       )}
       {aiOnCall && (
         <p className="mx-space-md mt-space-md rounded-lg bg-warning-bg px-space-md py-space-sm text-label-sm text-warning-text">
-          Sandbox: speak as the customer into your microphone. The AI cannot see your screen.
+          {IS_SANDBOX ? "Sandbox: speak" : "Speak"} as the customer into your microphone. The AI cannot see your screen.
         </p>
       )}
 

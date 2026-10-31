@@ -17,6 +17,7 @@ import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
 import { cn } from "@/lib/utils";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type ScriptItem = Schemas["ScriptApproval"];
 type Campaign = Schemas["CampaignOut"];
@@ -208,7 +209,7 @@ function CampaignReview({ campaign: c, checks }: { campaign: Campaign; checks: s
             </div>
           ))}
         </dl>
-        <p className="text-label-sm text-on-surface-variant">Once approved, the maker can launch it. Sandbox launches place 3 simulated AI calls at a time.</p>
+        <p className="text-label-sm text-on-surface-variant">Once approved, the maker can launch it.{IS_SANDBOX && " Sandbox launches place 3 simulated AI calls at a time."}</p>
       </Panel>
       <div className="col-span-3">
         <Decision name={c.name} checks={checks} onDecide={(approve, body) => decide.mutateAsync({ approve, body })} />

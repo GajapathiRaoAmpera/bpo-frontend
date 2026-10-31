@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { formatDate } from "@/lib/format";
 import { LANGUAGE_LABEL } from "@/lib/labels";
+import { IS_SANDBOX } from "@/lib/personas";
 
 type Row = Schemas["CustomerRow"];
 const h = createColumnHelper<Features, Row>();
@@ -74,7 +75,7 @@ export function CustomersTable() {
         pageSize={PAGE_SIZE}
         total={data?.total}
         onPage={setPage}
-        empty={{ icon: Users, title: query ? "No customers match your search" : "No customers yet", description: query ? "Check the spelling or try a policy number." : "Run make reset in the backend to load the sandbox data." }}
+        empty={{ icon: Users, title: query ? "No customers match your search" : "No customers yet", description: query ? "Check the spelling or try a policy number." : IS_SANDBOX ? "Run make reset in the backend to load the sandbox data." : "Import customers with python -m app.import_customers in the backend." }}
       />
     </div>
   );
