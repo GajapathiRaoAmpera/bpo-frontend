@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { LoginForm } from "@/app/login/login-form";
 import { Brand } from "@/components/shell/brand";
 import { Skeleton } from "@/components/ui/skeleton";
+import { IS_SANDBOX } from "@/lib/personas";
 
 export const metadata: Metadata = { title: "Sign in" };
 
@@ -20,7 +21,7 @@ const POINTS = [
 export default function LoginPage() {
   return (
     <>
-      <div className="grid min-h-screen grid-cols-[minmax(0,5fr)_minmax(0,7fr)] pt-7">
+      <div className="grid min-h-screen grid-cols-[minmax(0,5fr)_minmax(0,7fr)] pt-(--banner-h)">
         <aside className="flex flex-col justify-between bg-primary p-12 text-on-primary">
           <Brand inverted />
           <div className="flex max-w-md flex-col gap-space-xl">
@@ -41,7 +42,8 @@ export default function LoginPage() {
               ))}
             </ul>
           </div>
-          <p className="text-label-sm text-on-primary/60">Sandbox edition · all customer data is synthetic</p>
+          {/* kept empty in production so justify-between keeps the headline centred */}
+          <p className="text-label-sm text-on-primary/60">{IS_SANDBOX && "Sandbox edition · all customer data is synthetic"}</p>
         </aside>
 
         <main className="flex items-center justify-center px-gutter-desktop py-12">

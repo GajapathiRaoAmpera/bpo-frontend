@@ -20,7 +20,7 @@ export function AppSidebar({ nav }: { nav: Schemas["NavItem"][] }) {
   const admin = byGroup("admin");
 
   return (
-    <aside className="fixed top-[5.75rem] bottom-0 left-0 z-30 flex w-60 flex-col justify-between overflow-y-auto bg-surface-container-lowest shadow-chrome">
+    <aside className="fixed top-[calc(var(--banner-h)+4rem)] bottom-0 left-0 z-30 flex w-60 flex-col justify-between overflow-y-auto bg-surface-container-lowest shadow-chrome">
       <nav aria-label="Main" className="flex flex-col gap-space-lg p-space-md">
         {top.map((g) => (
           <div key={g} className="flex flex-col">

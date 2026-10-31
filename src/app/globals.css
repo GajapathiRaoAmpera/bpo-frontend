@@ -138,6 +138,10 @@
   --shadow-modal: 0 10px 15px -3px rgb(15 42 86 / 0.08), 0 4px 6px -4px rgb(15 42 86 / 0.04);
 }
 
+/* Height of the fixed sandbox banner; fixed chrome sits below it. */
+:root { --banner-h: 1.75rem; }
+:root[data-env="production"] { --banner-h: 0px; }
+
 /* shadcn/ui variables mapped onto the Stitch roles */
 :root {
   --background: #f8f9ff;

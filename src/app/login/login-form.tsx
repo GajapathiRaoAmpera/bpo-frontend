@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { ME_KEY } from "@/hooks/use-me";
 import { api, type Schemas, unwrap } from "@/lib/api";
 import { initials } from "@/lib/format";
-import { personaEmail, SANDBOX_PERSONAS } from "@/lib/personas";
+import { IS_SANDBOX, personaEmail, SANDBOX_PERSONAS } from "@/lib/personas";
 import { SCREEN_HREF, screenForPath } from "@/lib/routes";
 
 const schema = z.object({
@@ -96,6 +96,7 @@ export function LoginForm() {
         </Button>
       </form>
 
+      {IS_SANDBOX && (
       <section aria-labelledby="personas-heading" className="flex flex-col gap-space-sm">
         <div className="flex items-center gap-space-md">
           <span className="h-px flex-1 bg-divider" />
@@ -122,6 +123,7 @@ export function LoginForm() {
           ))}
         </ul>
       </section>
+      )}
     </div>
   );
 }

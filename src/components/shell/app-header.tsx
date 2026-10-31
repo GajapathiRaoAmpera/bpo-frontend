@@ -37,7 +37,7 @@ export function AppHeader({ me }: { me: Schemas["MeOut"] }) {
 
   const { user } = me;
   return (
-    <header className="fixed inset-x-0 top-7 z-40 h-16 bg-surface-container-lowest/90 shadow-chrome backdrop-blur-md">
+    <header className="fixed inset-x-0 top-(--banner-h) z-40 h-16 bg-surface-container-lowest/90 shadow-chrome backdrop-blur-md">
       <div className="flex h-16 items-center justify-between gap-space-lg px-gutter-desktop">
         <div className="w-60 shrink-0">
           <Brand />

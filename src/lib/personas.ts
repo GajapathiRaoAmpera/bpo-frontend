@@ -1,3 +1,6 @@
+// Build-time switch: production hides the sandbox banner and persona picker.
+export const IS_SANDBOX = process.env.NEXT_PUBLIC_APP_ENV !== "production";
+
 import type { Schemas } from "@/lib/api";
 
 // Sandbox sign-in helper only. Mirrors PERSONAS in bpo-backend/app/seed/__init__.py; passwords are never shown.
