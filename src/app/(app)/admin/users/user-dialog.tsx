@@ -37,8 +37,8 @@ export function UserDialog({ open, onOpenChange, user, isSelf }: {
   const queryClient = useQueryClient();
   const [serverError, setServerError] = useState<string | null>(null);
   const form = useForm<Values>({
-    resolver: zodResolver(schema.refine((v) => (user ? v.password === "" : false) || v.password.length >= 8, {
-      path: ["password"], message: "Use at least 8 characters",
+    resolver: zodResolver(schema.refine((v) => (user ? v.password === "" : false) || v.password.length >= 12, {
+      path: ["password"], message: "Use at least 12 characters",
     })),
     mode: "onTouched",
     values: user
@@ -94,7 +94,7 @@ export function UserDialog({ open, onOpenChange, user, isSelf }: {
           ))}
           {isSelf && <p className="-mt-space-sm text-label-sm text-on-surface-variant">You can&apos;t change your own role.</p>}
           {field("password", user ? "New password (optional)" : "Password",
-            <Input type="password" autoComplete="new-password" placeholder={user ? "Leave blank to keep the current one" : "At least 8 characters"} {...a11y("password")} {...form.register("password")} />)}
+            <Input type="password" autoComplete="new-password" placeholder={user ? "Leave blank to keep the current one" : "At least 12 characters"} {...a11y("password")} {...form.register("password")} />)}
         </form>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
