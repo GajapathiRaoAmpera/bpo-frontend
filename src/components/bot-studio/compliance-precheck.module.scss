@@ -1,0 +1,33 @@
+@use "styles/mixins" as *;
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+  @include text(body-sm);
+}
+
+.checkIcon {
+  margin-top: space(0.5);
+  @include size(space(4));
+  flex-shrink: 0;
+}
+
+.found { color: var(--color-secondary); }
+
+.missing { color: var(--color-danger); }
+
+.checkLabel {
+  flex: 1 1 0%;
+}

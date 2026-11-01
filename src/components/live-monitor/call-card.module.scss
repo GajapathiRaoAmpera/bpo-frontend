@@ -1,0 +1,109 @@
+@use "styles/mixins" as *;
+
+.label {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.muted {
+  color: var(--color-on-surface-variant);
+}
+
+.strong {
+  color: var(--color-on-surface);
+}
+
+.callCard {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.callCardSelected {
+  border: 2px solid var(--color-primary);
+}
+
+.callHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.dot {
+  @include size(space(2));
+  border-radius: 9999px;
+  background: var(--color-secondary);
+}
+
+.dotHuman {
+  background: var(--color-warning-text);
+}
+
+.callName {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.phone {
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.callStatus {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface-container-low) 60%, transparent);
+  padding: $space-md;
+  @include text(body-sm);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.callRef {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+.callFoot {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.lastLine {
+  min-width: 0;
+  flex: 1 1 0%;
+  @include truncate;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.lastSpeaker {
+  font-weight: 600;
+  color: var(--color-primary);
+}

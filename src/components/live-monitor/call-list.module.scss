@@ -1,0 +1,24 @@
+@use "styles/mixins" as *;
+
+.calls {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  @include up(xl) { grid-column: span 12 / span 12; }
+}
+
+.callsWithPanel {
+  @include up(xl) { grid-column: span 8 / span 8; }
+}
+
+.callSkeleton {
+  height: space(44);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.callList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}

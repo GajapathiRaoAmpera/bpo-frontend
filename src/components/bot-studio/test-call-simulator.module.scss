@@ -1,0 +1,72 @@
+@use "styles/mixins" as *;
+
+.simulator {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.transcript {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.turn {
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  @include text(body-sm);
+}
+
+.botTurn {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.customerTurn {
+  margin-left: space(6);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
+}
+
+.speaker {
+  display: block;
+  @include text(label-xs);
+  opacity: 0.8;
+}
+
+.simEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-md 0;
+  text-align: center;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.simEmptyIcon {
+  @include size(space(6));
+  color: var(--color-primary-container);
+}
+
+.spinner {
+  @include spin;
+}

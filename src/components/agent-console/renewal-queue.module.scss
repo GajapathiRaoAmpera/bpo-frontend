@@ -1,0 +1,201 @@
+@use "styles/mixins" as *;
+
+.queue {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+// Intro and action blocks: borderless card.
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.hint {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.list {
+  display: flex;
+  max-height: calc(100vh - 24rem);
+  min-height: space(64);
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+  padding-right: space(1);
+}
+
+.skeleton {
+  height: 104px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-xl;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.emptyIcon {
+  display: flex;
+  @include size(space(10));
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+  color: var(--color-primary-container);
+
+  :where(svg) {
+    @include size(space(5));
+  }
+}
+
+.emptyTitle {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: $space-xs;
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  text-align: left;
+  box-shadow: var(--shadow-card);
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: var(--color-neutral-border);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.itemSelected,
+.itemSelected:hover {
+  border: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-popover);
+}
+
+.selectedBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: space(1.5);
+  background: var(--color-primary);
+}
+
+.itemHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.customer {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.premium {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+.itemMeta {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-xs);
+}
+
+.policyNo {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  padding: space(0.5) space(2);
+  @include text(data-mono);
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--color-primary);
+}
+
+.product {
+  @include truncate;
+  color: var(--color-on-surface-variant);
+}
+
+.itemFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-top: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  padding-top: $space-xs;
+  @include text(label-xs);
+}
+
+.due {
+  display: flex;
+  align-items: center;
+  gap: space(1);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.dueIcon {
+  @include size(space(3.5));
+  color: var(--color-primary);
+}
+
+.lastCalled {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-outline);
+}
+
+.spinner {
+  @include spin;
+}

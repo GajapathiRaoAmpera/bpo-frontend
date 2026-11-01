@@ -1,0 +1,65 @@
+@use "styles/mixins" as *;
+
+// --- Step indicator ---
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-sm;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm $space-md;
+  @include text(label-md);
+  color: var(--color-on-surface-variant);
+}
+
+.stepCurrent {
+  border-color: var(--color-primary);
+  background: var(--color-surface-container-low);
+  color: var(--color-primary);
+}
+
+.stepNo {
+  display: flex;
+  @include size(space(6));
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(label-xs);
+}
+
+.stepNoDone {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+// --- Form ---
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+// --- Footer ---
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+}
+
+.footerActions {
+  display: flex;
+  gap: $space-sm;
+}
+
+.spinner {
+  @include spin;
+}

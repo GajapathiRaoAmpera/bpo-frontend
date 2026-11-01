@@ -1,0 +1,21 @@
+@use "styles/mixins" as *;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  @include text(label-md);
+}
+
+.code {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.mono {
+  @include text(data-mono);
+}

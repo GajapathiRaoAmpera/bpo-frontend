@@ -1,0 +1,26 @@
+@use "styles/mixins" as *;
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: $space-lg;
+}
+
+.queueCol {
+  grid-column: span 5 / span 5;
+}
+
+.detailCol {
+  grid-column: span 7 / span 7;
+}

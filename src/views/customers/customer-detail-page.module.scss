@@ -1,0 +1,49 @@
+@use "styles/mixins" as *;
+
+.fallback {
+  height: space(40);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.skeletonHeader,
+.skeletonBody {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.skeletonHeader {
+  height: space(40);
+}
+
+.skeletonBody {
+  height: space(64);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+
+  @include up(lg) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.callsCol {
+  @include up(lg) {
+    grid-column: span 7 / span 7;
+  }
+}
+
+.followupsCol {
+  @include up(lg) {
+    grid-column: span 5 / span 5;
+  }
+}

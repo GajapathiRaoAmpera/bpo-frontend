@@ -1,0 +1,106 @@
+@use "styles/mixins" as *;
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-xl;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.placeholderIcon {
+  @include size(space(6));
+  color: var(--color-primary-container);
+}
+
+.placeholderTitle {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.placeholderText {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.lockIcon {
+  @include size(space(3));
+}
+
+.heading {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface-container-low) 60%, transparent);
+  padding: $space-md;
+  @include text(body-sm);
+}
+
+.fieldRow {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.fieldKey {
+  color: var(--color-on-surface-variant);
+}
+
+.fieldValue {
+  text-align: right;
+  @include text(data-mono);
+  word-break: break-all;
+  color: var(--color-on-surface);
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.raw {
+  max-height: space(64);
+  overflow: auto;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-table-head);
+  padding: $space-md;
+  @include text(data-mono);
+  white-space: pre-wrap;
+  color: var(--color-on-surface);
+}

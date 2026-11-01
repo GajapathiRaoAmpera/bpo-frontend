@@ -1,0 +1,63 @@
+@use "styles/mixins" as *;
+
+.campaignCell {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+  padding: $space-sm 0;
+}
+
+.campaignName {
+  @include text(label-md);
+  color: var(--color-primary);
+}
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.script {
+  @include text(body-sm);
+}
+
+.progress {
+  display: flex;
+  min-width: space(40);
+  flex-direction: column;
+  gap: space(1);
+}
+
+.progressHead {
+  display: flex;
+  justify-content: space-between;
+  @include text(data-mono);
+}
+
+.progressPct {
+  color: var(--color-secondary);
+}
+
+.track {
+  height: space(1.5);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+}
+
+.dialledBar {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-secondary);
+}
+
+.mono {
+  @include text(data-mono);
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: space(0.5);
+}

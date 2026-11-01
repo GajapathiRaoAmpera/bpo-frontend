@@ -1,0 +1,8 @@
+@use "styles/mixins" as *;
+
+.filter {
+  display: flex;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: space(1);
+}

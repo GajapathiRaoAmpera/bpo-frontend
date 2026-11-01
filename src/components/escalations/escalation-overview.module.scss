@@ -1,0 +1,104 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.label {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.detailHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.avatar {
+  display: flex;
+  @include size(space(12));
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(headline-sm);
+  color: var(--color-primary);
+}
+
+.identityText {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerName {
+  @include text(headline-lg);
+  color: var(--color-on-surface);
+}
+
+// text-label-sm sorts after text-data-mono, so label-sm wins outright.
+.customerContact {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.detailPills {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-md;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+  @include up(md) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.factValue {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.handoff {
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-warning-bg);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-warning-text);
+}
+
+.handoffLabel {
+  font-weight: 600;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+}

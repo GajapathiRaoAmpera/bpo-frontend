@@ -1,0 +1,105 @@
+@use "styles/mixins" as *;
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: space(1.5) 0;
+}
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.fieldValue {
+  text-align: right;
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+.emptyCustomer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-lg 0;
+  text-align: center;
+}
+
+.emptyIcon {
+  display: flex;
+  @include size(space(10));
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+  color: var(--color-primary-container);
+}
+
+.iconLg {
+  @include size(space(5));
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  padding-bottom: $space-sm;
+}
+
+.avatar {
+  display: flex;
+  @include size(space(11));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(headline-sm);
+  color: var(--color-primary);
+}
+
+.identityText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.name {
+  @include truncate;
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.location {
+  @include truncate;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.fields {
+  border-top: 1px solid var(--color-divider);
+
+  > * + * {
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+.verifyNote {
+  margin-top: $space-sm;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

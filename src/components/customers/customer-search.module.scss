@@ -1,0 +1,39 @@
+@use "styles/mixins" as *;
+
+.searchCard {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.searchLabel {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.searchBox {
+  position: relative;
+  max-width: 28rem;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: space(3);
+  @include size(space(4));
+  transform: translateY(-50%);
+  color: var(--color-outline);
+}
+
+.searchInput {
+  padding-left: space(9);
+}
+
+.hint {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

@@ -1,0 +1,38 @@
+@use "styles/mixins" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.review {
+  grid-column: span 2 / span 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: $space-lg;
+  row-gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-md;
+  @include text(body-sm);
+
+  dt {
+    color: var(--color-on-surface-variant);
+  }
+}
+
+.reviewName {
+  @include text(label-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.hint {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

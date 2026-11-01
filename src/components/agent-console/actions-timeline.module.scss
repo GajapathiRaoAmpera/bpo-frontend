@@ -1,0 +1,87 @@
+@use "styles/mixins" as *;
+
+.noActions {
+  padding: $space-sm 0;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: space(2);
+    bottom: space(2);
+    left: space(3.25);
+    width: 1px;
+    background: var(--color-divider);
+  }
+}
+
+.action {
+  position: relative;
+  display: flex;
+  gap: $space-sm;
+}
+
+.actionIcon {
+  z-index: 10;
+  display: flex;
+  @include size(space(7));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+
+  :where(svg) {
+    @include size(space(3.5));
+  }
+}
+
+.actionOk {
+  background: var(--color-lang-bg);
+  color: var(--color-secondary);
+}
+
+.actionFailed {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.actionBody {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.actionHead {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.time {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-outline);
+}
+
+.actionText {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.actionTextFailed {
+  color: var(--color-danger-text);
+}

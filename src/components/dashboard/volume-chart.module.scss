@@ -1,0 +1,8 @@
+@use "styles/mixins" as *;
+
+.volumeChart { height: space(72); }
+
+.chartSkeleton {
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,61 @@
+@use "styles/mixins" as *;
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.kpiLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.kpiIcon {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-secondary-container) 30%, transparent);
+  padding: space(1);
+  color: var(--color-on-secondary-container);
+
+  svg {
+    @include size(space(3.5));
+  }
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-primary);
+}
+
+.kpiNote {
+  margin-top: space(1);
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.kpiTrack {
+  height: space(1.5);
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+}
+
+.kpiFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}

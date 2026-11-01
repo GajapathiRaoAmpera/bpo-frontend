@@ -1,0 +1,12 @@
+@use "styles/mixins" as *;
+
+.turns {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

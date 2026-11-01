@@ -1,0 +1,33 @@
+@use "styles/mixins" as *;
+
+.tip {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-sm;
+  @include text(label-sm);
+  box-shadow: var(--shadow-popover);
+}
+
+.tipLabel {
+  margin-bottom: space(1);
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.tipRow {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  color: var(--color-on-surface-variant);
+}
+
+.tipSwatch {
+  @include size(space(2));
+  border-radius: 9999px;
+}
+
+.value {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}

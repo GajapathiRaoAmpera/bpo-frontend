@@ -1,0 +1,65 @@
+@use "styles/mixins" as *;
+
+.scoredBy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.checks,
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+}
+
+.checkbox {
+  margin-top: space(0.5);
+}
+
+.checkLabel {
+  flex: 1;
+  @include text(body-sm);
+  font-weight: 400;
+}
+
+.pass,
+.fail {
+  @include text(label-xs);
+}
+
+.pass {
+  color: var(--color-secondary);
+}
+
+.fail {
+  color: var(--color-danger-text);
+}
+
+.noteField {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.note {
+  min-height: space(24);
+  border-color: var(--color-divider);
+  @include text(body-sm);
+}
+
+.spinner {
+  @include spin;
+}

@@ -1,0 +1,115 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.heading {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+}
+
+.table {
+  width: 100%;
+  @include text(body-sm);
+}
+
+.thead {
+  background: var(--color-table-head);
+}
+
+.tbody > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.userRow {
+  height: space(12);
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+}
+
+.skeletonRow {
+  height: space(8);
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.avatar {
+  display: flex;
+  @include size(space(8));
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  @include text(label-sm);
+  color: var(--color-primary);
+}
+
+.personText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.name {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.you {
+  color: var(--color-on-surface-variant);
+}
+
+.email {
+  @include truncate;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.jobTitle {
+  color: var(--color-on-surface);
+}
+
+.lastLogin {
+  @include text(data-mono);
+  white-space: nowrap;
+  color: var(--color-on-surface-variant);
+}
+
+.right {
+  text-align: right;
+}
+
+.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.danger {
+  color: var(--color-danger-text);
+}

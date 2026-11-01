@@ -1,0 +1,61 @@
+@use "styles/mixins" as *;
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.itemHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.followupKind {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.followupPolicy {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.due {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: space(1.5);
+  border-radius: var(--radius-lg);
+  background: var(--color-success-bg);
+  padding: $space-sm;
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.messageIcon {
+  margin-top: space(0.5);
+  @include size(space(3.5));
+  flex-shrink: 0;
+  color: var(--color-success);
+}

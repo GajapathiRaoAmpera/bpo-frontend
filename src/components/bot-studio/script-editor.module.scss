@@ -1,0 +1,88 @@
+@use "styles/mixins" as *;
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.toolbar {
+  display: flex;
+  gap: $space-sm;
+}
+
+.scriptMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.readOnly {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: space(1);
+
+  :where(svg) {
+    @include size(space(3.5));
+  }
+}
+
+.reviewNote {
+  border: 1px solid;
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  @include text(body-sm);
+}
+
+.reviewRejected {
+  border-color: var(--color-danger-border);
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.reviewApproved {
+  border-color: var(--color-success-border);
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.fieldHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prompt {
+  field-sizing: fixed;
+  height: 28rem;
+  resize: vertical;
+  border-color: var(--color-divider);
+  background: var(--color-surface-container-low);
+  font-family: var(--font-mono);
+  @include text(body-sm);
+  color: var(--color-on-surface);
+
+  // Textarea's own md:text-sm used to survive the override; keep that desktop size.
+  @include up(md) {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
+.spinner {
+  @include spin;
+}

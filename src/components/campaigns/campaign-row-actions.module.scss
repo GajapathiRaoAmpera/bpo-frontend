@@ -1,0 +1,14 @@
+@use "styles/mixins" as *;
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
+}
+
+.rejectNote {
+  max-width: space(48);
+  @include truncate;
+  @include text(label-xs);
+  color: var(--color-danger-text);
+}

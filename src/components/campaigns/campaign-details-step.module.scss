@@ -1,0 +1,39 @@
+@use "styles/mixins" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.legend {
+  margin-bottom: space(1.5);
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.options {
+  display: flex;
+  gap: $space-lg;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.optionLabel {
+  font-weight: 400;
+}
+
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}

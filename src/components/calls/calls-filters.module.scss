@@ -1,0 +1,75 @@
+@use "styles/mixins" as *;
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.searchLabel {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.searchBox {
+  position: relative;
+  max-width: 28rem;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: space(3);
+  @include size(space(4));
+  transform: translateY(-50%);
+  color: var(--color-outline);
+}
+
+.searchInput {
+  padding-left: space(9);
+}
+
+.outcomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space(1);
+  @include text(label-xs);
+}
+
+.outcome {
+  border-radius: var(--radius-lg);
+  padding: space(1.5) space(2.5);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-on-surface-variant);
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: var(--color-surface-container-high);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+  }
+}
+
+.outcomeActive {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background: var(--color-primary-container);
+  }
+}

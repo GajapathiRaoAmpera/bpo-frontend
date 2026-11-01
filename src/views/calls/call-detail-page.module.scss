@@ -1,0 +1,90 @@
+@use "styles/mixins" as *;
+
+.fallback {
+  height: space(40);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.skeletonHeader,
+.skeletonMain,
+.skeletonSide {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
+
+.skeletonHeader {
+  height: space(44);
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: $space-xl;
+}
+
+.skeletonMain {
+  grid-column: span 8 / span 8;
+  height: space(96);
+}
+
+.skeletonSide {
+  grid-column: span 4 / span 4;
+  height: space(96);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.crumbLink:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.crumbRef {
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-container-high);
+  padding: space(0.5) space(1.5);
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+
+  @include up(lg) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.mainCol,
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.mainCol {
+  @include up(lg) {
+    grid-column: span 8 / span 8;
+  }
+}
+
+.sideCol {
+  @include up(lg) {
+    grid-column: span 4 / span 4;
+  }
+}

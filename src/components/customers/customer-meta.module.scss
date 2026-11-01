@@ -1,0 +1,19 @@
+@use "styles/mixins" as *;
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.metaLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.metaValue {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}

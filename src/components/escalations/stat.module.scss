@@ -1,0 +1,27 @@
+@use "styles/mixins" as *;
+
+.label {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.statValue {
+  @include text(display);
+  color: var(--color-primary);
+}
+
+.statUrgent {
+  color: var(--color-error);
+}

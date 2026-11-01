@@ -1,0 +1,129 @@
+@use "styles/mixins" as *;
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.pending {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.line {
+  height: space(4);
+}
+
+.lineFull { width: 100%; }
+
+.lineLong { width: 83.333333%; }
+
+.lineShort { width: 66.666667%; }
+
+.summaryMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.mono {
+  @include text(data-mono);
+}
+
+.summary {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}
+
+.nextAction {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-sm;
+}
+
+.nextActionText {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.qa {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+}
+
+.qaHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.score {
+  @include text(headline-md);
+  color: var(--color-primary);
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(body-sm);
+}
+
+.passIcon {
+  @include size(space(4));
+  color: var(--color-success);
+}
+
+.failIcon {
+  @include size(space(4));
+  color: var(--color-danger);
+}
+
+.passed { color: var(--color-on-surface); }
+
+.failed { color: var(--color-danger-text); }
+
+.footnote {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-outline);
+}
+
+.notScored {
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

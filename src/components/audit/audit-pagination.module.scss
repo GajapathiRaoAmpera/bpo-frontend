@@ -1,0 +1,15 @@
+@use "styles/mixins" as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}

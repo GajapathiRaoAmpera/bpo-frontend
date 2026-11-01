@@ -1,0 +1,56 @@
+@use "styles/mixins" as *;
+
+.transcript {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+  padding: $space-md;
+}
+
+.placeholder {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  text-align: center;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.placeholderIcon {
+  @include size(space(5));
+  color: var(--color-primary);
+}
+
+.caption {
+  border: 1px dashed var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-md;
+  @include text(body-md);
+}
+
+.userCaption {
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+
+.botCaption {
+  border-color: color-mix(in srgb, var(--color-lang-border) 50%, transparent);
+  background: color-mix(in srgb, var(--color-lang-bg) 40%, transparent);
+  color: var(--color-on-surface);
+}
+
+.captionLabel {
+  margin-right: $space-sm;
+  @include text(label-xs);
+  color: var(--color-secondary);
+}
+
+.spinnerIcon {
+  @include size(space(5));
+  color: var(--color-primary);
+  @include spin;
+}

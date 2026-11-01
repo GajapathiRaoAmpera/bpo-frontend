@@ -1,0 +1,67 @@
+@use "styles/mixins" as *;
+
+.versionSkeleton {
+  height: space(14);
+  border-radius: var(--radius-lg);
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.versionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.groupLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.version {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  text-align: left;
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+    outline-offset: 2px;
+  }
+}
+
+.versionSelected,
+.versionSelected:hover {
+  border-color: var(--color-primary);
+  background: var(--color-surface-container-low);
+}
+
+.versionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.versionName {
+  @include truncate;
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.small {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}

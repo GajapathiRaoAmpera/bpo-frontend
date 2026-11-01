@@ -1,0 +1,70 @@
+@use "styles/mixins" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.legend {
+  margin-bottom: space(1.5);
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.options {
+  display: flex;
+  gap: $space-lg;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.optionLabel {
+  font-weight: 400;
+}
+
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
+.audience {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-md;
+}
+
+.eyebrow {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.count {
+  @include text(display);
+  color: var(--color-primary);
+}
+
+.counting {
+  @include size(space(6));
+  @include spin;
+}
+
+.hint {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

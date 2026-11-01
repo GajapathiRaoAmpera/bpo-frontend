@@ -1,0 +1,8 @@
+@use "styles/mixins" as *;
+
+.collectionsChart { height: space(64); }
+
+.chartSkeleton {
+  height: 100%;
+  width: 100%;
+}

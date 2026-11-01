@@ -1,0 +1,48 @@
+@use "styles/mixins" as *;
+
+.modeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.modeTile {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.modeIcon {
+  display: flex;
+  @include size(space(10));
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-high);
+  color: var(--color-primary);
+
+  :where(svg) {
+    @include size(space(5));
+  }
+}
+
+.modeText {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+}
+
+.modeTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.modeMeta {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

@@ -1,0 +1,88 @@
+@use "styles/mixins" as *;
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.heroTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.heroIntro {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.title {
+  @include text(headline-lg);
+  color: var(--color-on-surface);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space(1) $space-lg;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.policyNo {
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.customerLink {
+  color: var(--color-primary-container);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-md;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-md;
+
+  @include up(md) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.metaLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+
+.metaValue {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}

@@ -1,0 +1,32 @@
+@use "styles/mixins" as *;
+
+.callCell {
+  display: flex;
+  flex-direction: column;
+  padding: space(1) 0;
+}
+
+.callCellActive {
+  font-weight: 600;
+}
+
+.callRef {
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.callMeta {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.score {
+  display: inline-flex;
+  align-items: center;
+  gap: space(1.5);
+}
+
+.lockIcon {
+  @include size(space(3.5));
+  color: var(--color-on-surface-variant);
+}

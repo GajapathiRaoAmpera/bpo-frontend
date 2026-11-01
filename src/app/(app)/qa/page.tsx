@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
-import { QAReview } from "@/app/(app)/qa/qa-review";
 import { ScreenGuard } from "@/components/shell/screen-guard";
+import { QAPage } from "@/views/qa/qa-page";
 
 export const metadata: Metadata = { title: "QA Review" };
 
 export default function Page() {
   return (
     <ScreenGuard screen="qa">
-      <QAReview />
+      <QAPage />
     </ScreenGuard>
   );
 }

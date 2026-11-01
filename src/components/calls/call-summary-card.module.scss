@@ -1,0 +1,30 @@
+@use "styles/mixins" as *;
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.text {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}
+
+.nextAction {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-sm;
+}
+
+.noteLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.nextText {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}

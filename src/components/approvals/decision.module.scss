@@ -1,0 +1,40 @@
+@use "styles/mixins" as *;
+
+.checklist,
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+}
+
+.checkbox {
+  margin-top: space(0.5);
+}
+
+.checkLabel {
+  @include text(body-sm);
+  font-weight: 400;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.note {
+  min-height: space(24);
+  border-color: var(--color-divider);
+  @include text(body-sm);
+}
+
+.hint {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}

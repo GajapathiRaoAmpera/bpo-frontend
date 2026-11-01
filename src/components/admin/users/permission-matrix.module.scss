@@ -1,0 +1,77 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+.headingIcon {
+  @include size(space(5));
+  color: var(--color-primary);
+}
+
+.lede {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.loading {
+  height: space(96);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+}
+
+.table {
+  width: 100%;
+  @include text(body-sm);
+}
+
+.thead {
+  background: var(--color-table-head);
+}
+
+.tbody > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.matrixRow {
+  height: space(11);
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+}
+
+.screenName {
+  text-align: left;
+  @include text(label-md);
+  white-space: nowrap;
+  color: var(--color-on-surface);
+}
+
+.noAccess {
+  color: var(--color-outline);
+}

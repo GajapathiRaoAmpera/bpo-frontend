@@ -1,0 +1,99 @@
+@use "styles/mixins" as *;
+
+.toolTurn {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  padding: $space-sm $space-md;
+  @include text(label-sm);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface-variant);
+}
+
+.toolFailed {
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.toolIcon {
+  @include size(space(3.5));
+  flex-shrink: 0;
+}
+
+.toolName {
+  font-weight: 600;
+}
+
+.toolText {
+  @include truncate;
+}
+
+.toolTime {
+  margin-left: auto;
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: $space-md;
+}
+
+.turnBot {
+  border-color: color-mix(in srgb, var(--color-lang-border) 40%, transparent);
+  background: color-mix(in srgb, var(--color-lang-bg) 40%, transparent);
+}
+
+.turnCustomer {
+  border-color: var(--color-divider);
+  background: var(--color-surface-container-lowest);
+}
+
+.turnAgent {
+  border-color: color-mix(in srgb, var(--color-primary-container) 30%, transparent);
+  background: var(--color-surface-container-low);
+}
+
+.turnHead {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-xs);
+}
+
+.speaker {
+  border-radius: var(--radius-sm);
+  padding: space(0.5) space(1.5);
+  font-weight: 600;
+}
+
+.speakerBot {
+  background: color-mix(in srgb, var(--color-secondary-container) 50%, transparent);
+  color: var(--color-secondary);
+}
+
+.speakerCustomer {
+  background: var(--color-surface-container-high);
+  color: var(--color-primary);
+}
+
+.speakerAgent {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.turnTime {
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.text {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}

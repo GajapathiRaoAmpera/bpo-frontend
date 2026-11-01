@@ -1,0 +1,42 @@
+@use "styles/mixins" as *;
+
+.main {
+  grid-column: span 6 / span 6;
+}
+
+.side {
+  grid-column: span 3 / span 3;
+}
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.caption {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.summary > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-md;
+  padding: space(2.5) 0;
+  @include text(body-sm);
+}
+
+.summaryKey {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.summaryValue {
+  grid-column: span 2 / span 2;
+  color: var(--color-on-surface);
+}

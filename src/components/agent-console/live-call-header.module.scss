@@ -1,0 +1,55 @@
+@use "styles/mixins" as *;
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  border-bottom: 1px solid var(--color-divider);
+  padding: $space-md;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+}
+
+.titleRow,
+.micControls {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.title {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}
+
+.callMeta {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.mono {
+  @include text(data-mono);
+}
+
+.meter {
+  display: flex;
+  height: space(5);
+  align-items: flex-end;
+  gap: space(0.5);
+}
+
+.meterBar {
+  width: space(1);
+  border-radius: 9999px;
+  background: var(--color-primary-container);
+  transition-property: height;
+  transition-duration: 100ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

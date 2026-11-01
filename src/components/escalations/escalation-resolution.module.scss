@@ -1,0 +1,26 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.sectionTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.bodyText {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}
+
+.resolvedBy {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}

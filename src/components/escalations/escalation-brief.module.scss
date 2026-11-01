@@ -1,0 +1,29 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.briefTitle {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.briefIcon {
+  @include size(space(4));
+  color: var(--color-secondary);
+}
+
+.bodyText {
+  @include text(body-md);
+  color: var(--color-on-surface);
+}

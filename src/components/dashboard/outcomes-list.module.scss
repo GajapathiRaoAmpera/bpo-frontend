@@ -1,0 +1,50 @@
+@use "styles/mixins" as *;
+
+.outcomesSkeleton {
+  height: space(72);
+  width: 100%;
+}
+
+.outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.outcomeHead {
+  display: flex;
+  justify-content: space-between;
+  @include text(label-sm);
+}
+
+.outcomeName {
+  color: var(--color-on-surface);
+}
+
+.outcomeCount {
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.outcomeTrack {
+  height: space(1.5);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-low);
+}
+
+.outcomeFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary-container);
+}
+
+.outcomeFillEscalated {
+  background: var(--color-error);
+}

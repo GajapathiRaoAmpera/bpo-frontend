@@ -1,0 +1,9 @@
+@use "styles/mixins" as *;
+
+.side {
+  grid-column: span 3 / span 3;
+}
+
+.icon {
+  @include size(space(4));
+}

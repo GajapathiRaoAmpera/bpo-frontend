@@ -1,0 +1,71 @@
+@use "styles/mixins" as *;
+
+.queue {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.sectionTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.queueHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.tabs {
+  display: flex;
+  gap: space(1);
+  @include text(label-xs);
+}
+
+.tab {
+  border-radius: var(--radius-lg);
+  padding: space(1.5) space(2.5);
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+  transition-property: color, background-color, border-color, outline-color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: var(--color-surface-container-high);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+  }
+}
+
+.tabActive {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background: var(--color-primary-container);
+  }
+}
+
+.queueList {
+  display: flex;
+  max-height: calc(100vh - 22rem);
+  min-height: space(64);
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+  padding-right: space(1);
+}
+
+.itemSkeleton {
+  height: space(32);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}

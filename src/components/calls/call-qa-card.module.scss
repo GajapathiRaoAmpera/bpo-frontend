@@ -1,0 +1,52 @@
+@use "styles/mixins" as *;
+
+.qaBlock,
+.qaList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.qaScore {
+  @include text(headline-md);
+  color: var(--color-primary);
+}
+
+.qaItem {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(body-sm);
+}
+
+.passIcon,
+.failIcon {
+  @include size(space(4));
+}
+
+.passIcon {
+  color: var(--color-success);
+}
+
+.failIcon {
+  color: var(--color-danger);
+}
+
+.passText {
+  color: var(--color-on-surface);
+}
+
+.failText {
+  color: var(--color-danger-text);
+}
+
+.scoredBy {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-outline);
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

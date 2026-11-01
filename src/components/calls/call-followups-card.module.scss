@@ -1,0 +1,39 @@
+@use "styles/mixins" as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.itemHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.followupKind {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.due {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.message {
+  border-radius: var(--radius-lg);
+  background: var(--color-success-bg);
+  padding: $space-sm;
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}

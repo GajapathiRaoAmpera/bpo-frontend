@@ -1,0 +1,58 @@
+@use "styles/mixins" as *;
+
+.policies {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-md;
+
+  @include up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up(xl) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.policy {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-md;
+}
+
+.policyHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.planName {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.policyNo {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.policyMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-sm;
+}
+
+.followupButton {
+  align-self: flex-start;
+}

@@ -1,0 +1,73 @@
+@use "styles/mixins" as *;
+
+.duration {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.summary {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-sm;
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.transcript {
+  display: flex;
+  max-height: 36rem;
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+  padding-right: space(1);
+}
+
+.empty {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.toolTurn {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include text(label-xs);
+  color: var(--color-secondary);
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background: var(--color-divider);
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: space(0.5);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  @include text(body-sm);
+}
+
+.turnBot {
+  margin-right: space(6);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface);
+}
+
+.turnAgent {
+  margin-left: space(6);
+  background: var(--color-warning-bg);
+  color: var(--color-on-surface);
+}
+
+.turnCustomer {
+  margin-left: space(6);
+  border: 1px solid var(--color-divider);
+}
+
+.speaker {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}

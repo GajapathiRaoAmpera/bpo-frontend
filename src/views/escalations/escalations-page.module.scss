@@ -1,0 +1,33 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+  @include up(lg) { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+.queue {
+  @include up(lg) { grid-column: span 5 / span 5; }
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  @include up(lg) { grid-column: span 7 / span 7; }
+}
+
+.viewOnly {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  padding: $space-md;
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

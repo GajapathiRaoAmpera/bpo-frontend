@@ -1,0 +1,34 @@
+@use "styles/mixins" as *;
+
+.sentimentChart { height: space(48); }
+
+.chartSkeleton {
+  height: 100%;
+  width: 100%;
+}
+
+.value {
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-top: 1px solid var(--color-divider);
+  padding-top: $space-sm;
+  @include text(label-sm);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: space(1.5);
+  color: var(--color-on-surface-variant);
+}
+
+.legendSwatch {
+  @include size(space(2.5));
+  border-radius: var(--radius-sm);
+}

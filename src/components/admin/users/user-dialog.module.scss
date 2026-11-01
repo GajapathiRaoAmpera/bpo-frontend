@@ -1,0 +1,49 @@
+@use "styles/mixins" as *;
+
+.content {
+  @include up(sm) {
+    max-width: 28rem;
+  }
+}
+
+.title {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.description {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.label {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.fieldError {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
+.selfNote {
+  margin-top: -$space-sm;
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.spinner {
+  @include spin;
+}

@@ -1,0 +1,43 @@
+@use "styles/mixins" as *;
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.calls > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.callLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  border-radius: var(--radius-sm);
+  padding: $space-sm 0;
+
+  &:hover {
+    background: var(--color-table-head);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-lang-border);
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.callRef {
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.callMeta {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}

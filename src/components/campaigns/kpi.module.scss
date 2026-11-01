@@ -1,0 +1,41 @@
+@use "styles/mixins" as *;
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-on-surface);
+}
+
+.kpiFoot {
+  @include text(label-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.track {
+  height: space(1.5);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+}
+
+.bar {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+}

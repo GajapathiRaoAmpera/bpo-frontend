@@ -1,0 +1,26 @@
+@use "styles/mixins" as *;
+
+.fields > * + * {
+  border-top: 1px solid var(--color-divider);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: space(2) 0;
+}
+
+.fieldLabel {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.fieldValue {
+  text-align: right;
+  @include text(data-mono);
+  color: var(--color-on-surface);
+}

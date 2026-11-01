@@ -1,0 +1,19 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-lg;
+}
+
+.loadingCard {
+  height: space(44);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}

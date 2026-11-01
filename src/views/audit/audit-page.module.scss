@@ -1,0 +1,62 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.spinner {
+  @include spin;
+}
+
+.lockIcon {
+  @include size(space(3));
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+
+  @include up(xl) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.ledger {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+
+  @include up(xl) {
+    grid-column: span 8 / span 8;
+  }
+}
+
+.side {
+  @include up(xl) {
+    grid-column: span 4 / span 4;
+  }
+}
+
+.ledgerHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.ledgerIcon {
+  @include size(space(5));
+  color: var(--color-primary);
+}
+
+.heading {
+  @include text(headline-md);
+  color: var(--color-on-surface);
+}

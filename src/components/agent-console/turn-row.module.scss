@@ -1,0 +1,97 @@
+@use "styles/mixins" as *;
+
+.toolTurn {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: 0 $space-md;
+  @include text(label-sm);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.toolIcon {
+  @include size(space(3.5));
+  color: var(--color-secondary);
+}
+
+.toolTime {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-outline);
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+  border-radius: var(--radius-lg);
+  padding: $space-md;
+}
+
+.turnHead {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.chip {
+  border-radius: var(--radius);
+  padding: space(0.5) space(2);
+  @include text(label-xs);
+}
+
+.chipIcon {
+  display: inline;
+  @include size(space(3));
+}
+
+.turnTime {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.speaker {
+  @include text(label-sm);
+  font-weight: 600;
+}
+
+.turnText {
+  padding-left: space(1);
+  @include text(body-md);
+  line-height: 1.5;
+  color: var(--color-on-surface);
+}
+
+.botRow { background: color-mix(in srgb, var(--color-surface-container-low) 40%, transparent); }
+
+.botChip {
+  background: color-mix(in srgb, var(--color-secondary-container) 60%, transparent);
+  color: var(--color-on-secondary-container);
+}
+
+.botName { color: var(--color-secondary); }
+
+.customerRow {
+  border: 1px solid var(--color-divider);
+  background: var(--color-surface-container-lowest);
+}
+
+.customerChip {
+  background: var(--color-surface-container-high);
+  color: var(--color-primary);
+}
+
+.customerName { color: var(--color-on-surface); }
+
+.agentRow { background: color-mix(in srgb, var(--color-primary-fixed) 40%, transparent); }
+
+.agentChip {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.agentName { color: var(--color-primary); }

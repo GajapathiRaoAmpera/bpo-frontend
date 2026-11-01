@@ -1,0 +1,66 @@
+@use "styles/mixins" as *;
+
+.wrapUp {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.legend {
+  margin-bottom: $space-sm;
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.outcomeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-sm;
+}
+
+.outcome {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: $space-sm;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+  @include text(body-sm);
+  font-weight: 400;
+
+  &:has([data-state="checked"]) {
+    border-color: var(--color-primary-container);
+    background: var(--color-surface-container-low);
+  }
+}
+
+.warning {
+  @include text(label-sm);
+  color: var(--color-warning-text);
+}
+
+.noteField {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.noteLabel {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.submit {
+  align-self: flex-end;
+}
+
+.spinner {
+  @include spin;
+}

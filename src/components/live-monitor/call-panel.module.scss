@@ -1,0 +1,81 @@
+@use "styles/mixins" as *;
+
+.pillIcon {
+  @include size(space(3));
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+}
+
+.panelTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.panelError {
+  @include text(body-sm);
+  color: var(--color-danger-text);
+}
+
+.panelPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+}
+
+.panelNote {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.transcript {
+  display: flex;
+  max-height: 28rem;
+  flex-direction: column;
+  gap: $space-sm;
+  overflow-y: auto;
+}
+
+.turn {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: $space-sm;
+}
+
+.turnSpeaker {
+  display: flex;
+  align-items: center;
+  gap: space(1);
+  @include text(label-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+
+  svg {
+    @include size(space(3));
+  }
+}
+
+.turnOffset {
+  @include text(data-mono);
+  font-weight: 400;
+  color: var(--color-outline);
+}
+
+.turnText {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}

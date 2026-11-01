@@ -1,0 +1,48 @@
+@use "styles/mixins" as *;
+
+.label {
+  @include text(label-xs);
+  letter-spacing: 0.05em;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-md;
+  box-shadow: var(--shadow-card);
+}
+
+.kpiTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.kpiIcon {
+  display: flex;
+  @include size(space(7));
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  color: var(--color-primary);
+
+  svg {
+    @include size(space(4));
+  }
+}
+
+.kpiValue {
+  @include text(display);
+  color: var(--color-on-surface);
+}
+
+.kpiNote {
+  @include text(label-sm);
+  color: var(--color-outline);
+}

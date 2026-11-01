@@ -1,0 +1,51 @@
+@use "styles/mixins" as *;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.ref {
+  @include text(data-mono);
+  color: var(--color-primary);
+}
+
+.when {
+  @include text(label-xs);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+}
+
+.name {
+  @include text(label-md);
+}
+
+.policy {
+  @include text(label-xs);
+  // was `text-data-mono text-label-xs`: data-mono size/weight win, label-xs letter-spacing stays
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.handled {
+  display: flex;
+  align-items: center;
+  gap: space(1.5);
+}
+
+.agentIcon,
+.botIcon {
+  @include size(space(3.5));
+}
+
+.agentIcon {
+  color: var(--color-outline);
+}
+
+.botIcon {
+  color: var(--color-secondary);
+}
+
+.mono {
+  @include text(data-mono);
+}

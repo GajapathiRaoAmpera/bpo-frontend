@@ -1,0 +1,29 @@
+@use "styles/mixins" as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: space(1);
+}
+
+.itemHead {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.reason {
+  @include text(body-sm);
+  color: var(--color-on-surface);
+}
+
+.muted {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}

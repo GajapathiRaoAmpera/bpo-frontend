@@ -1,0 +1,27 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.viewOnlyIcon {
+  @include size(space(3));
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: $space-lg;
+}
+
+.versions,
+.sideCol {
+  grid-column: span 3 / span 3;
+}
+
+.editorCol {
+  grid-column: span 6 / span 6;
+}

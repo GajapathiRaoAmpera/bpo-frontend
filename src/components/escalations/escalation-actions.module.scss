@@ -1,0 +1,45 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  padding: $space-lg;
+  box-shadow: var(--shadow-card);
+}
+
+.sectionTitle {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.handledElsewhere {
+  @include text(body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.inlineAction {
+  align-self: flex-start;
+}
+
+.spinner {
+  @include spin;
+}
+
+.noteField {
+  display: flex;
+  flex-direction: column;
+  gap: space(1.5);
+}
+
+.noteLabel {
+  @include text(label-md);
+  color: var(--color-on-surface);
+}
+
+.noteError {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}

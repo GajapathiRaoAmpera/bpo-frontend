@@ -1,0 +1,15 @@
+@use "styles/mixins" as *;
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-md;
+  @include up(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include up(lg) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.kpiSkeleton {
+  height: space(40);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+}
