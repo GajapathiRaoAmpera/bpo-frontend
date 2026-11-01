@@ -2,12 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import { CalendarPlus, CircleAlert, Loader2 } from "lucide-react";
+import { CalendarPlus, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { ErrorAlert } from "@/components/common/error-alert";
 import { FOLLOWUP_KIND_LABEL } from "@/components/ops/tones";
 import { Button } from "@/components/ui/button";
 import {
@@ -89,10 +90,7 @@ export function FollowupDialog({ policyNo, policyId, trigger }: { policyNo?: str
         </DialogHeader>
         <form id="followup-form" noValidate onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
           {serverError && (
-            <div role="alert" className={styles.alert}>
-              <CircleAlert aria-hidden className={styles.alertIcon} />
-              <span>{serverError}</span>
-            </div>
+            <ErrorAlert layout="form">{serverError}</ErrorAlert>
           )}
           <div className={styles.field}>
             <Label htmlFor="fu-policy" className={styles.label}>Policy number</Label>

@@ -1,46 +1,13 @@
 @use "styles/mixins" as *;
 
-.panel {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest);
-  box-shadow: var(--shadow-card);
-}
-
 .panelHead {
-  display: flex;
   min-height: space(12);
-  align-items: center;
-  justify-content: space-between;
-  gap: $space-sm;
-  border-bottom: 1px solid var(--color-divider);
-  padding: $space-sm $space-md;
-}
-
-.panelTitle {
-  @include text(headline-sm);
-  color: var(--color-on-surface);
 }
 
 .panelBody {
   display: flex;
   flex-direction: column;
   gap: $space-md;
-  padding: $space-md;
-}
-
-.error {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: $space-md;
-  border: 1px solid var(--color-danger-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-danger-bg);
-  padding: $space-md;
-  @include text(body-sm);
-  color: var(--color-danger-text);
 }
 
 .spinner {

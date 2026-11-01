@@ -22,24 +22,6 @@
   gap: $space-lg;
 }
 
-.alert {
-  display: flex;
-  align-items: flex-start;
-  gap: $space-sm;
-  border: 1px solid var(--color-danger-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-danger-bg);
-  padding: $space-md;
-  @include text(body-sm);
-  color: var(--color-danger-text);
-}
-
-.alertIcon {
-  margin-top: space(0.5);
-  @include size(space(4));
-  flex-shrink: 0;
-}
-
 .field {
   display: flex;
   flex-direction: column;

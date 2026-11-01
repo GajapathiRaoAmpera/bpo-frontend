@@ -3,14 +3,15 @@
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
+import { ErrorAlert } from "@/components/common/error-alert";
 import type { PillTone } from "@/components/common/pill";
+import { SectionCard } from "@/components/common/section-card";
 import {
   AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
   AlertDialogTitle, AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import type { Schemas } from "@/lib/api";
-import { cn } from "@/lib/utils";
 
 import styles from "./shared.module.scss";
 
@@ -43,22 +44,16 @@ export function Panel({ title, action, children, className }: {
   title: React.ReactNode; action?: React.ReactNode; children: React.ReactNode; className?: string;
 }) {
   return (
-    <section className={cn(styles.panel, className)}>
-      <div className={styles.panelHead}>
-        <h2 className={styles.panelTitle}>{title}</h2>
-        {action}
-      </div>
-      <div className={styles.panelBody}>{children}</div>
-    </section>
+    <SectionCard size="sm" title={title} action={action} className={className}
+      headClassName={styles.panelHead} bodyClassName={styles.panelBody}>
+      {children}
+    </SectionCard>
   );
 }
 
 export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => void }) {
   return (
-    <div role="alert" className={styles.error}>
-      {error.message}
-      {onRetry && <Button size="sm" variant="outline" onClick={onRetry}>Try again</Button>}
-    </div>
+    <ErrorAlert onRetry={onRetry}>{error.message}</ErrorAlert>
   );
 }
 

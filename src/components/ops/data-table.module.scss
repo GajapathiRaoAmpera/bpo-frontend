@@ -1,18 +1,5 @@
 @use "styles/mixins" as *;
 
-.alert {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: $space-md;
-  border: 1px solid var(--color-danger-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-danger-bg);
-  padding: $space-md;
-  @include text(body-sm);
-  color: var(--color-danger-text);
-}
-
 .card {
   overflow: hidden;
   border-radius: var(--radius-lg);

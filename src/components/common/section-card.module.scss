@@ -1,0 +1,32 @@
+@use "styles/mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-card);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.title {
+  @include text(headline-sm);
+  color: var(--color-on-surface);
+}
+
+.md {
+  .head { padding: $space-md $space-lg; }
+  .body { padding: $space-lg; }
+}
+
+.sm {
+  .head { padding: $space-sm $space-md; }
+  .body { padding: $space-md; }
+}

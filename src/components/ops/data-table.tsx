@@ -4,6 +4,7 @@ import { type ColumnDef, type RowData, tableFeatures, useTable } from "@tanstack
 import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react";
 
 import { EmptyState } from "@/components/common/empty-state";
+import { ErrorAlert } from "@/components/common/error-alert";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -38,10 +39,7 @@ export function DataTable<T extends RowData>({
 
   if (error) {
     return (
-      <div role="alert" className={styles.alert}>
-        {error.message}
-        {onRetry && <Button size="sm" variant="outline" onClick={onRetry}>Try again</Button>}
-      </div>
+      <ErrorAlert onRetry={onRetry}>{error.message}</ErrorAlert>
     );
   }
   if (!isLoading && data?.length === 0) return <EmptyState {...empty} />;
