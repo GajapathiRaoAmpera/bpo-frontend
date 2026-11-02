@@ -16,7 +16,7 @@ test.describe("voice agent (live Gemini)", () => {
       `--use-file-for-fake-audio-capture=${DIR}/${wav}`, "--autoplay-policy=no-user-gesture-required"] });
     const page = await (await browser.newContext({ viewport: { width: 1440, height: 1000 }, permissions: ["microphone"] })).newPage();
     await page.goto("http://localhost:3000/login");
-    await page.getByLabel("Work email").fill("divya.krishnan@sandbox.assurevoice.in");
+    await page.getByLabel("Work email").fill("divya.krishnan@sandbox.amperabpo.in");
     await page.getByLabel("Password", { exact: true }).fill(PASSWORD);
     await page.getByRole("button", { name: "Sign in" }).click();
     await page.waitForURL("**/agent-console");

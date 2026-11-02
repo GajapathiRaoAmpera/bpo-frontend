@@ -20,7 +20,7 @@ import styles from "./user-dialog.module.scss";
 const ROLES = Object.keys(ROLE_LABEL) as Schemas["Role"][];
 
 const schema = z.object({
-  email: z.email("Enter a work email, e.g. name@sandbox.assurevoice.in"),
+  email: z.email("Enter a work email, e.g. name@sandbox.amperabpo.in"),
   full_name: z.string().trim().min(2, "Enter the person's full name").max(120),
   job_title: z.string().trim().min(2, "Enter a job title").max(120),
   role: z.enum(ROLES as [Schemas["Role"], ...Schemas["Role"][]]),

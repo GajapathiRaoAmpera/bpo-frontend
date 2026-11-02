@@ -28,7 +28,7 @@ export function useExportAudit(filters: AuditFilters) {
     mutationFn: async () => {
       const blob = await unwrap(api.GET("/api/v1/audit/export.csv", { params: { query: toQuery(filters) }, parseAs: "blob" })) as Blob;
       const url = URL.createObjectURL(blob);
-      const a = Object.assign(document.createElement("a"), { href: url, download: `assurevoice-audit-${new Date().toISOString().slice(0, 10)}.csv` });
+      const a = Object.assign(document.createElement("a"), { href: url, download: `amperabpo-audit-${new Date().toISOString().slice(0, 10)}.csv` });
       a.click();
       URL.revokeObjectURL(url);
     },

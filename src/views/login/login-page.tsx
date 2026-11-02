@@ -48,7 +48,7 @@ export function LoginPage() {
         <div className={styles.card}>
           <div className={styles.cardHead}>
             <h2 className={styles.cardTitle}>Sign in</h2>
-            <p className={styles.cardText}>Use your AssureVoice work account.</p>
+            <p className={styles.cardText}>Use your Ampera BPO work account.</p>
           </div>
           <Suspense fallback={<Skeleton className={styles.formSkeleton} />}>
             <LoginForm />

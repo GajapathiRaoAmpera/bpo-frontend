@@ -4,7 +4,7 @@ const PASSWORD = process.env.E2E_PASSWORD ?? "";
 
 const email = (name: string) => {
   const [first, ...rest] = name.toLowerCase().split(" ");
-  return `${first}.${rest.join("")}@sandbox.assurevoice.in`;
+  return `${first}.${rest.join("")}@sandbox.amperabpo.in`;
 };
 
 async function signIn(page: Page, name: string) {
@@ -60,7 +60,7 @@ test("super admin adds, deactivates and reactivates a user and sees the matrix",
 
   await page.getByRole("button", { name: "Add user" }).first().click();
   const dialog = page.getByRole("dialog");
-  await dialog.getByLabel("Work email").fill(`${name.toLowerCase().replaceAll(" ", ".")}@sandbox.assurevoice.in`);
+  await dialog.getByLabel("Work email").fill(`${name.toLowerCase().replaceAll(" ", ".")}@sandbox.amperabpo.in`);
   await dialog.getByLabel("Full name").fill(name);
   await dialog.getByLabel("Job title").fill("Service Executive");
   await dialog.getByLabel("Password").fill("Fresh@Pass9");

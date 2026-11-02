@@ -6,7 +6,7 @@
 3. Client validation (Zod): valid email, password required. Errors appear on blur and clear as the user types.
 4. "Sign in" → button shows "Signing in…" and is disabled.
 5. **Success:** cookie set by API → redirect to `next` (if that screen is in the role's menu) else the role landing page.
-6. **Failure:** inline alert "Email or password is incorrect" (401) or "Can't reach the AssureVoice service. Try again in a moment." (network/5xx). Fields keep their values.
+6. **Failure:** inline alert "Email or password is incorrect" (401) or "Can't reach the Ampera BPO service. Try again in a moment." (network/5xx). Fields keep their values.
 
 ## Flow 2: Navigate (Phase 1)
 - Sidebar shows only screens in the role's menu; the current one is highlighted.

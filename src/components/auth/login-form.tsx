@@ -22,7 +22,7 @@ import { SCREEN_HREF, screenForPath } from "@/lib/routes";
 import styles from "./login-form.module.scss";
 
 const schema = z.object({
-  email: z.email("Enter your work email, e.g. name@sandbox.assurevoice.in"),
+  email: z.email("Enter your work email, e.g. name@sandbox.amperabpo.in"),
   password: z.string().min(1, "Enter your password"),
 });
 type Values = z.infer<typeof schema>;

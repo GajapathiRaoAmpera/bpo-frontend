@@ -21,7 +21,7 @@ export function IntegrationsPage() {
 
   return (
     <div className={styles.page}>
-      <PageHeader title="Integrations" description={IS_SANDBOX ? "Systems AssureVoice connects to. Only the AI voice stack is live in the sandbox; the rest are pilot integrations with nothing sent to real systems." : "Systems AssureVoice connects to. Only the AI voice stack is live; the rest are pilot integrations with nothing sent to real systems."} />
+      <PageHeader title="Integrations" description={IS_SANDBOX ? "Systems Ampera BPO connects to. Only the AI voice stack is live in the sandbox; the rest are pilot integrations with nothing sent to real systems." : "Systems Ampera BPO connects to. Only the AI voice stack is live; the rest are pilot integrations with nothing sent to real systems."} />
       {isLoading && <div className={styles.loadingGrid}>{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className={styles.loadingCard} />)}</div>}
       {error && <ErrorAlert layout="stacked" onRetry={() => refetch()}>{error.message}</ErrorAlert>}
       {data?.length === 0 && <EmptyState icon={Plug} title="No integrations configured" description={IS_SANDBOX ? "Run make reset in bpo-backend to restore the sandbox integrations." : "Run python -m app.bootstrap in bpo-backend to create the integration rows."} />}

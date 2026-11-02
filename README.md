@@ -1,6 +1,6 @@
- # AssureVoice AI · Frontend
+ # Ampera BPO · Frontend
 
-Next.js UI for the AssureVoice AI sandbox: an AI contact centre for insurance renewals, premium reminders and policy service. All data is synthetic.
+Next.js UI for the Ampera BPO sandbox: an AI contact centre for insurance renewals, premium reminders and policy service. All data is synthetic.
 The API, RBAC, masking, audit log and voice agent live in the separate **bpo-backend** repo.
 
 ## Requirements
@@ -22,21 +22,21 @@ npm run dev                       # http://localhost:3000
 | `npm run lint` · `npm run typecheck` · `npm run build` | Static checks and production build |
 | `npm run e2e` | Playwright tests; needs both apps running and `E2E_PASSWORD` set to the backend `SEED_PASSWORD` |
 
-Docker: `docker build --build-arg BACKEND_URL=http://<backend-host>:8000 -t assurevoice-frontend .` then `docker run -p 3000:3000 assurevoice-frontend`.
+Docker: `docker build --build-arg BACKEND_URL=http://<backend-host>:8000 -t amperabpo-frontend .` then `docker run -p 3000:3000 amperabpo-frontend`.
 
 ## Persona logins
 Password for every persona = `SEED_PASSWORD` in bpo-backend `.env`. The sign-in page also lists the personas; clicking one fills the email.
 
 | Persona | Role | Email | Lands on |
 |---|---|---|---|
-| Ravi Shankar | Super Admin | ravi.shankar@sandbox.assurevoice.in | Executive Dashboard |
-| Anitha Raman | Operations Manager | anitha.raman@sandbox.assurevoice.in | Executive Dashboard |
-| Karthik Subramanian | Team Lead | karthik.subramanian@sandbox.assurevoice.in | Live Monitor |
-| Divya Krishnan | Human Agent | divya.krishnan@sandbox.assurevoice.in | Agent Console |
-| Suresh Babu | Campaign Manager | suresh.babu@sandbox.assurevoice.in | Campaigns |
-| Meera Iyer | Bot Designer | meera.iyer@sandbox.assurevoice.in | Bot Studio |
-| Prakash Natarajan | QA Analyst | prakash.natarajan@sandbox.assurevoice.in | QA Review |
-| Lakshmi Venkatesh | Compliance Officer | lakshmi.venkatesh@sandbox.assurevoice.in | Approvals |
+| Ravi Shankar | Super Admin | ravi.shankar@sandbox.amperabpo.in | Executive Dashboard |
+| Anitha Raman | Operations Manager | anitha.raman@sandbox.amperabpo.in | Executive Dashboard |
+| Karthik Subramanian | Team Lead | karthik.subramanian@sandbox.amperabpo.in | Live Monitor |
+| Divya Krishnan | Human Agent | divya.krishnan@sandbox.amperabpo.in | Agent Console |
+| Suresh Babu | Campaign Manager | suresh.babu@sandbox.amperabpo.in | Campaigns |
+| Meera Iyer | Bot Designer | meera.iyer@sandbox.amperabpo.in | Bot Studio |
+| Prakash Natarajan | QA Analyst | prakash.natarajan@sandbox.amperabpo.in | QA Review |
+| Lakshmi Venkatesh | Compliance Officer | lakshmi.venkatesh@sandbox.amperabpo.in | Approvals |
 
 ## Walkthrough order (grows each phase)
 1. **Phase 1:** sign in as each persona; each sees its own menu and landing page. Open a URL outside the role (e.g. `/audit` as Meera) to see "No access". Sign out from the header menu.

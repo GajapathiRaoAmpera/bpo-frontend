@@ -1,7 +1,7 @@
 # Architecture (frontend)
 
 ## 1. Overview
-Next.js App Router UI for AssureVoice AI. Holds no business rules: data, RBAC, masking and audit live in `bpo-backend`. Contract = backend OpenAPI.
+Next.js App Router UI for Ampera BPO. Holds no business rules: data, RBAC, masking and audit live in `bpo-backend`. Contract = backend OpenAPI.
 
 ## 2. Stack
 Next.js 16 (App Router, TypeScript strict) · SCSS modules (Sass) · Radix primitives (shadcn-derived) · TanStack Query (data) · TanStack Table (tables) · Recharts (charts) · lucide-react · React Hook Form + Zod (forms) · openapi-fetch + openapi-typescript (typed client) · sonner (toasts) · Pipecat JS client (Phase 2).

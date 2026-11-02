@@ -1,12 +1,12 @@
 # Design System
 
-**Visual source of truth:** `design/stitch/<screen>/code.html` + `screen.png`, and `design/stitch/assurevoice_precision_enterprise/DESIGN.md`. Before building a screen, read both files for it. Tokens are implemented once in `src/styles/_tokens.scss` (colours, radius, shadows as CSS variables) and `src/styles/_mixins.scss` (type scale, spacing); never hard-code a colour that has a token.
+**Visual source of truth:** `design/stitch/<screen>/code.html` + `screen.png`, and `design/stitch/amperabpo_precision_enterprise/DESIGN.md`. Before building a screen, read both files for it. Tokens are implemented once in `src/styles/_tokens.scss` (colours, radius, shadows as CSS variables) and `src/styles/_mixins.scss` (type scale, spacing); never hard-code a colour that has a token.
 
 ## 1. Direction
 Corporate / modern, high information density, strict hierarchy, crisp borders over shadows, no decoration. Mood: institutional trust + live operational awareness.
 
 ## 2. Brand
-AssureVoice · "Enterprise AI Ops". Voice: plain, precise, verb-first buttons. No lorem ipsum, no "test"/"foo", no invented telemetry or vendor names.
+Ampera BPO · "Enterprise AI Ops". Voice: plain, precise, verb-first buttons. No lorem ipsum, no "test"/"foo", no invented telemetry or vendor names.
 
 ## 3. Colour (Stitch roles → CSS variables, e.g. `var(--color-primary)`, `var(--color-on-surface-variant)`)
 | Role | Hex | Use |
@@ -45,7 +45,7 @@ Mixin `@include text(<name>)`: `display` 28/34 700 · `headline-lg` 22/28 600 ·
 
 ## 11. Navigation (app shell)
 - Banner 28px fixed top → header 64px fixed (`top-7`, white/90 + blur, `shadow-chrome`) → sidebar 240px fixed from `top-[5.75rem]` → content `pl-60 pt-[5.75rem] px-gutter-desktop`.
-- Header: logo + "AssureVoice / Enterprise AI Ops" (240px) · right: initials avatar, persona name, "job title · role", menu with Sign out.
+- Header: logo + "Ampera BPO / Enterprise AI Ops" (240px) · right: initials avatar, persona name, "job title · role", menu with Sign out.
 - Sidebar: uppercase `label-xs` group labels; items `body-sm` with 18px icon; active `bg-primary-container text-on-primary font-label-md rounded-lg`; admin items in the bottom group (as the design's "Compliance Audit Log / Settings").
 - Menu items come from `/auth/me`; only allowed screens are shown.
 

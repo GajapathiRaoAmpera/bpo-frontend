@@ -17,7 +17,7 @@ export function TurnRow({ turn, agentName }: { turn: Schemas["TurnOut"]; agentNa
     );
   }
   const who = {
-    bot: { label: "Vani (AssureVoice AI)", icon: Bot, chip: styles.botChip, row: styles.botRow, name: styles.botName },
+    bot: { label: "Vani (Ampera BPO)", icon: Bot, chip: styles.botChip, row: styles.botRow, name: styles.botName },
     customer: { label: "Customer", icon: UserRound, chip: styles.customerChip, row: styles.customerRow, name: styles.customerName },
     agent: { label: agentName, icon: Headset, chip: styles.agentChip, row: styles.agentRow, name: styles.agentName },
   }[turn.speaker];

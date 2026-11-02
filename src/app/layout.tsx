@@ -10,7 +10,7 @@ import styles from "./layout.module.scss";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
-const appName = process.env.NEXT_PUBLIC_APP_NAME ?? "AssureVoice AI";
+const appName = process.env.NEXT_PUBLIC_APP_NAME ?? "Ampera BPO";
 
 export const metadata: Metadata = {
   title: { default: appName, template: `%s · ${appName}` },

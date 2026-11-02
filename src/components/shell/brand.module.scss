@@ -2,21 +2,21 @@
 
 .mark {
   display: flex;
-  @include size(space(8));
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-lg);
-  background: var(--color-primary);
-  color: var(--color-on-primary);
 }
 
+// The logo is multi-colour (not recolourable via currentColor), so on the
+// magenta hero panel it needs a light chip behind it instead of an inverted fill.
 .markInverted {
-  background: var(--color-on-primary);
-  color: var(--color-primary);
+  padding: $space-xs $space-sm;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-fixed);
 }
 
 .markIcon {
-  @include size(18px);
+  height: 28px;
+  width: auto;
 }
 
 .brand {

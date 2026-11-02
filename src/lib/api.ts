@@ -27,7 +27,7 @@ export class ApiError extends Error {
 function messageFrom(status: number, error: unknown): string {
   const detail = (error as { detail?: unknown } | undefined)?.detail;
   if (typeof detail === "string") return detail;
-  if (status >= 500 || status === 0) return "Can't reach the AssureVoice service. Try again in a moment.";
+  if (status >= 500 || status === 0) return "Can't reach the Ampera BPO service. Try again in a moment.";
   return "Something went wrong. Try again.";
 }
 

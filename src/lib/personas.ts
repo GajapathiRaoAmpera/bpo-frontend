@@ -17,5 +17,5 @@ export const SANDBOX_PERSONAS: { name: string; role: Schemas["Role"]; roleLabel:
 
 export const personaEmail = (name: string) => {
   const [first, ...rest] = name.toLowerCase().split(" ");
-  return `${first}.${rest.join("")}@sandbox.assurevoice.in`;
+  return `${first}.${rest.join("")}@sandbox.amperabpo.in`;
 };

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import styles from "./turn-item.module.scss";
 
 const SPEAKER = {
-  bot: { label: "AssureVoice AI", icon: Bot, box: styles.turnBot, tag: styles.speakerBot },
+  bot: { label: "Ampera BPO", icon: Bot, box: styles.turnBot, tag: styles.speakerBot },
   customer: { label: "Customer", icon: UserRound, box: styles.turnCustomer, tag: styles.speakerCustomer },
   agent: { label: "Human agent", icon: Headset, box: styles.turnAgent, tag: styles.speakerAgent },
 } as const;

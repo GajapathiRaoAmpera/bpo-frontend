@@ -26,7 +26,7 @@ const PERSONAS = [
 
 const email = (name: string) => {
   const [first, ...rest] = name.toLowerCase().split(" ");
-  return `${first}.${rest.join("")}@sandbox.assurevoice.in`;
+  return `${first}.${rest.join("")}@sandbox.amperabpo.in`;
 };
 
 async function signIn(page: Page, name: string) {

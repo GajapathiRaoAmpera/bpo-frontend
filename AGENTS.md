@@ -1,6 +1,6 @@
 # AI Coding Agent Instructions (bpo-frontend)
 
-**Project:** AssureVoice AI sandbox: Next.js UI for an Indian insurer's AI contact centre. The API, RBAC, masking, audit and voice agent live in `bpo-backend`; never put backend code here.
+**Project:** Ampera BPO sandbox: Next.js UI for an Indian insurer's AI contact centre. The API, RBAC, masking, audit and voice agent live in `bpo-backend`; never put backend code here.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
