@@ -1,3 +1,4 @@
+import { ShieldCheck } from "lucide-react";
 import { Suspense } from "react";
 
 import { BrandScene } from "@/components/auth/brand-scene";
@@ -21,6 +22,9 @@ export function LoginPage() {
       <main className={styles.main}>
         <div className={styles.card}>
           <div className={styles.cardHead}>
+            <span aria-hidden className={styles.badge}>
+              <ShieldCheck className={styles.badgeIcon} />
+            </span>
             <h2 className={styles.cardTitle}>Sign in</h2>
             <p className={styles.cardText}>Use your Ampera BPO work account.</p>
           </div>
@@ -28,6 +32,11 @@ export function LoginPage() {
             <LoginForm />
           </Suspense>
         </div>
+        <ul className={styles.trust}>
+          <li>Secure session</li>
+          <li>Role-based access</li>
+          <li>Every sign-in audited</li>
+        </ul>
       </main>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -70,15 +70,19 @@ export function LoginForm() {
         {serverError && <ErrorAlert layout="form">{serverError}</ErrorAlert>}
         <div className={styles.field}>
           <Label htmlFor="email" className={styles.label}>Work email</Label>
-          <Input id="email" type="email" autoComplete="username" aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-error" : undefined} {...form.register("email")} />
+          <div className={styles.inputWrap}>
+            <Mail aria-hidden className={styles.leadIcon} />
+            <Input id="email" type="email" autoComplete="username" className={styles.leadInput} aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined} {...form.register("email")} />
+          </div>
           {errors.email && <p id="email-error" className={styles.error}>{errors.email.message}</p>}
         </div>
         <div className={styles.field}>
           <Label htmlFor="password" className={styles.label}>Password</Label>
-          <div className={styles.passwordWrap}>
+          <div className={styles.inputWrap}>
+            <Lock aria-hidden className={styles.leadIcon} />
             <Input id="password" type={showPassword ? "text" : "password"} autoComplete="current-password"
-              className={styles.passwordInput} aria-invalid={!!errors.password}
+              className={`${styles.leadInput} ${styles.passwordInput}`} aria-invalid={!!errors.password}
               aria-describedby={errors.password ? "password-error" : undefined} {...form.register("password")} />
             <button type="button" onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
@@ -91,6 +95,7 @@ export function LoginForm() {
         <Button type="submit" size="lg" disabled={isSubmitting} className={styles.submit}>
           {isSubmitting && <Loader2 aria-hidden className={styles.spinner} />}
           {isSubmitting ? "Signing in…" : "Sign in"}
+          {!isSubmitting && <ArrowRight aria-hidden className={styles.arrow} />}
         </Button>
       </form>
 
