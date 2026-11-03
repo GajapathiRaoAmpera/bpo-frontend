@@ -15,8 +15,12 @@ export function LoginPage() {
   return (
     <div className={styles.page}>
       <aside className={styles.aside}>
-        <BrandScene />
         <Brand inverted />
+        <p className={styles.tagline}>The AI voice contact centre for insurance renewals.</p>
+        {/* own box below the tagline, so the animation never runs under it */}
+        <div className={styles.stage}>
+          <BrandScene />
+        </div>
         {/* kept empty in production so justify-between keeps the logo pinned to the top */}
         <p className={styles.footnote}>{IS_SANDBOX && "Sandbox edition · all customer data is synthetic"}</p>
       </aside>

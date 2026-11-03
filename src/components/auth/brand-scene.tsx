@@ -255,7 +255,8 @@ function Waveform({ speaking, still }: { speaking: boolean; still: boolean }) {
       const near = hit ? Math.exp(-((bar.position.x - hit[0]) ** 2) / 0.25) : 0;
       boosts.current[i] = MathUtils.damp(boosts.current[i]!, near * 0.9, 6, delta);
       const voice = 0.5 + 0.5 * Math.sin(t * 2.2 + seed * 1.6) * Math.sin(t * 0.9 + seed);
-      const h = 0.1 + boosts.current[i]! + energy.current * (0.3 + 0.55 * Math.abs(Math.sin(seed)) + 0.55 * voice);
+      // Peak ≈ 1.3 units (bottom ~19% of the canvas): stays clear of the step caption above it.
+      const h = 0.55 * (0.1 + boosts.current[i]! + energy.current * (0.3 + 0.55 * Math.abs(Math.sin(seed)) + 0.55 * voice));
       bar.scale.y = h;
       bar.position.y = -3.95 + h / 2;
     });
@@ -309,7 +310,7 @@ export function BrandScene() {
     <div className={styles.root} aria-hidden="true">
       <Canvas dpr={[1, 1.5]} frameloop={reduced ? "demand" : "always"} camera={{ position: [0, 0, 9], fov: 50 }}>
         <DotGrid still={reduced} color={LIGHT} opacity={0.3} z={-1.5} />
-        <group position={[0, 0.9, 0]} scale={1.3}>
+        <group position={[0, 1.2, 0]} scale={1.3}>
           <Parallax still={reduced}>
             {BEATS.map((Beat, i) => (
               <Stage key={i} active={i === stage} still={reduced}>

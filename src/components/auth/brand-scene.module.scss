@@ -20,7 +20,8 @@
 .caption {
   position: absolute;
   right: 0;
-  bottom: space(50);
+  // % of the canvas, like the 3D content: between the waveform's peak (~24% with camera drift) and the beat (~40%).
+  bottom: 25%;
   left: 0;
   display: flex;
   flex-direction: column;
