@@ -1,6 +1,7 @@
 import { Headset, Languages, ShieldCheck } from "lucide-react";
 import { Suspense } from "react";
 
+import { BrandScene } from "@/components/auth/brand-scene";
 import { LoginForm } from "@/components/auth/login-form";
 import { Brand } from "@/components/shell/brand";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,6 +22,7 @@ export function LoginPage() {
   return (
     <div className={styles.page}>
       <aside className={styles.aside}>
+        <BrandScene />
         <Brand inverted />
         <div className={styles.pitch}>
           <h1 className={styles.headline}>

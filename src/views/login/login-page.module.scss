@@ -8,9 +8,12 @@
 }
 
 .aside {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  isolation: isolate;
   background: var(--color-primary);
   padding: space(12);
   color: var(--color-on-primary);
