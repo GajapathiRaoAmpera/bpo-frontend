@@ -19,58 +19,6 @@
   color: var(--color-on-primary);
 }
 
-.pitch {
-  display: flex;
-  max-width: 28rem;
-  flex-direction: column;
-  gap: $space-xl;
-}
-
-.headline {
-  @include text(display);
-  color: var(--color-on-primary);
-}
-
-.points {
-  display: flex;
-  flex-direction: column;
-  gap: $space-lg;
-}
-
-.point {
-  display: flex;
-  gap: $space-md;
-}
-
-.pointIcon {
-  display: flex;
-  @include size(space(9));
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-lg);
-  background: var(--color-primary-container);
-}
-
-.icon {
-  @include size(18px);
-}
-
-.pointBody {
-  display: flex;
-  flex-direction: column;
-  gap: space(0.5);
-}
-
-.pointTitle {
-  @include text(label-md);
-}
-
-.pointText {
-  @include text(body-sm);
-  color: color-mix(in srgb, var(--color-on-primary) 75%, transparent);
-}
-
 .footnote {
   @include text(label-sm);
   color: color-mix(in srgb, var(--color-on-primary) 60%, transparent);
