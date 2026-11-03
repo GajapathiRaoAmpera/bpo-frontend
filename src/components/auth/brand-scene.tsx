@@ -1,12 +1,12 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { DoubleSide, MathUtils } from "three";
-import type { Group, Mesh, MeshBasicMaterial } from "three";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { AdditiveBlending, CatmullRomCurve3, Color, DoubleSide, MathUtils, Object3D, Vector3 } from "three";
+import type { Group, InstancedMesh, Mesh, MeshBasicMaterial, TubeGeometry } from "three";
 
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { pointerInCanvas, windowPointer, useWindowPointer } from "@/hooks/use-window-pointer";
+import { windowPointer, useWindowPointer } from "@/hooks/use-window-pointer";
 
 import styles from "./brand-scene.module.scss";
 import { DotGrid } from "./pointer-field";
@@ -235,41 +235,161 @@ function Multilingual({ still }: { still: boolean }) {
   );
 }
 
-const BAR_COUNT = 40;
-const BAR_COLORS = [LIGHT, ACCENT, "#dfc0df", MUTED, "#ffffff"];
+const ARC = [0, 0.2, -0.12, 0.18, 0]; // gentle signal-path curve through the five stops
+const TRACK = new CatmullRomCurve3(STAGES.map((_, i) => new Vector3(-2 + i, -3.35 + ARC[i]!, 0)));
+// getPoint(t) is per-control-point uniform, so t = i/(n-1) lands exactly on stop i.
+const nodeT = (i: number) => i / (STAGES.length - 1);
+const SEGMENTS = 160;
+const RADIAL = 8;
+const PARTICLES = 36;
+const TRAIL = 8;
+const BURST_S = 0.8;
+const C_LIGHT = new Color(LIGHT);
+const C_MUTED = new Color(MUTED);
+const dummy = new Object3D();
+const at = new Vector3();
 
-// The live call underneath every beat: calm while ringing, speaking once answered.
-function Waveform({ speaking, still }: { speaking: boolean; still: boolean }) {
-  const bars = useRef<(Mesh | null)[]>([]);
-  const boosts = useRef<number[]>(Array(BAR_COUNT).fill(0));
-  const energy = useRef(0);
+// The call's journey under every beat: data streams along a curved signal path, a glowing marker
+// with a comet tail glides to the current stop, and each stop flashes as it is reached.
+function JourneyTrack({ stage, still }: { stage: number; still: boolean }) {
+  const progress = useRef(nodeT(stage));
+  const trailT = useRef<number[]>(Array(TRAIL).fill(nodeT(stage)));
+  const burst = useRef({ stage, start: -BURST_S });
+  const fill = useRef<TubeGeometry>(null);
+  const marker = useRef<Group>(null);
+  const pings = useRef<(Mesh | null)[]>([]);
+  const trail = useRef<(Mesh | null)[]>([]);
+  const flow = useRef<InstancedMesh>(null);
+  const burstRing = useRef<Mesh>(null);
+  const cores = useRef<(Mesh | null)[]>([]);
+  const rings = useRef<(Mesh | null)[]>([]);
+
+  useLayoutEffect(() => {
+    const m = flow.current;
+    if (!m) return;
+    for (let j = 0; j < PARTICLES; j++) m.setColorAt(j, C_MUTED);
+    m.instanceColor!.needsUpdate = true;
+  }, []);
 
   useFrame((state, delta) => {
-    const t = still ? 0 : state.clock.elapsedTime;
-    energy.current = still ? 1 : MathUtils.damp(energy.current, speaking ? 1 : 0.15, 3, delta);
-    const hit = still ? null : pointerInCanvas(state.gl.domElement, state.viewport.width, state.viewport.height);
-    bars.current.forEach((bar, i) => {
-      if (!bar) return;
-      const seed = i * 0.37;
-      // Bars near the cursor rise, as if the voice leans toward you.
-      const near = hit ? Math.exp(-((bar.position.x - hit[0]) ** 2) / 0.25) : 0;
-      boosts.current[i] = MathUtils.damp(boosts.current[i]!, near * 0.9, 6, delta);
-      const voice = 0.5 + 0.5 * Math.sin(t * 2.2 + seed * 1.6) * Math.sin(t * 0.9 + seed);
-      // Peak ≈ 1.3 units (bottom ~19% of the canvas): stays clear of the step caption above it.
-      const h = 0.55 * (0.1 + boosts.current[i]! + energy.current * (0.3 + 0.55 * Math.abs(Math.sin(seed)) + 0.55 * voice));
-      bar.scale.y = h;
-      bar.position.y = -3.95 + h / 2;
+    const time = still ? 0 : state.clock.elapsedTime;
+    const target = nodeT(stage);
+    if (stage === 0 && progress.current > 0.5) progress.current = 0; // new call: restart, don't sweep back
+    const t = (progress.current = still ? target : MathUtils.damp(progress.current, target, 3, delta));
+
+    fill.current?.setDrawRange(0, Math.floor(t * SEGMENTS) * RADIAL * 6);
+    TRACK.getPoint(t, at);
+    marker.current?.position.copy(at);
+
+    pings.current.forEach((ping, k) => {
+      if (!ping) return;
+      const ph = still ? 0.4 : (time * 0.7 + k * 0.5) % 1;
+      ping.scale.setScalar(1 + ph * 2.4);
+      (ping.material as MeshBasicMaterial).opacity = 0.5 * (1 - ph);
+    });
+
+    trail.current.forEach((dot, k) => {
+      const prev = k === 0 ? t : trailT.current[k - 1]!;
+      trailT.current[k] = still ? t : MathUtils.damp(trailT.current[k]!, prev, 16, delta);
+      if (!dot) return;
+      TRACK.getPoint(trailT.current[k]!, dot.position);
+      dot.scale.setScalar(1 - (k + 1) / (TRAIL + 1));
+    });
+
+    const m = flow.current;
+    if (m) {
+      for (let j = 0; j < PARTICLES; j++) {
+        const u = (j / PARTICLES + time * 0.05) % 1;
+        TRACK.getPoint(u, dummy.position);
+        dummy.position.y += Math.sin(time * 3 + j * 1.7) * 0.035;
+        const behind = u <= t;
+        dummy.scale.setScalar(behind ? 0.03 : 0.018);
+        dummy.updateMatrix();
+        m.setMatrixAt(j, dummy.matrix);
+        m.setColorAt(j, behind ? C_LIGHT : C_MUTED);
+      }
+      m.instanceMatrix.needsUpdate = true;
+      m.instanceColor!.needsUpdate = true;
+    }
+
+    if (burst.current.stage !== stage) burst.current = { stage, start: state.clock.elapsedTime };
+    const ring = burstRing.current;
+    if (ring) {
+      const age = state.clock.elapsedTime - burst.current.start;
+      ring.visible = !still && age < BURST_S;
+      TRACK.getPoint(target, ring.position);
+      ring.scale.setScalar(1 + (age / BURST_S) * 4);
+      (ring.material as MeshBasicMaterial).opacity = 0.8 * (1 - age / BURST_S);
+    }
+
+    STAGES.forEach((_, i) => {
+      const reached = i <= stage;
+      const s = i === stage ? 1.35 : 1;
+      const r = rings.current[i];
+      if (r) {
+        r.scale.setScalar(still ? s : MathUtils.damp(r.scale.x, s, 6, delta));
+        (r.material as MeshBasicMaterial).color.set(reached ? LIGHT : MUTED);
+      }
+      const c = cores.current[i];
+      if (c) c.scale.setScalar(still ? (reached ? 1 : 0) : MathUtils.damp(c.scale.x, reached ? 1 : 0, 8, delta));
     });
   });
 
   return (
     <>
-      {Array.from({ length: BAR_COUNT }, (_, i) => (
-        <mesh key={i} ref={(el) => void (bars.current[i] = el)} position={[-2 + (i / (BAR_COUNT - 1)) * 4, -3.95, 0]}>
-          <boxGeometry args={[0.07, 1, 0.07]} />
-          <meshBasicMaterial color={BAR_COLORS[i % BAR_COLORS.length]} transparent opacity={0.7} />
+      <mesh>
+        <tubeGeometry args={[TRACK, SEGMENTS, 0.012, RADIAL, false]} />
+        <meshBasicMaterial color={MUTED} transparent opacity={0.4} />
+      </mesh>
+      <mesh>
+        <tubeGeometry ref={fill} args={[TRACK, SEGMENTS, 0.02, RADIAL, false]} />
+        <meshBasicMaterial color={ACCENT} />
+      </mesh>
+      <instancedMesh ref={flow} args={[undefined, undefined, PARTICLES]}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshBasicMaterial transparent opacity={0.9} />
+      </instancedMesh>
+      {STAGES.map((label, i) => {
+        TRACK.getPoint(nodeT(i), at);
+        return (
+          <group key={label} position={[at.x, at.y, 0.01]}>
+            <mesh ref={(el) => void (rings.current[i] = el)}>
+              <ringGeometry args={[0.085, 0.11, 32]} />
+              <meshBasicMaterial color={MUTED} />
+            </mesh>
+            <mesh ref={(el) => void (cores.current[i] = el)} scale={0}>
+              <circleGeometry args={[0.06, 24]} />
+              <meshBasicMaterial color={LIGHT} />
+            </mesh>
+          </group>
+        );
+      })}
+      <mesh ref={burstRing} visible={false}>
+        <ringGeometry args={[0.1, 0.13, 40]} />
+        <meshBasicMaterial color="#ffffff" transparent depthWrite={false} blending={AdditiveBlending} />
+      </mesh>
+      {Array.from({ length: TRAIL }, (_, k) => (
+        <mesh key={k} ref={(el) => void (trail.current[k] = el)}>
+          <circleGeometry args={[0.1, 20]} />
+          <meshBasicMaterial color={ACCENT} transparent opacity={0.5 * (1 - k / TRAIL)} depthWrite={false} />
         </mesh>
       ))}
+      <group ref={marker}>
+        <mesh position-z={0.02}>
+          <circleGeometry args={[0.32, 32]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.18} depthWrite={false} blending={AdditiveBlending} />
+        </mesh>
+        {[0, 1].map((k) => (
+          <mesh key={k} ref={(el) => void (pings.current[k] = el)} position-z={0.03}>
+            <ringGeometry args={[0.15, 0.18, 40]} />
+            <meshBasicMaterial color="#ffffff" transparent depthWrite={false} />
+          </mesh>
+        ))}
+        <mesh position-z={0.04}>
+          <circleGeometry args={[0.13, 32]} />
+          <meshBasicMaterial color="#ffffff" />
+        </mesh>
+      </group>
     </>
   );
 }
@@ -319,7 +439,7 @@ export function BrandScene() {
             ))}
           </Parallax>
         </group>
-        <Waveform speaking={stage !== 0} still={reduced} />
+        <JourneyTrack stage={stage} still={reduced} />
       </Canvas>
       <div className={styles.caption}>
         <span className={styles.step}>
@@ -328,11 +448,6 @@ export function BrandScene() {
         <p key={stage} className={styles.text}>
           {STAGES[stage]}
         </p>
-        <div className={styles.dots}>
-          {STAGES.map((label, i) => (
-            <span key={label} className={i === stage ? styles.dotActive : styles.dot} />
-          ))}
-        </div>
       </div>
     </div>
   );

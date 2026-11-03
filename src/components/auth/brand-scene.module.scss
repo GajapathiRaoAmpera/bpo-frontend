@@ -20,8 +20,8 @@
 .caption {
   position: absolute;
   right: 0;
-  // % of the canvas, like the 3D content: between the waveform's peak (~24% with camera drift) and the beat (~40%).
-  bottom: 25%;
+  // % of the canvas, like the 3D content: above the journey track's ping (~16%) and below the beat (~40%).
+  bottom: 21%;
   left: 0;
   display: flex;
   flex-direction: column;
@@ -42,23 +42,8 @@
   animation: caption-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.dots {
-  display: flex;
-  gap: space(1.5);
-}
 
-.dot,
-.dotActive {
-  @include size(6px);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-on-primary) 35%, transparent);
-  transition: width 400ms cubic-bezier(0.22, 1, 0.36, 1), background 400ms;
-}
 
-.dotActive {
-  width: 20px;
-  background: var(--color-on-primary);
-}
 
 @keyframes caption-in {
   from {
@@ -71,10 +56,5 @@
 @media (prefers-reduced-motion: reduce) {
   .text {
     animation: none;
-  }
-
-  .dot,
-  .dotActive {
-    transition: none;
   }
 }
