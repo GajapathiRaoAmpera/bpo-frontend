@@ -37,7 +37,7 @@ export function FollowUpsPage() {
         description={IS_SANDBOX ? "Payment links, callbacks and reminders. When one falls due, the sandbox timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. Nothing is sent to real numbers." : "Payment links, callbacks and reminders. When one falls due, the timer writes a WhatsApp-style message (Gemini Flash, or a fixed template) and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
         actions={canWrite ? <FollowupDialog /> : undefined}
       />
-      <StatusTabs status={status} onChange={(s) => { setStatus(s); setPage(1); }} />
+      <StatusTabs tabs={["scheduled", "sent", "done", "cancelled", null]} labels={FOLLOWUP_STATUS_LABEL} status={status} onChange={(s) => { setStatus(s); setPage(1); }} />
       <DataTable
         columns={columns}
         data={data?.items}

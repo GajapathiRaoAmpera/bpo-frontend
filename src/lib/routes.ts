@@ -12,6 +12,7 @@ export const SCREEN_HREF: Record<Screen, string> = {
   customers: "/customers",
   campaigns: "/campaigns",
   followups: "/follow-ups",
+  claims: "/claims",
   bot_studio: "/bot-studio",
   approvals: "/approvals",
   qa: "/qa",

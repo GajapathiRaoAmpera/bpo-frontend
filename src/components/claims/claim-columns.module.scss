@@ -1,0 +1,36 @@
+@use "styles/mixins" as *;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.customerLink {
+  @include text(label-md);
+  color: var(--color-on-surface);
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration-line: underline;
+  }
+}
+
+.mono {
+  @include text(label-xs);
+  @include text(data-mono);
+  color: var(--color-on-surface-variant);
+}
+
+.muted {
+  @include text(label-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.description {
+  max-width: 28rem;
+  @include line-clamp(2);
+}

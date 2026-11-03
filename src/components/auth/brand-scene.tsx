@@ -17,7 +17,7 @@ const STAGES = [
   "AI agent answers in seconds",
   "Identity and compliance verified",
   "A human agent can take over anytime",
-  "English, Tamil and Hindi",
+  "English, Hindi, Tamil, Telugu, Kannada, Malayalam",
 ] as const;
 const STAGE_MS = 2600;
 

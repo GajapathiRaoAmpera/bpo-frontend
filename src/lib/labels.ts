@@ -8,8 +8,11 @@ export const PRODUCT_LABEL: Record<Schemas["Product"], string> = {
 
 export const LANGUAGE_LABEL: Record<Schemas["Language"], string> = {
   english: "English",
-  tamil: "Tamil",
   hindi: "Hindi",
+  tamil: "Tamil",
+  telugu: "Telugu",
+  kannada: "Kannada",
+  malayalam: "Malayalam",
 };
 
 export const OUTCOME_LABEL: Record<Schemas["CallOutcome"], string> = {

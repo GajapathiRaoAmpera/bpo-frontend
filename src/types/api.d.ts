@@ -599,7 +599,8 @@ export interface paths {
         put?: never;
         /**
          * Launch Campaign
-         * @description Sandbox launch: places the next 3 simulated calls. Running campaigns can dial the next batch.
+         * @description Places the next 3 calls: real Plivo calls when Plivo is configured, otherwise simulated (sandbox only).
+         *     Running campaigns can dial the next batch.
          */
         post: operations["launch_campaign_api_v1_campaigns__campaign_id__launch_post"];
         delete?: never;
@@ -636,6 +637,57 @@ export interface paths {
         put?: never;
         /** Reject Campaign */
         post: operations["reject_campaign_api_v1_campaigns__campaign_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/claims": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Claims */
+        get: operations["list_claims_api_v1_claims_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/claims/{claim_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Move Claim */
+        patch: operations["move_claim_api_v1_claims__claim_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/payments/razorpay/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Razorpay Webhook */
+        post: operations["razorpay_webhook_api_v1_payments_razorpay_webhook_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -780,6 +832,67 @@ export interface paths {
         put?: never;
         /** Reject Script */
         post: operations["reject_script_api_v1_scripts__script_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/telephony/plivo/answer/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Answer
+         * @description Customer picked up: tell Plivo to stream the call's audio to our WebSocket.
+         */
+        post: operations["answer_api_v1_telephony_plivo_answer__call_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/telephony/plivo/hangup/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Hangup
+         * @description Call ended (or was never answered). Stopping the bot finalizes the call; otherwise close it here.
+         */
+        post: operations["hangup_api_v1_telephony_plivo_hangup__call_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/whatsapp/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Verify Webhook
+         * @description One-time handshake Meta runs when you save the webhook URL in the dashboard.
+         */
+        get: operations["verify_webhook_api_v1_whatsapp_webhook_get"];
+        put?: never;
+        /** Receive Webhook */
+        post: operations["receive_webhook_api_v1_whatsapp_webhook_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1096,6 +1209,54 @@ export interface components {
          * @enum {string}
          */
         CampaignStatus: "draft" | "pending" | "approved" | "rejected" | "running" | "completed";
+        /** ClaimRow */
+        ClaimRow: {
+            /** Id */
+            id: number;
+            /** Claim No */
+            claim_no: string;
+            /** Policy No */
+            policy_no: string;
+            /** Plan Name */
+            plan_name: string;
+            /** Customer Id */
+            customer_id: number;
+            /** Customer Name */
+            customer_name: string;
+            /** Phone */
+            phone: string;
+            /** Call Id */
+            call_id: number | null;
+            /** Call Ref */
+            call_ref: string | null;
+            /**
+             * Incident Date
+             * Format: date
+             */
+            incident_date: string;
+            /** Description */
+            description: string;
+            status: components["schemas"]["ClaimStatus"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * ClaimStatus
+         * @enum {string}
+         */
+        ClaimStatus: "registered" | "under_review" | "approved" | "rejected" | "settled";
+        /** ClaimStatusIn */
+        ClaimStatusIn: {
+            status: components["schemas"]["ClaimStatus"];
+        };
         /** Customer360 */
         Customer360: {
             /** Id */
@@ -1408,7 +1569,7 @@ export interface components {
          * Language
          * @enum {string}
          */
-        Language: "english" | "tamil" | "hindi";
+        Language: "english" | "tamil" | "hindi" | "telugu" | "kannada" | "malayalam";
         /** LaunchOut */
         LaunchOut: {
             campaign: components["schemas"]["CampaignOut"];
@@ -1758,7 +1919,7 @@ export interface components {
          * Screen
          * @enum {string}
          */
-        Screen: "dashboard" | "agent_console" | "escalations" | "live_monitor" | "calls" | "customers" | "campaigns" | "followups" | "bot_studio" | "approvals" | "qa" | "audit" | "users" | "integrations";
+        Screen: "dashboard" | "agent_console" | "escalations" | "claims" | "live_monitor" | "calls" | "customers" | "campaigns" | "followups" | "bot_studio" | "approvals" | "qa" | "audit" | "users" | "integrations";
         /** ScriptApproval */
         ScriptApproval: {
             script: components["schemas"]["ScriptOut"];
@@ -3304,6 +3465,94 @@ export interface operations {
             };
         };
     };
+    list_claims_api_v1_claims_get: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["ClaimStatus"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClaimRow"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    move_claim_api_v1_claims__claim_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                claim_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClaimStatusIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClaimRow"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    razorpay_webhook_api_v1_payments_razorpay_webhook_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
     qa_queue_api_v1_qa_queue_get: {
         parameters: {
             query?: {
@@ -3623,6 +3872,112 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    answer_api_v1_telephony_plivo_answer__call_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    hangup_api_v1_telephony_plivo_hangup__call_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_webhook_api_v1_whatsapp_webhook_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    receive_webhook_api_v1_whatsapp_webhook_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
         };
