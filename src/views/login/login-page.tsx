@@ -2,7 +2,9 @@ import { ShieldCheck } from "lucide-react";
 import { Suspense } from "react";
 
 import { BrandScene } from "@/components/auth/brand-scene";
+import { GlassCard } from "@/components/auth/glass-card";
 import { LoginForm } from "@/components/auth/login-form";
+import { PointerField } from "@/components/auth/pointer-field";
 import { Brand } from "@/components/shell/brand";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IS_SANDBOX } from "@/lib/personas";
@@ -20,7 +22,8 @@ export function LoginPage() {
       </aside>
 
       <main className={styles.main}>
-        <div className={styles.card}>
+        <PointerField />
+        <GlassCard className={styles.card}>
           <div className={styles.cardHead}>
             <span aria-hidden className={styles.badge}>
               <ShieldCheck className={styles.badgeIcon} />
@@ -31,7 +34,7 @@ export function LoginPage() {
           <Suspense fallback={<Skeleton className={styles.formSkeleton} />}>
             <LoginForm />
           </Suspense>
-        </div>
+        </GlassCard>
         <ul className={styles.trust}>
           <li>Secure session</li>
           <li>Role-based access</li>

@@ -6,8 +6,10 @@ import { DoubleSide, MathUtils } from "three";
 import type { Group, Mesh, MeshBasicMaterial } from "three";
 
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { pointerInCanvas, windowPointer, useWindowPointer } from "@/hooks/use-window-pointer";
 
 import styles from "./brand-scene.module.scss";
+import { DotGrid } from "./pointer-field";
 
 // The login panel's whole pitch is one call told as a story, one beat at a time.
 const STAGES = [
@@ -239,16 +241,21 @@ const BAR_COLORS = [LIGHT, ACCENT, "#dfc0df", MUTED, "#ffffff"];
 // The live call underneath every beat: calm while ringing, speaking once answered.
 function Waveform({ speaking, still }: { speaking: boolean; still: boolean }) {
   const bars = useRef<(Mesh | null)[]>([]);
+  const boosts = useRef<number[]>(Array(BAR_COUNT).fill(0));
   const energy = useRef(0);
 
   useFrame((state, delta) => {
     const t = still ? 0 : state.clock.elapsedTime;
     energy.current = still ? 1 : MathUtils.damp(energy.current, speaking ? 1 : 0.15, 3, delta);
+    const hit = still ? null : pointerInCanvas(state.gl.domElement, state.viewport.width, state.viewport.height);
     bars.current.forEach((bar, i) => {
       if (!bar) return;
       const seed = i * 0.37;
+      // Bars near the cursor rise, as if the voice leans toward you.
+      const near = hit ? Math.exp(-((bar.position.x - hit[0]) ** 2) / 0.25) : 0;
+      boosts.current[i] = MathUtils.damp(boosts.current[i]!, near * 0.9, 6, delta);
       const voice = 0.5 + 0.5 * Math.sin(t * 2.2 + seed * 1.6) * Math.sin(t * 0.9 + seed);
-      const h = 0.1 + energy.current * (0.3 + 0.55 * Math.abs(Math.sin(seed)) + 0.55 * voice);
+      const h = 0.1 + boosts.current[i]! + energy.current * (0.3 + 0.55 * Math.abs(Math.sin(seed)) + 0.55 * voice);
       bar.scale.y = h;
       bar.position.y = -3.95 + h / 2;
     });
@@ -266,6 +273,23 @@ function Waveform({ speaking, still }: { speaking: boolean; still: boolean }) {
   );
 }
 
+// Tilts the story toward the mouse and lets the camera drift with it, for a sense of depth.
+function Parallax({ still, children }: { still: boolean; children: ReactNode }) {
+  const ref = useRef<Group>(null);
+
+  useFrame((state, delta) => {
+    const g = ref.current;
+    if (still || !g) return;
+    g.rotation.y = MathUtils.damp(g.rotation.y, windowPointer.x * 0.35, 3, delta);
+    g.rotation.x = MathUtils.damp(g.rotation.x, -windowPointer.y * 0.25, 3, delta);
+    state.camera.position.x = MathUtils.damp(state.camera.position.x, windowPointer.x * 0.6, 2, delta);
+    state.camera.position.y = MathUtils.damp(state.camera.position.y, windowPointer.y * 0.4, 2, delta);
+    state.camera.lookAt(0, 0, 0);
+  });
+
+  return <group ref={ref}>{children}</group>;
+}
+
 const BEATS = [CallRinging, AiAgent, ComplianceCheck, HumanTakeover, Multilingual];
 
 // Decorative only: aria-hidden, no pointer events, frozen on beat one under prefers-reduced-motion.
@@ -273,6 +297,7 @@ export function BrandScene() {
   const reduced = usePrefersReducedMotion();
   const [tick, setTick] = useState(0);
   const stage = reduced ? 0 : tick;
+  useWindowPointer(!reduced);
 
   useEffect(() => {
     if (reduced) return;
@@ -283,12 +308,15 @@ export function BrandScene() {
   return (
     <div className={styles.root} aria-hidden="true">
       <Canvas dpr={[1, 1.5]} frameloop={reduced ? "demand" : "always"} camera={{ position: [0, 0, 9], fov: 50 }}>
+        <DotGrid still={reduced} color={LIGHT} opacity={0.3} z={-1.5} />
         <group position={[0, 0.9, 0]} scale={1.3}>
-          {BEATS.map((Beat, i) => (
-            <Stage key={i} active={i === stage} still={reduced}>
-              <Beat still={reduced} />
-            </Stage>
-          ))}
+          <Parallax still={reduced}>
+            {BEATS.map((Beat, i) => (
+              <Stage key={i} active={i === stage} still={reduced}>
+                <Beat still={reduced} />
+              </Stage>
+            ))}
+          </Parallax>
         </group>
         <Waveform speaking={stage !== 0} still={reduced} />
       </Canvas>

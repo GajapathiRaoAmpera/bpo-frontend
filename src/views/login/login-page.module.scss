@@ -24,7 +24,7 @@
   color: color-mix(in srgb, var(--color-on-primary) 60%, transparent);
 }
 
-// Purple glow bleeding in from the hero panel plus a faint dot grid, so both halves read as one scene.
+// Purple glow bleeding in from the hero panel; the 3D dot field and orbs sit on top of it.
 .main {
   position: relative;
   display: flex;
@@ -38,30 +38,41 @@
   background:
     radial-gradient(ellipse 60% 70% at 0% 50%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 70%),
     var(--color-surface);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 18%, transparent) 1px, transparent 1px);
-    background-size: 22px 22px;
-    mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black, transparent);
-  }
 }
 
+// Frosted glass that stays mostly white so text and fields keep full contrast.
+// --rx/--ry/--mx/--my/--sheen are driven by GlassCard.
 .card {
+  position: relative;
   display: flex;
   width: 100%;
   max-width: 440px;
   flex-direction: column;
   gap: $space-xl;
-  border: 1px solid var(--color-divider);
+  isolation: isolate;
+  border: 1px solid color-mix(in srgb, #ffffff 75%, transparent);
   border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest);
+  background: color-mix(in srgb, var(--color-surface-container-lowest) 55%, transparent);
   padding: space(8);
-  box-shadow: var(--shadow-modal);
-  animation: card-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow:
+    0 24px 48px -16px color-mix(in srgb, var(--color-primary) 22%, transparent),
+    var(--shadow-modal),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  animation: card-in 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(circle 260px at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.55), transparent 70%);
+    opacity: var(--sheen, 0.35);
+    pointer-events: none;
+  }
 }
 
 .badge {
@@ -86,7 +97,7 @@
   gap: $space-xs $space-md;
   @include text(label-sm);
   color: var(--color-on-surface-variant);
-  animation: card-in 600ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: card-in 600ms 120ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 
   li + li::before {
     content: "·";
