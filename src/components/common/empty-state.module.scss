@@ -6,11 +6,9 @@
   align-items: center;
   justify-content: center;
   gap: $space-md;
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest);
+  @include card-surface;
   padding: space(16) $space-xl;
   text-align: center;
-  box-shadow: var(--shadow-card);
 }
 
 .iconWrap {

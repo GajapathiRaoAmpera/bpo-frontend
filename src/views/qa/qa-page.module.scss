@@ -11,16 +11,13 @@
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: start;
-  gap: $space-lg;
+  @include workspace-grid;
 }
 
 .queueCol {
-  grid-column: span 5 / span 5;
+  @include span(5);
 }
 
 .detailCol {
-  grid-column: span 7 / span 7;
+  @include span(7);
 }

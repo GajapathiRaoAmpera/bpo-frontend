@@ -23,7 +23,7 @@
   --color-on-surface-variant: #5b5b5b;
   --color-inverse-surface: #000f5c;
   --color-inverse-on-surface: #fffefa;
-  --color-outline: #8d8d8d;
+  --color-outline: #737373; /* 4.7:1 on white: passes WCAG AA for the small labels that use it */
   --color-outline-variant: #d6d6d6;
   --color-surface-tint: #9c369a;
   --color-primary: #9c369a;

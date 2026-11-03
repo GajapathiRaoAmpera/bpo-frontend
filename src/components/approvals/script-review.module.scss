@@ -1,11 +1,11 @@
 @use "styles/mixins" as *;
 
 .main {
-  grid-column: span 6 / span 6;
+  @include span(6);
 }
 
 .side {
-  grid-column: span 3 / span 3;
+  @include span(3);
 }
 
 .caption {

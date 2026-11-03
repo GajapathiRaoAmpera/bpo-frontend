@@ -62,8 +62,8 @@ export function UserDialog({ open, onOpenChange, user, isSelf }: {
     <Dialog open={open} onOpenChange={(o) => { setServerError(null); if (!o) form.reset(); onOpenChange(o); }}>
       <DialogContent className={styles.content}>
         <DialogHeader>
-          <DialogTitle className={styles.title}>{user ? `Edit ${user.full_name}` : "Add user"}</DialogTitle>
-          <DialogDescription className={styles.description}>
+          <DialogTitle>{user ? `Edit ${user.full_name}` : "Add user"}</DialogTitle>
+          <DialogDescription>
             {user ? "Changes are recorded in the audit log." : "The person signs in with this email and password. The account is recorded in the audit log."}
           </DialogDescription>
         </DialogHeader>

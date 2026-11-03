@@ -12,8 +12,5 @@
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: start;
-  gap: $space-lg;
+  @include workspace-grid;
 }

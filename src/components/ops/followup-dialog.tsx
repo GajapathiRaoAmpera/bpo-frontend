@@ -83,8 +83,8 @@ export function FollowupDialog({ policyNo, policyId, trigger }: { policyNo?: str
       </DialogTrigger>
       <DialogContent className={styles.content}>
         <DialogHeader>
-          <DialogTitle className={styles.title}>Schedule follow-up</DialogTitle>
-          <DialogDescription className={styles.description}>
+          <DialogTitle>Schedule follow-up</DialogTitle>
+          <DialogDescription>
             {IS_SANDBOX ? "When it is due, the sandbox timer writes the WhatsApp message and marks it sent. Nothing reaches a real phone." : "When it is due, the timer writes the WhatsApp message and marks it sent. WhatsApp is a pilot integration, so nothing reaches the customer yet."}
           </DialogDescription>
         </DialogHeader>

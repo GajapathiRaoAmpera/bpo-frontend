@@ -3,9 +3,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest);
-  box-shadow: var(--shadow-card);
+  @include card-surface;
 }
 
 .head {

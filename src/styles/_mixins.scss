@@ -125,7 +125,7 @@ $type: (
   $scale: 1;
   $name: enter-n-#{$from or none};
   @if $zoom { $scale: 0.95; $name: enter-z-#{$from or none}; }
-  animation: $name $duration ease-out;
+  animation: $name $duration cubic-bezier(0.16, 1, 0.3, 1);
   @keyframes #{$name} {
     from {
       opacity: 0;
@@ -145,4 +145,67 @@ $type: (
       transform: scale($scale);
     }
   }
+}
+
+// --- Role workspaces: 12-column grid on xl+, single stacked column below (no squashed 170px rails). ---
+@mixin workspace-grid($cols: 12) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: $space-lg;
+  @include up(xl) { grid-template-columns: repeat($cols, minmax(0, 1fr)); }
+}
+
+@mixin span($n) {
+  @include up(xl) { grid-column: span $n / span $n; }
+}
+
+// --- Modal overlays (Dialog, AlertDialog): navy-tinted scrim + raised panel that scrolls inside the viewport. ---
+@mixin modal-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--color-inverse-surface) 45%, transparent);
+  @supports (backdrop-filter: blur(0)) { backdrop-filter: blur(3px); }
+  &[data-state="open"] { @include enter(false, null, 200ms); }
+  &[data-state="closed"] { @include exit(false, 150ms); }
+}
+
+@mixin modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  display: grid;
+  width: 100%;
+  max-width: calc(100% - 2rem);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  translate: -50% -50%;
+  gap: $space-lg;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xl);
+  background: var(--popover);
+  padding: $space-xl;
+  color: var(--popover-foreground);
+  box-shadow: 0 24px 48px -12px rgb(0 15 92 / 0.25), var(--shadow-modal);
+  outline: none;
+  &[data-state="open"] { @include enter(true, bottom, 200ms); }
+  &[data-state="closed"] { @include exit(true, 150ms); }
+}
+
+// Footer bleeds to the panel edges and stays pinned while the body scrolls.
+@mixin modal-footer {
+  position: sticky;
+  bottom: -$space-xl;
+  margin: 0 (-$space-xl) (-$space-xl);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: $space-sm;
+  border-top: 1px solid var(--color-divider);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background: var(--color-table-head);
+  padding: $space-md $space-xl;
+  @include up(sm) { flex-direction: row; justify-content: flex-end; }
 }

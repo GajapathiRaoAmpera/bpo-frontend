@@ -1,10 +1,7 @@
 @use "styles/mixins" as *;
 
 .review {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  align-items: start;
-  gap: $space-lg;
+  @include workspace-grid(7);
 }
 
 .skeleton {
@@ -13,9 +10,9 @@
 }
 
 .transcriptPanel {
-  grid-column: span 4 / span 4;
+  @include span(4);
 }
 
 .evalPanel {
-  grid-column: span 3 / span 3;
+  @include span(3);
 }

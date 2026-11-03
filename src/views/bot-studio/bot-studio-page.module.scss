@@ -11,17 +11,14 @@
 }
 
 .workspace {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: start;
-  gap: $space-lg;
+  @include workspace-grid;
 }
 
 .versions,
 .sideCol {
-  grid-column: span 3 / span 3;
+  @include span(3);
 }
 
 .editorCol {
-  grid-column: span 6 / span 6;
+  @include span(6);
 }

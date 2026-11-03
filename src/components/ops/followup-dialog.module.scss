@@ -6,15 +6,7 @@
   }
 }
 
-.title {
-  @include text(headline-md);
-  color: var(--color-on-surface);
-}
 
-.description {
-  @include text(body-sm);
-  color: var(--color-on-surface-variant);
-}
 
 .form {
   display: flex;

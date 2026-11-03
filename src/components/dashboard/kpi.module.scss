@@ -5,10 +5,10 @@
   flex-direction: column;
   justify-content: space-between;
   gap: $space-sm;
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-container-lowest);
+  @include card-surface;
   padding: $space-lg;
-  box-shadow: var(--shadow-card);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  &:hover { border-color: var(--color-primary-fixed-dim); box-shadow: var(--shadow-popover); }
 }
 
 .kpiTop {
@@ -20,23 +20,26 @@
 .kpiLabel {
   @include text(label-xs);
   letter-spacing: 0.05em;
-  color: var(--color-outline);
+  color: var(--color-on-surface-variant);
   text-transform: uppercase;
 }
 
 .kpiIcon {
-  border-radius: 9999px;
-  background: color-mix(in srgb, var(--color-secondary-container) 30%, transparent);
-  padding: space(1);
-  color: var(--color-on-secondary-container);
+  display: grid;
+  place-items: center;
+  @include size(space(8));
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-low);
+  color: var(--color-primary);
 
   svg {
-    @include size(space(3.5));
+    @include size(space(4));
   }
 }
 
 .kpiValue {
   @include text(display);
+  font-variant-numeric: tabular-nums;
   color: var(--color-primary);
 }
 
@@ -56,6 +59,7 @@
 
 .kpiFill {
   height: 100%;
+  transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 9999px;
   background: var(--color-primary);
 }
