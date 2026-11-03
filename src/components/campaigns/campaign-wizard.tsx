@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ArrowRight, Loader2, Save, Send, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, Save, Send } from "lucide-react";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
@@ -10,8 +10,8 @@ import { CampaignDetailsStep } from "@/components/campaigns/campaign-details-ste
 import { CampaignReviewStep } from "@/components/campaigns/campaign-review-step";
 import { useAudience, useSaveCampaign } from "@/components/campaigns/use-campaigns";
 import { type CampaignValues, campaignSchema, LANGUAGES } from "@/components/campaigns/utils";
-import { Panel } from "@/components/maker-checker/shared";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { Schemas } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
@@ -48,11 +48,19 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
     if (await form.trigger(fields[step])) setStep(step + 1);
   }
 
+  // Esc, the X button and Cancel all land here; outside clicks are blocked so a stray click can't drop a draft.
+  // shortcut: native confirm, swap for AlertDialog if it needs brand styling.
+  function requestClose() {
+    if (!form.formState.isDirty || window.confirm("Discard your unsaved campaign changes?")) onClose();
+  }
+
   return (
-    <Panel
-      title={campaign ? `Edit draft · ${campaign.name}` : "New renewal campaign"}
-      action={<Button size="icon-sm" variant="ghost" aria-label="Close the campaign wizard" onClick={onClose}><X aria-hidden /></Button>}
-    >
+    <Dialog open onOpenChange={(o) => { if (!o) requestClose(); }}>
+    <DialogContent className={styles.content} onInteractOutside={(e) => e.preventDefault()}>
+      <DialogHeader>
+        <DialogTitle>{campaign ? `Edit draft · ${campaign.name}` : "New renewal campaign"}</DialogTitle>
+        <DialogDescription className="sr-only">Set up the campaign, choose its audience, then save it or send it for approval.</DialogDescription>
+      </DialogHeader>
       <ol className={styles.steps} aria-label="Wizard steps">
         {STEPS.map((label, i) => (
           <li key={label} aria-current={i === step ? "step" : undefined}
@@ -68,8 +76,8 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
         {step === 1 && <CampaignAudienceStep form={form} product={v.product} counting={audience.isFetching} total={audience.data?.total_targets} />}
         {step === 2 && <CampaignReviewStep form={form} values={v} audience={audience.data} />}
 
-        <div className={styles.footer}>
-          <Button type="button" variant="outline" onClick={() => (step ? setStep(step - 1) : onClose())}>
+        <DialogFooter className={styles.footer}>
+          <Button type="button" variant="outline" onClick={() => (step ? setStep(step - 1) : requestClose())}>
             <ArrowLeft aria-hidden />{step ? "Back" : "Cancel"}
           </Button>
           {step < 2 ? (
@@ -86,8 +94,9 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
               </Button>
             </div>
           )}
-        </div>
+        </DialogFooter>
       </form>
-    </Panel>
+    </DialogContent>
+    </Dialog>
   );
 }

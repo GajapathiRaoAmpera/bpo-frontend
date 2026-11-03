@@ -1,5 +1,9 @@
 @use "styles/mixins" as *;
 
+.content {
+  @include up(sm) { max-width: 44rem; }
+}
+
 // --- Step indicator ---
 .steps {
   display: grid;
@@ -47,17 +51,16 @@
 }
 
 // --- Footer ---
+// Layout only; the sticky bar, border and background come from DialogFooter.
 .footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--color-divider);
-  padding-top: $space-md;
+  @include up(sm) { justify-content: space-between; }
 }
 
 .footerActions {
   display: flex;
+  flex-direction: column-reverse;
   gap: $space-sm;
+  @include up(sm) { flex-direction: row; }
 }
 
 .spinner {
