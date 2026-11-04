@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   gap: $space-sm;
+  max-height: 36rem;
+  overflow-y: auto;
+  padding-right: space(1);
 }
 
 .muted {

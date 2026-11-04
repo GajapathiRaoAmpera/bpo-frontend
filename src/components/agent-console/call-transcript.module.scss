@@ -5,6 +5,7 @@
   flex: 1 1 0%;
   flex-direction: column;
   gap: $space-sm;
+  min-height: 0; // lets the flex child shrink so overflow-y can scroll
   overflow-y: auto;
   padding: $space-md;
 }

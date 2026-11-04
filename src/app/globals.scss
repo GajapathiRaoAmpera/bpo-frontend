@@ -14,6 +14,9 @@
 }
 
 html {
+  // themed scrollbars site-wide (Firefox, Chromium 121+)
+  scrollbar-color: var(--color-primary-fixed-dim) var(--color-surface-container-low);
+  scrollbar-width: thin;
   font-family: var(--font-sans);
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
@@ -107,4 +110,12 @@ table {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+// Safari and older Chromium ignore scrollbar-color
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: 0.5rem; height: 0.5rem; }
+  ::-webkit-scrollbar-track { background: var(--color-surface-container-low); }
+  ::-webkit-scrollbar-thumb { border-radius: var(--radius-xl); background: var(--color-primary-fixed-dim); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
 }
