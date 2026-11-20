@@ -19,6 +19,7 @@ export const SCREEN_HREF: Record<Screen, string> = {
   audit: "/audit",
   users: "/admin/users",
   integrations: "/admin/integrations",
+  ai_usage: "/admin/ai-usage",
 };
 
 export function screenForPath(pathname: string): Screen | undefined {

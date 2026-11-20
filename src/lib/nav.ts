@@ -4,6 +4,7 @@ import {
   CalendarClock,
   ClipboardCheck,
   FileSearch,
+  Gauge,
   Headset,
   History,
   LayoutDashboard,
@@ -62,6 +63,8 @@ const META = {
     description: "Manage staff accounts and view the role permission matrix." },
   integrations: { label: "Integrations", icon: Plug, group: "admin", phase: 5,
     description: "Connected services and pilot integrations." },
+  ai_usage: { label: "AI Usage & Quality", icon: Gauge, group: "admin", phase: 5,
+    description: "Estimated Gemini cost and how well the AI handles calls." },
 } satisfies Record<Screen, Omit<NavMeta, "href">>;
 
 export const NAV = Object.fromEntries(

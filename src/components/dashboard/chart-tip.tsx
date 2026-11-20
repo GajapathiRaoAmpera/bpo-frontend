@@ -3,7 +3,7 @@ import { formatDate, formatINR } from "@/lib/format";
 
 import styles from "./chart-tip.module.scss";
 
-export function ChartTip({ active, payload, label, money }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string; money?: boolean }) {
+export function ChartTip({ active, payload, label, money, percent }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string; money?: boolean; percent?: boolean }) {
   if (!active || !payload?.length || !label) return null;
   return (
     <div className={styles.tip}>
@@ -11,7 +11,7 @@ export function ChartTip({ active, payload, label, money }: { active?: boolean; 
       {payload.map((p) => (
         <p key={p.name} className={styles.tipRow}>
           <span aria-hidden className={styles.tipSwatch} style={{ background: p.color }} />
-          {p.name}: <span className={styles.value}>{money ? formatINR(p.value) : n(p.value)}</span>
+          {p.name}: <span className={styles.value}>{money ? formatINR(p.value) : percent ? `${p.value}%` : n(p.value)}</span>
         </p>
       ))}
     </div>

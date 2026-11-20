@@ -5,7 +5,7 @@ const PASSWORD = process.env.E2E_PASSWORD ?? "";
 // Expected from docs/PRD.md access matrix (the test oracle; the app reads it from the API).
 const PERSONAS = [
   { name: "Ravi Shankar", role: "Super Admin", landing: "/dashboard",
-    menu: ["Executive Dashboard", "Call History", "Audit Log", "Users & Roles", "Integrations"] },
+    menu: ["Executive Dashboard", "Call History", "Audit Log", "Users & Roles", "Integrations", "AI Usage & Quality"] },
   { name: "Anitha Raman", role: "Operations Manager", landing: "/dashboard",
     menu: ["Executive Dashboard", "Live Monitor", "Escalation Queue", "Call History", "Customers & Policies",
       "Follow-ups", "Campaigns", "Approvals", "QA Review"] },

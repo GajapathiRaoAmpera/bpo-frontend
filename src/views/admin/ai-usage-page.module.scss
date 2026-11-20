@@ -1,0 +1,40 @@
+@use "styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.days {
+  display: flex;
+  gap: $space-sm;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-md;
+  @include up(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include up(lg) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.kpiSkeleton {
+  height: space(40);
+  @include card-surface;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: $space-xl;
+  @include up(lg) { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+.wide {
+  @include up(lg) { grid-column: span 8 / span 8; }
+}
+
+.narrow {
+  @include up(lg) { grid-column: span 4 / span 4; }
+}

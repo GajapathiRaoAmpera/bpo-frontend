@@ -59,6 +59,7 @@ Access levels: **full / view / approve / masked / own / none**. Enforced in the 
 | QA review | qa_analyst full · ops_manager, team_lead, compliance_officer view | 4 |
 | Audit log (+ audited CSV export) | super_admin, compliance_officer | 5 |
 | Users & roles, Integrations | super_admin only | 5 |
+| AI Usage & Quality (read-only: estimated Gemini cost, AI containment/escalation, AI–QA agreement) | super_admin view | 5 |
 
 ### Feature: Authentication and role routing (Phase 1)
 - **Flow:** email + password → httpOnly JWT cookie → redirect to the role's landing page.
