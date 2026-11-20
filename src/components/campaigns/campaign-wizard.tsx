@@ -42,6 +42,8 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
   const v = useWatch({ control: form.control }) as CampaignValues;
   const audience = useAudience(v, step > 0);
   const save = useSaveCampaign(campaign, onSaved);
+  const [triedEmpty, setTriedEmpty] = useState(false);
+  const noTargets = audience.data?.total_targets === 0;
 
   async function next() {
     const fields: (keyof CampaignValues)[][] = [["name", "product"], ["renewal_within_days", "languages"]];
@@ -75,6 +77,11 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
         {step === 0 && <CampaignDetailsStep form={form} />}
         {step === 1 && <CampaignAudienceStep form={form} product={v.product} counting={audience.isFetching} total={audience.data?.total_targets} />}
         {step === 2 && <CampaignReviewStep form={form} values={v} audience={audience.data} />}
+        {step === 2 && noTargets && triedEmpty && (
+          <p role="alert" className={styles.error}>
+            No policies match this audience, so there is nothing to approve. Go back and widen the renewal window or add languages.
+          </p>
+        )}
 
         <DialogFooter className={styles.footer}>
           <Button type="button" variant="outline" onClick={() => (step ? setStep(step - 1) : requestClose())}>
@@ -88,8 +95,8 @@ export function CampaignWizard({ campaign, onClose, onSaved }: {
                 onClick={form.handleSubmit((values) => save.mutate({ values, submit: false }))}>
                 <Save aria-hidden />Save draft
               </Button>
-              <Button type="button" disabled={save.isPending || !audience.data?.total_targets}
-                onClick={form.handleSubmit((values) => save.mutate({ values, submit: true }))}>
+              <Button type="button" disabled={save.isPending || audience.isFetching}
+                onClick={noTargets ? () => setTriedEmpty(true) : form.handleSubmit((values) => save.mutate({ values, submit: true }))}>
                 {save.isPending ? <Loader2 aria-hidden className={styles.spinner} /> : <Send aria-hidden />}Save and submit for approval
               </Button>
             </div>

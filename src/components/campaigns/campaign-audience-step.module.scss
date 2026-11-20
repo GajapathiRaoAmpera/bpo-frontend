@@ -1,9 +1,14 @@
 @use "styles/mixins" as *;
 
+// One column: six language options can't fit in a third of the dialog.
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: $space-lg;
+}
+
+.days {
+  max-width: 12rem;
 }
 
 .field {
@@ -20,7 +25,8 @@
 
 .options {
   display: flex;
-  gap: $space-lg;
+  flex-wrap: wrap;
+  gap: $space-sm $space-lg;
 }
 
 .option {

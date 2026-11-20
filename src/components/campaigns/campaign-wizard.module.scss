@@ -63,6 +63,11 @@
   @include up(sm) { flex-direction: row; }
 }
 
+.error {
+  @include text(label-sm);
+  color: var(--color-danger-text);
+}
+
 .spinner {
   @include spin;
 }

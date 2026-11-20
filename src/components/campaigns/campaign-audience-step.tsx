@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LANGUAGE_LABEL, PRODUCT_LABEL } from "@/lib/labels";
+import { cn } from "@/lib/utils";
 
 import styles from "./campaign-audience-step.module.scss";
 
@@ -20,11 +21,12 @@ export function CampaignAudienceStep({ form, product, counting, total }: {
   const { errors } = form.formState;
   return (
     <div className={styles.grid}>
-      <div className={styles.field}>
+      <div className={cn(styles.field, styles.days)}>
         <Label htmlFor="c-days">Renewal due within (days)</Label>
         <Input id="c-days" type="number" min={1} max={90} aria-invalid={!!errors.renewal_within_days}
+          aria-describedby={errors.renewal_within_days ? "c-days-error" : undefined}
           {...form.register("renewal_within_days", { valueAsNumber: true })} />
-        {errors.renewal_within_days && <p className={styles.error}>{errors.renewal_within_days.message}</p>}
+        {errors.renewal_within_days && <p id="c-days-error" className={styles.error}>{errors.renewal_within_days.message}</p>}
       </div>
       <fieldset className={styles.field}>
         <legend className={styles.legend}>Preferred languages</legend>
